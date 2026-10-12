@@ -1,0 +1,4779 @@
+[
+ {
+  "id": "1qswx5guki9p3m3",
+  "restaurant": "yvhg0pwnkdp172t",
+  "brand": "fusion",
+  "updated": "2026-08-01 09:10:15.516Z",
+  "value": [
+   {
+    "img": "https://pub-2a0f2fc510cf4088a1e1dc60daa6e94f.r2.dev/media/uploads/photo-2026-07-07-16-48-35-002-f914c0dd-550.webp",
+    "pdf": "/g_fusion_main_menu_jan26_web.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "sesame"
+        ],
+        "desc": "Smooth hummus, tzatziki & mixed olives with flatbread.",
+        "name": "Mediterranean Dips",
+        "price": "£7.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Tomato, garlic, basil, red onion & parmesan, OR creamy garlic mushrooms & truffle oil.",
+        "name": "Geisha Bruschetta",
+        "price": "£7.50 / £8",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Plain, tomato or cheese.",
+        "name": "Garlic Bread Pizza",
+        "price": "£7.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Marinated & roasted in our homemade seasoning.",
+        "name": "Jumbo Chicken Wings",
+        "price": "£7.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Breaded rice ball filled with ragu (parmesan) OR spinach & mozzarella, tomato sauce.",
+        "name": "Arancino",
+        "price": "£8",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "mustard"
+        ],
+        "desc": "Crispy breadcrumb, sriracha mayo.",
+        "name": "Mac & Cheese Croquettes",
+        "price": "£9",
+        "tags": [
+         "v",
+         "new"
+        ]
+       },
+       {
+        "allergens": [
+         "soy",
+         "sesame"
+        ],
+        "desc": "Pork ribs in BBQ sauce, sesame seeds & spring onion.",
+        "name": "Spare Ribs",
+        "price": "£9.50",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "soy"
+        ],
+        "desc": "Chicken skewers, homemade satay sauce, chilli & coconut flakes.",
+        "name": "Satay Chicken",
+        "price": "£9.50",
+        "tags": [
+         "new"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Tomato & garlic sauce, parmesan shavings, toasted bread.",
+        "name": "Meatballs",
+        "price": "£9.50"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "eggs",
+         "mustard"
+        ],
+        "desc": "Baby gem, baby prawns, marie rose, tomato, cucumber & paprika.",
+        "name": "Prawn Cocktail",
+        "price": "£10",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "dairy",
+         "sulphites"
+        ],
+        "desc": "Garlic, white wine, capers, onions & samphire, toasted bread.",
+        "name": "Garlic King Prawns",
+        "price": "£10.50"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "eggs"
+        ],
+        "desc": "Light tempura & panko, sweet chilli sauce.",
+        "name": "Crispy King Prawns",
+        "price": "£10.50"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "dairy",
+         "sulphites"
+        ],
+        "desc": "Toasted bread. Tomato, garlic & chilli OR white wine, garlic, cream & dill.",
+        "name": "North Sea Mussels",
+        "price": "£9 / £17"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten"
+        ],
+        "desc": "Deep-fried squid, salt & chilli, sweet chilli sauce.",
+        "name": "Thai Crispy Squid",
+        "price": "£9",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Crispy creamy mozzarella sticks, cranberry sauce.",
+        "name": "Mozzarella Bites",
+        "price": "£8",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "mustard",
+         "soy"
+        ],
+        "desc": "Crispy potato skins, garlic mayo.",
+        "name": "House Potato Skins",
+        "price": "£6",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       }
+      ],
+      "note": "Enjoy as a pre-main or a satisfying light meal.",
+      "title": "Starters & Light Bites"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Warm tortillas, guacamole, salsa, tzatziki & cheese, fries. Vegetables, chicken or beef.",
+        "name": "Sizzling Fajitas",
+        "price": "£13.50 / £14.50 / £17"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "mustard"
+        ],
+        "desc": "Grilled chicken skewers, flatbread, tzatziki, pickled cabbage, Greek salad, ranch & fries.",
+        "name": "Chicken Souvlaki",
+        "price": "£18.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "On flatbread, tzatziki, pickled cabbage, Greek salad & fries.",
+        "name": "Lamb Kofta",
+        "price": "£18.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Chicken breast, onion, peppers, olives, garlic, chilli & tomato sauce, rice.",
+        "name": "Spicy Chicken",
+        "price": "£16.50",
+        "tags": [
+         "spicy",
+         "new"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "gluten",
+         "soy"
+        ],
+        "desc": "Massaman sauce, sweet potato, baby corn & spinach, rice. Veg, chicken or beef. Add flatbread +£2.",
+        "name": "Fusion Curry",
+        "price": "£14 / £15 / £16"
+       },
+       {
+        "allergens": [
+         "fish",
+         "dairy",
+         "shellfish"
+        ],
+        "desc": "Lemon & thyme butter OR tomato dressing, dill & garlic crushed potatoes. Add king prawns +£3.",
+        "name": "Seabass",
+        "price": "£16.50",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "fish",
+         "gluten",
+         "eggs",
+         "mustard",
+         "sulphites"
+        ],
+        "desc": "Crispy battered cod, curry sauce, chips & tartar.",
+        "name": "Traditional Fish & Chips",
+        "price": "£15"
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Chicken breast, pancetta, mushrooms & cream, dill crushed potatoes.",
+        "name": "New York Chicken Alfredo",
+        "price": "£17.50",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Breaded chicken, parmesan, béchamel, garlic, mozzarella & cheddar, fries. Pepperoni OR ham & mushroom.",
+        "name": "Geisha Parmo",
+        "price": "£17.50"
+       },
+       {
+        "allergens": [
+         "dairy",
+         "mustard",
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Rolled crispy pork belly, black pudding mash, seasonal veg, mustard cream sauce & crackling.",
+        "name": "Pork Belly",
+        "price": "£18.50"
+       }
+      ],
+      "note": "Our fusion twist on flavourful dishes from around the world.",
+      "title": "Fusion Favourites"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella, fresh basil & extra virgin olive oil.",
+        "name": "Margherita",
+        "price": "£11.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella, grilled vegetables, red onion & olives.",
+        "name": "Vegetarian",
+        "price": "£13.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella, bolognese sauce & basil.",
+        "name": "Bolognese",
+        "price": "£13.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella, cherry tomatoes, Tuscan sausage, crispy pancetta & thyme.",
+        "name": "Sausage & Pancetta",
+        "price": "£15"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella, pepperoni.",
+        "name": "Pepperoni",
+        "price": "£14.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella, pepperoni, ham & Tuscan sausage.",
+        "name": "Meat Feast",
+        "price": "£15"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Folded pizza — red base, mozzarella, ham & mushroom. Bolognese on the side.",
+        "name": "Classic Calzone",
+        "price": "£16"
+       }
+      ],
+      "note": "Handmade pizza & garlic bread. Gluten-free base available. Extra toppings from +£1.50.",
+      "title": "Pizza"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten"
+        ],
+        "desc": "Tomatoes, garlic, chilli & fresh herbs. Add chicken or sausage +£3.",
+        "name": "Arrabbiata",
+        "price": "£11.50",
+        "tags": [
+         "vg",
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten"
+        ],
+        "desc": "Aubergines, courgettes, peppers, mushrooms, onions, tomato, basil & fresh herbs.",
+        "name": "Vegetarian",
+        "price": "£12.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Egg yolk, pancetta, black pepper, cream, parmesan & parsley.",
+        "name": "Carbonara",
+        "price": "£14"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "fish",
+         "dairy",
+         "sulphites"
+        ],
+        "desc": "Smoked salmon, tomatoes, dill, onion, garlic, cream & white wine.",
+        "name": "Smoked Salmon",
+        "price": "£14"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Beef, tomato sauce & parmesan cheese.",
+        "name": "Bolognese",
+        "price": "£13.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Tuscan sausage, pancetta, tomato sauce, garlic, onion & herbs.",
+        "name": "Sausage & Pancetta",
+        "price": "£13.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Oven-baked traditional homemade beef lasagne & fresh herbs.",
+        "name": "Lasagne",
+        "price": "£14.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Chilli & garlic tomato sauce, basil, homemade meatballs & parmesan.",
+        "name": "Linguine Meatballs",
+        "price": "£14.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "shellfish",
+         "fish",
+         "sulphites"
+        ],
+        "desc": "Mussels, prawns, squid, tomato sauce, dill, onion, garlic & white wine.",
+        "name": "Seafood Pasta",
+        "price": "£18"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "shellfish",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Samphire, cherry tomatoes, dill, mussels & prawns.",
+        "name": "Lobster Ravioli",
+        "price": "£18"
+       }
+      ],
+      "note": "Choose penne, rigatoni, linguine or gluten-free pasta.",
+      "title": "Pasta"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "soy",
+         "sesame",
+         "mustard"
+        ],
+        "desc": "A carnivore's dream — chicken wings, spare ribs, rump steak, chicken souvlaki, lamb kofta, onion rings, house fries & two sauces.",
+        "name": "Fusion Meat Platter",
+        "price": "£34.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "name": "8oz Rump Steak",
+        "price": "£19",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "name": "8oz Fillet Steak",
+        "price": "£31.50",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "dairy"
+        ],
+        "desc": "8oz fillet with king prawns in garlic butter.",
+        "name": "Fillet Surf & Turf",
+        "price": "£36",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "desc": "Chargrilled chicken supreme, crispy skin on.",
+        "name": "Chicken Breast",
+        "price": "£15",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "dairy",
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Peppercorn, blue cheese, diane, red wine jus or garlic butter.",
+        "name": "Sauce 'Em Up",
+        "price": "+£2.50"
+       }
+      ],
+      "note": "Served with steak garnish and your choice of chips, fries or salad.",
+      "title": "Grill"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "mustard",
+         "sulphites"
+        ],
+        "desc": "Single beef patty, lettuce, tomato, cheese sauce, streaky bacon, tomato chutney & gherkins.",
+        "name": "O.G. Burger",
+        "price": "£13.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "mustard",
+         "sulphites"
+        ],
+        "desc": "Double beef patty, baby gem, tomato, gherkins, bacon, crispy onion ring, cheese sauce & burger sauce.",
+        "name": "The Stack Burger",
+        "price": "£16.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "mustard"
+        ],
+        "desc": "Luxury veggie patty, tomato, salad, tomato chutney, crispy onion, vegan mayo & vegan cheese.",
+        "name": "Vegan Burger",
+        "price": "£13",
+        "tags": [
+         "vg"
+        ]
+       }
+      ],
+      "note": "All served with fries & pickle salad.",
+      "title": "Burgers"
+     },
+     {
+      "items": [
+       {
+        "name": "House Fries",
+        "price": "£4.50",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "name": "Cajun Fries",
+        "price": "£4.50",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "name": "Twice Cooked Chips",
+        "price": "£4.50",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "name": "Truffle & Parmesan Chips",
+        "price": "£5.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten"
+        ],
+        "name": "Onion Rings",
+        "price": "£4",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "name": "Rice",
+        "price": "£4",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "mustard"
+        ],
+        "name": "Mixed Salad",
+        "price": "£4.50",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       }
+      ],
+      "title": "Sides"
+     }
+    ],
+    "slug": "main",
+    "subtitle": "A global fusion of flavours — starters, grills, pizza, pasta & more",
+    "title": "Main Menu"
+   },
+   {
+    "img": "https://pub-2a0f2fc510cf4088a1e1dc60daa6e94f.r2.dev/media/uploads/pasta-d2b68290-1600.webp",
+    "pdf": "/g_fusion_special_menu_feb26_2.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "soy",
+         "sesame"
+        ],
+        "desc": "Pork ribs in BBQ sauce, sesame seeds & spring onion.",
+        "name": "Spare Ribs",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "mustard",
+         "soy"
+        ],
+        "desc": "Garlic mayo OR tomato sauce.",
+        "name": "House Potato Skins",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Homemade seasoning.",
+        "name": "Jumbo Chicken Wings"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sesame"
+        ],
+        "desc": "Served with flatbread.",
+        "name": "Hummus",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Tomato, garlic, basil, red onion & parmesan.",
+        "name": "Tomato Bruschetta",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "eggs",
+         "mustard"
+        ],
+        "desc": "Baby gem, baby prawns, marie rose, tomato, cucumber & paprika.",
+        "name": "Prawn Cocktail",
+        "price": "+£2"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Tomato, garlic & chilli, toasted bread.",
+        "name": "North Sea Mussels",
+        "price": "+£1.50"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten"
+        ],
+        "desc": "Salt & chilli, sweet chilli sauce.",
+        "name": "Thai Crispy Squid",
+        "price": "+£1.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Ragu OR spinach & mozzarella, tomato sauce.",
+        "name": "Arancino",
+        "price": "+£1.50",
+        "tags": [
+         "v"
+        ]
+       }
+      ],
+      "title": "Starters"
+     },
+     {
+      "items": [
+       {
+        "desc": "Steak garnish & choice of chips, fries or salad.",
+        "name": "8oz Rump Steak",
+        "price": "+£2.50",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "mustard",
+         "sulphites"
+        ],
+        "desc": "Black pudding mash, seasonal veg & mustard cream sauce.",
+        "name": "Pork Belly",
+        "price": "+£1.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Flatbread, tzatziki, pickled cabbage, Greek salad & fries.",
+        "name": "Lamb Kofta",
+        "price": "+£2.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "mustard",
+         "sulphites"
+        ],
+        "desc": "Beef patty, lettuce, tomato, cheese sauce, bacon, chutney & gherkins, fries.",
+        "name": "O.G. Burger"
+       },
+       {
+        "allergens": [
+         "fish",
+         "gluten",
+         "eggs",
+         "mustard",
+         "sulphites"
+        ],
+        "desc": "Battered cod, curry sauce, chips & tartar.",
+        "name": "Traditional Fish & Chips"
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Chicken, pancetta, mushrooms & cream, dill crushed potatoes.",
+        "name": "New York Chicken Alfredo"
+       },
+       {
+        "allergens": [
+         "gluten"
+        ],
+        "desc": "Tomatoes, garlic & chilli. Add chicken or sausage +£3.",
+        "name": "Arrabbiata Pasta",
+        "tags": [
+         "vg",
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Egg yolk, pancetta, black pepper, cream & parmesan.",
+        "name": "Carbonara Pasta"
+       },
+       {
+        "allergens": [
+         "gluten"
+        ],
+        "desc": "Aubergines, courgettes, peppers, mushrooms, onions, tomato, basil & fresh herbs.",
+        "name": "Vegetarian Pasta",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Beef, tomato sauce & parmesan.",
+        "name": "Bolognese Pasta"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella, basil & olive oil.",
+        "name": "Margherita Pizza",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella cheese, grilled vegetables, caramelised onion & olives.",
+        "name": "Vegetarian Pizza",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella, pepperoni.",
+        "name": "Pepperoni Pizza"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella cheese, bolognese sauce and basil.",
+        "name": "Bolognese Pizza"
+       }
+      ],
+      "title": "Mains"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "nuts",
+         "gluten",
+         "soy"
+        ],
+        "desc": "Tenderstem, kale, quinoa, chickpeas, edamame, spelt, beetroot & walnuts, lemon & olive oil.",
+        "name": "Superfood Salad",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "fish",
+         "dairy"
+        ],
+        "desc": "Tenderstem, cherry tomatoes & baby potatoes. Add lemon & thyme butter or tomato dressing +£1.50.",
+        "name": "Seabass",
+        "price": "+£1.50",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "shellfish",
+         "fish"
+        ],
+        "desc": "Chickpeas, kale, tenderstem, peppers & asparagus. Add chicken, prawns or smoked salmon +£2.50.",
+        "name": "Geisha Couscous",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten"
+        ],
+        "desc": "Chargrilled, rice & broccoli OR vegetable couscous.",
+        "name": "Chicken Breast",
+        "tags": [
+         "gf"
+        ]
+       }
+      ],
+      "title": "Healthy Mains"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Ask your server for details.",
+        "name": "Cheesecake of the Day",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Vanilla, chocolate or strawberry.",
+        "name": "Ice Cream",
+        "tags": [
+         "v",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Cream or ice cream.",
+        "name": "Chocolate Fudge Cake",
+        "tags": [
+         "v"
+        ]
+       }
+      ],
+      "title": "Desserts"
+     }
+    ],
+    "slug": "special",
+    "subtitle": "1 course £12.95 · 2 courses £17.95 · 3 courses £20.95",
+    "title": "Special Menu"
+   },
+   {
+    "img": "https://pub-2a0f2fc510cf4088a1e1dc60daa6e94f.r2.dev/media/uploads/sunday-roast-010980ea-1600.webp",
+    "pdf": "/fusion_sunday_menu_mar26_web.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "dairy",
+         "sulphites"
+        ],
+        "name": "Roast Chicken",
+        "price": "£14.95"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "dairy",
+         "sulphites"
+        ],
+        "name": "Belly Pork",
+        "price": "£15.95"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "dairy",
+         "sulphites"
+        ],
+        "name": "Beef Brisket",
+        "price": "£16.95"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "dairy",
+         "sulphites"
+        ],
+        "name": "Roasted Lamb",
+        "price": "£17.95"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "dairy",
+         "sulphites"
+        ],
+        "desc": "Subject to availability.",
+        "name": "Lamb Shank",
+        "price": "£18.95"
+       },
+       {
+        "allergens": [
+         "nuts",
+         "gluten",
+         "eggs",
+         "dairy"
+        ],
+        "name": "Luxury Nut Roast",
+        "price": "£11.95",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "dairy",
+         "sulphites"
+        ],
+        "desc": "Choose any three meats (excludes lamb shank).",
+        "name": "The Geisha Trio",
+        "price": "£19.95"
+       }
+      ],
+      "note": "All roasts served with homemade gravy, Yorkshire pudding, mash potatoes, roasted potatoes & vegetables. Add roasted cauliflower cheese baked in a rich cheese sauce +£3. Make a meal of it: 2 courses +£5, 3 courses +£8.",
+      "title": "Roast"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Tomato, garlic, basil, red onion & parmesan shavings. Vegan option available.",
+        "name": "Bruschetta",
+        "price": "£7.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "eggs",
+         "mustard"
+        ],
+        "desc": "Baby gem lettuce, baby prawns, marie rose sauce, diced tomatoes, cucumber & paprika.",
+        "name": "Prawn Cocktail",
+        "price": "£10",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Golden breaded rice ball filled with ragu (coated in parmesan) OR spinach & mozzarella, both in tomato sauce.",
+        "name": "Arancino",
+        "price": "£8",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten"
+        ],
+        "desc": "Deep-fried squid in salt & chilli spice, sweet chilli sauce.",
+        "name": "Thai Crispy Squid",
+        "price": "£9",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Choice of plain, tomato or cheese. Vegan option available.",
+        "name": "Garlic Bread Pizza",
+        "price": "£7.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "mustard",
+         "soy"
+        ],
+        "desc": "Homemade crispy potato skins with garlic mayo.",
+        "name": "House Potato Skins",
+        "price": "£6",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "desc": "Marinated & roasted in our homemade seasoning.",
+        "name": "Jumbo Chicken Wings",
+        "price": "£7.50",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "eggs"
+        ],
+        "desc": "Light tempura batter coated in panko breadcrumb, sweet chilli sauce.",
+        "name": "Crispy King Prawns",
+        "price": "£10.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Crispy sticks of creamy mozzarella with cranberry sauce.",
+        "name": "Mozzarella Bites",
+        "price": "£8",
+        "tags": [
+         "v"
+        ]
+       }
+      ],
+      "note": "Prices shown are à la carte — add a starter to a roast as part of 2 courses (+£5) or 3 courses (+£8).",
+      "title": "Starters"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Ask your server for details.",
+        "name": "Cheesecake of the Day",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Served with ice cream.",
+        "name": "Chocolate Brownie",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Soft sponge topped with toffee sauce, served with ice cream.",
+        "name": "Sticky Toffee Pudding",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Vanilla, chocolate or strawberry.",
+        "name": "Ice Cream",
+        "tags": [
+         "v",
+         "gf"
+        ]
+       }
+      ],
+      "title": "Desserts"
+     },
+     {
+      "items": [],
+      "note": "The full à la carte is served on Sundays too — starters, Fusion favourites (fish & chips, Geisha parmo, burgers, pasta, pizza) and sides are all on the Main Menu, and are also listed on page 2 of the PDF above. Gluten-free pasta & pizza bases available. A discretionary 10% service charge is added to all bills and goes directly to the team.",
+      "title": "Sunday à la carte"
+     }
+    ],
+    "slug": "sunday-roast",
+    "subtitle": "Roasts from £11.95 · 2 courses +£5 · 3 courses +£8",
+    "title": "Sunday Menu"
+   },
+   {
+    "pdf": "/fusion_kids_menu_mar26.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "sesame"
+        ],
+        "desc": "Served with carrot & cucumber sticks.",
+        "name": "Hummus",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs"
+        ],
+        "desc": "Served with fries OR corn on the cob OR carrot sticks.",
+        "name": "Chicken Goujons"
+       },
+       {
+        "allergens": [
+         "fish",
+         "gluten",
+         "eggs"
+        ],
+        "desc": "Served with fries OR corn on the cob OR carrot sticks.",
+        "name": "Fish Fingers"
+       },
+       {
+        "desc": "Served with ketchup.",
+        "name": "House Potato Skins",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Tomato, basil & parmesan. Vegan option available.",
+        "name": "Napoli Pasta",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Beef, tomato sauce & parmesan cheese.",
+        "name": "Bolognese Pasta"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Egg yolk, pancetta, black pepper, cream & parmesan.",
+        "name": "Carbonara Pasta"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella cheese, fresh basil & extra virgin olive oil.",
+        "name": "Margherita Pizza",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Red base, mozzarella cheese, bolognese sauce & basil.",
+        "name": "Bolognese Pizza"
+       }
+      ],
+      "note": "Kids menu available for all kids up to 12 years old. The PDF doubles as an activity sheet (maze, word scramble & spot-the-difference) — ask for crayons.",
+      "title": "Mains"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "dairy",
+         "sulphites"
+        ],
+        "desc": "Gravy, Yorkshire pudding, mash potato, roasted potatoes & vegetables. Choice of chicken, pork or brisket.",
+        "name": "Sunday Roast + free dessert",
+        "price": "£8.50"
+       }
+      ],
+      "note": "Only available on Sunday.",
+      "title": "Sunday Roast"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Vanilla, chocolate or strawberry.",
+        "name": "Ice Cream",
+        "tags": [
+         "v",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Served with ice cream.",
+        "name": "Chocolate Brownie",
+        "tags": [
+         "v"
+        ]
+       }
+      ],
+      "title": "Desserts"
+     }
+    ],
+    "slug": "kids",
+    "subtitle": "Any main & dessert for £6.50",
+    "title": "Kids Menu"
+   },
+   {
+    "img": "https://pub-2a0f2fc510cf4088a1e1dc60daa6e94f.r2.dev/media/uploads/whatsapp-image-2026-07-31-at-20-58-54-1-cfc0f23f-1200.webp",
+    "pdf": "/geisha_fusion_dessert_menu.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Ask your server for details.",
+        "name": "Cheesecake of the Day",
+        "price": "£7.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Served with ice cream.",
+        "name": "Homemade Chocolate Brownie",
+        "price": "£7.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Soft sponge, toffee sauce, ice cream.",
+        "name": "Sticky Toffee Pudding",
+        "price": "£7.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "dairy",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Dark chocolate core, hazelnut gelato, praline & crushed meringue.",
+        "name": "Hazelnut Tartufo",
+        "price": "£7.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "dairy",
+         "eggs",
+         "sulphites"
+        ],
+        "desc": "Lemon semifreddo with a liquid limoncello core, crushed meringue.",
+        "name": "Limoncello Tartufo",
+        "price": "£7.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Vanilla, chocolate or strawberry.",
+        "name": "Ice Cream",
+        "price": "£6",
+        "tags": [
+         "v",
+         "gf"
+        ]
+       }
+      ],
+      "title": "Desserts"
+     }
+    ],
+    "slug": "desserts",
+    "subtitle": "A sweet finish",
+    "title": "Desserts"
+   },
+   {
+    "pdf": "/geisha_fusion_bottomless_brunch.pdf",
+    "sections": [
+     {
+      "items": [],
+      "note": "Available all day Mon–Thu / Fri & Sat 12–5:30pm (last booking 4pm). 90 minutes of unlimited prosecco or house wine (250ml), pints of house beer/cider, or bottled beers. Three dishes per guest. Feeling fancy? Upgrade to cocktails for £7.50pp (Aperol Spritz, Strawberry Daiquiri, Margarita, Cosmopolitan or Pornstar Martini) — you still get the bottomless drinks too.",
+      "title": "What’s included"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Tortilla chips, mozzarella & nacho cheese, guacamole, salsa, sour cream, pico de gallo.",
+        "name": "Nachos",
+        "tags": [
+         "v",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sesame"
+        ],
+        "desc": "Hummus, tzatziki & mixed olives, flatbread.",
+        "name": "Mediterranean Dips",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "soy",
+         "sesame"
+        ],
+        "desc": "Pork ribs in BBQ sauce, sesame & spring onion.",
+        "name": "Spare Ribs",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Tomato, garlic, basil, red onion & parmesan.",
+        "name": "Geisha Bruschetta",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Ragu or spinach & mozzarella, tomato sauce.",
+        "name": "Arancino",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Oven-roasted or crispy southern fried, sweet chilli dip.",
+        "name": "Jumbo Buffalo Wings",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "eggs",
+         "mustard"
+        ],
+        "desc": "Baby gem, baby prawns, marie rose, tomato, cucumber & paprika.",
+        "name": "Prawn Cocktail",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "dairy",
+         "sulphites"
+        ],
+        "desc": "Tomato, garlic & chilli, or white wine, garlic, cream & dill.",
+        "name": "North Sea Mussels"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten"
+        ],
+        "desc": "Salt & chilli, sweet chilli sauce.",
+        "name": "Thai Crispy Squid",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "mustard",
+         "soy"
+        ],
+        "desc": "Garlic mayo.",
+        "name": "House Potato Skins",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy"
+        ],
+        "desc": "Crispy mozzarella, cranberry sauce.",
+        "name": "Mozzarella Bites",
+        "tags": [
+         "v"
+        ]
+       }
+      ],
+      "title": "Choose three dishes"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Vanilla, chocolate or strawberry.",
+        "name": "Ice Cream",
+        "tags": [
+         "v",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Served with ice cream.",
+        "name": "Chocolate Brownie",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs"
+        ],
+        "desc": "Ask your server.",
+        "name": "Cheesecake of the Day",
+        "tags": [
+         "v"
+        ]
+       }
+      ],
+      "title": "Desserts"
+     }
+    ],
+    "slug": "bottomless-brunch",
+    "subtitle": "£35 per person · 90 minutes",
+    "title": "Bottomless Brunch"
+   },
+   {
+    "img": "https://pub-2a0f2fc510cf4088a1e1dc60daa6e94f.r2.dev/media/uploads/cocktails-on-the-bar-9bbb57db-1085.webp",
+    "pdf": "/geisha_fusion_drinks_mar26.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Absolut vanilla, passion fruit liqueur, pineapple & lime, shot of prosecco.",
+        "name": "Pornstar Martini",
+        "price": "£10"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bacardi Blanca, lime & sugar. Add fruit purée +£0.75.",
+        "name": "Geisha Daiquiri",
+        "price": "£8.50"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bacardi Blanca, lime, sugar & mint, soda. Spiced or Caribbean Spiced +£1.50.",
+        "name": "Geisha Mojito",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Cazadores tequila, triple sec, lime & sugar syrup, fruit purée +£0.75. Patron Silver +£2.50.",
+        "name": "Geisha Margarita",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "St Germain elderflower, mint & lime, prosecco & soda.",
+        "name": "Hugo Spritz",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Aperol, prosecco & soda, fresh orange.",
+        "name": "Aperol Spritz",
+        "price": "£9.50"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Absolut Citron, triple sec, cranberry, gomme & lime.",
+        "name": "Cosmopolitan",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Grey Goose, St Germain, ginger ale, berries & cucumber.",
+        "name": "Gooseberry Garden",
+        "price": "£11"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bombay Sapphire, limoncello, raspberry & lemon, prosecco & soda.",
+        "name": "Raspberry Limoncello Spritz",
+        "price": "£9.50"
+       },
+       {
+        "allergens": [
+         "dairy",
+         "sulphites"
+        ],
+        "desc": "Eristoff vodka, Kahlua & sugar, fresh espresso. Add a flavour +60p.",
+        "name": "Espresso Martini",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "nuts",
+         "sulphites"
+        ],
+        "desc": "Disaronno, lemon, Angostura bitters, gomme & vegan foamer.",
+        "name": "Amaretto Sour",
+        "price": "£9"
+       }
+      ],
+      "title": "Cocktails"
+     },
+     {
+      "items": [
+       {
+        "desc": "Strawberry purée, lime, cranberry & watermelon, lemonade.",
+        "name": "Strawberry Watermelon Cooler",
+        "price": "£5.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "desc": "Mint, lime, sugar, apple juice & soda. Add purée.",
+        "name": "Virgin Mojito",
+        "price": "£5.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "desc": "Watermelon, passion fruit, raspberry, strawberry, peach, blueberry or mango.",
+        "name": "Geisha Iced Tea",
+        "price": "£5.50",
+        "tags": [
+         "vg"
+        ]
+       }
+      ],
+      "title": "Mocktails"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "name": "Geisha House Wine",
+        "price": "£5.50 / £7 / £23.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Primi Soli, Italy.",
+        "name": "Pinot Grigio",
+        "price": "£6.25 / £7.25 / £28.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Luna Azul, Chile.",
+        "name": "Sauvignon Blanc",
+        "price": "£6 / £7.25 / £26.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Dega Vignamade, Italy.",
+        "name": "Pecorino",
+        "price": "£6.75 / £8.50 / £29.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Waddling Duck, New Zealand.",
+        "name": "Sauvignon Blanc",
+        "price": "£7 / £9.50 / £33.50"
+       }
+      ],
+      "note": "Per 125ml / 175ml / bottle.",
+      "title": "Wine — White"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "name": "Geisha House Wine",
+        "price": "£5.50 / £7 / £23.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Luna Azul, Chile.",
+        "name": "Merlot",
+        "price": "£6 / £7.25 / £26.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Dega Vignamade, Italy.",
+        "name": "Montepulciano",
+        "price": "£6.75 / £9.25 / £30.50"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "La Grupa, Argentina.",
+        "name": "Malbec",
+        "price": "£7 / £9.50 / £33.50"
+       }
+      ],
+      "note": "Per 125ml / 175ml / bottle.",
+      "title": "Wine — Red"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Primi Soli, Italy.",
+        "name": "Pinot Grigio Blush",
+        "price": "£5.50 / £7 / £23.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Charlie Zin, California.",
+        "name": "White Zinfandel",
+        "price": "£5.50 / £7 / £23.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Writer’s Block, South Africa.",
+        "name": "Sauvignon Blanc Rosé",
+        "price": "£29.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Famiglia Botter, Italy.",
+        "name": "Prosecco DOC",
+        "price": "£7 / £30.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Vilarnau, Spain.",
+        "name": "Cava Rosé",
+        "price": "£39.50"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "France.",
+        "name": "Champagne — Taittinger Brut Réserve NV",
+        "price": "£76.50"
+       }
+      ],
+      "title": "Wine — Rosé, Sparkling & Champagne"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Draught.",
+        "name": "Peroni 5%",
+        "price": "£3.50 / £6.70"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Draught.",
+        "name": "Meantime IPA 4.7%",
+        "price": "£3.50 / £6.70"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Draught.",
+        "name": "Lucky Buddha 4.8%",
+        "price": "£3.50 / £6.70"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Draught — add a flavour.",
+        "name": "Geisha Cider 4.5%",
+        "price": "£3.20 / £5.75"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Draught.",
+        "name": "Geisha Export Lager 4%",
+        "price": "£3.20 / £5.75"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Bottle 330ml.",
+        "name": "Madrí Excepcional 4.6%",
+        "price": "£4.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Bottle 330ml.",
+        "name": "Birra Moretti 4.6%",
+        "price": "£4.75"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Bottle 330ml.",
+        "name": "Blue Moon 5.4%",
+        "price": "£5.50"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bottle 330ml.",
+        "name": "Peroni Gluten Free 5%",
+        "price": "£5",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Bottle 330ml.",
+        "name": "Desperados 5.9%",
+        "price": "£5.25"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bottle 500ml.",
+        "name": "Rekorderlig 3.4%",
+        "price": "£6"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Bottle 330ml.",
+        "name": "Peroni 0.0%",
+        "price": "£4.25"
+       }
+      ],
+      "note": "Draught: half / pint. Bottles as marked.",
+      "title": "Beer & Cider"
+     },
+     {
+      "items": [
+       {
+        "desc": "Dash / regular / pint.",
+        "name": "Pepsi / Pepsi Max / Lemonade",
+        "price": "£1.20 / £3.25 / £4"
+       },
+       {
+        "desc": "Orange, apple, pineapple, cranberry.",
+        "name": "Fruit Juices",
+        "price": "£1.20 / £3.25 / £4"
+       },
+       {
+        "desc": "Blood orange or lemon.",
+        "name": "San Pellegrino",
+        "price": "£3.50"
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Espresso, milk & sugar over ice.",
+        "name": "Geisha Iced Coffee",
+        "price": "£4.50"
+       },
+       {
+        "desc": "Single / double.",
+        "name": "Espresso",
+        "price": "£2.50 / £3.50"
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "name": "Latte / Cappuccino / Flat White / Macchiato",
+        "price": "£3.75"
+       },
+       {
+        "allergens": [
+         "dairy",
+         "sulphites"
+        ],
+        "desc": "Kahlua, Baileys, Hennessy, Maker’s Mark, Teeling.",
+        "name": "Irish Coffee",
+        "price": "£7"
+       },
+       {
+        "allergens": [
+         "dairy",
+         "soy"
+        ],
+        "name": "Hot Chocolate",
+        "price": "£3.50"
+       },
+       {
+        "allergens": [
+         "dairy",
+         "soy"
+        ],
+        "desc": "Cream & marshmallows.",
+        "name": "Luxury Hot Chocolate",
+        "price": "£4.50"
+       },
+       {
+        "name": "English Breakfast Tea",
+        "price": "£3"
+       },
+       {
+        "name": "Herbal Teas (Teapigs)",
+        "price": "£4"
+       }
+      ],
+      "title": "Soft & Hot Drinks"
+     }
+    ],
+    "slug": "drinks",
+    "subtitle": "Cocktails, wine, beer & more",
+    "title": "Drinks"
+   },
+   {
+    "img": "https://pub-2a0f2fc510cf4088a1e1dc60daa6e94f.r2.dev/media/img-6261-1600.webp",
+    "pdf": "/geisha_fusion_allergy_menu_feb26_web.pdf",
+    "sections": [
+     {
+      "items": [],
+      "note": "Dishes are tagged throughout the menus (vegetarian, vegan, gluten-free, spicy), and the PDF above lists every dish against all 14 major allergens. Gluten-free pizza & pasta bases are available. Recipes are updated often, so please check on each visit and always inform your server of any allergy or intolerance before ordering.",
+      "title": "About our allergen information"
+     },
+     {
+      "items": [],
+      "note": "All food is prepared in kitchens where nuts, gluten and other allergens are present, so we cannot guarantee a 100% allergen-free environment, nor the processes used by our suppliers.",
+      "title": "What we cannot guarantee"
+     }
+    ],
+    "slug": "allergens",
+    "subtitle": "Full allergen matrix — download the PDF",
+    "title": "Allergens & Dietary"
+   }
+  ]
+ },
+ {
+  "id": "1ciyjzblqcrvh1w",
+  "restaurant": "28p64j9l0nfxh35",
+  "brand": "asia",
+  "updated": "2026-08-01 09:10:14.868Z",
+  "value": [
+   {
+    "pdf": "/geisha_asia_menu_jul26.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "shellfish",
+         "gluten"
+        ],
+        "desc": "Served with sweet chilli sauce.",
+        "name": "Thai Prawn Crackers",
+        "price": "£5"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Pancakes, hoisin sauce, leek & cucumber. Quarter or half duck.",
+        "name": "Crispy Aromatic Duck",
+        "price": "£13 / £19.50"
+       },
+       {
+        "allergens": [
+         "sesame",
+         "soy"
+        ],
+        "desc": "Seasoned seaweed salad with sesame.",
+        "name": "Wakame Salad",
+        "price": "£6",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "soy"
+        ],
+        "desc": "Salt & chilli.",
+        "name": "Edamame Beans",
+        "price": "£6",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Ebi prawns in panko breadcrumb coating with katsu sauce.",
+        "name": "Katsu Prawns",
+        "price": "£12"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "soy",
+         "gluten"
+        ],
+        "desc": "In black bean sauce.",
+        "name": "Hong Kong Style Mussels",
+        "price": "£11",
+        "tags": [
+         "new"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Drizzled with Japanese mayo, topped with nori seasoning.",
+        "name": "Karaage Chicken",
+        "price": "£11"
+       },
+       {
+        "allergens": [
+         "nuts",
+         "soy"
+        ],
+        "desc": "Chicken in satay sauce.",
+        "name": "Chicken Satay Skewers",
+        "price": "£12"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "With honey BBQ.",
+        "name": "BBQ Pork Ribs",
+        "price": "£12.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "With chilli, garlic, onion & peppers.",
+        "name": "Salt & Chilli Pork Ribs",
+        "price": "£12.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Chilli, garlic, onion & peppers with crispy chicken.",
+        "name": "Salt & Chilli Chicken",
+        "price": "£12.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "soy"
+        ],
+        "desc": "Chilli, garlic, onion & peppers with crispy squid.",
+        "name": "Salt & Chilli Squid",
+        "price": "£13.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "soy",
+         "gluten"
+        ],
+        "desc": "Chilli, garlic, onion & peppers with crispy tofu.",
+        "name": "Salt & Chilli Tofu",
+        "price": "£11",
+        "tags": [
+         "vg",
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Battered deep-fried king prawns, chilli, garlic, onion & peppers.",
+        "name": "Salt & Chilli King Prawns",
+        "price": "£14",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "eggs",
+         "mustard"
+        ],
+        "desc": "Battered deep-fried king prawns with wasabi.",
+        "name": "Wasabi King Prawns",
+        "price": "£14"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Deep-fried buffalo wings. Spicy gochujang OR chilli, garlic, onion & peppers.",
+        "name": "Geisha Wings",
+        "price": "£11",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Served with hoisin sauce.",
+        "name": "Pork Belly",
+        "price": "£13"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Served with truffle mayo.",
+        "name": "Sweet Potato Croquettes",
+        "price": "£8.50",
+        "tags": [
+         "vg"
+        ]
+       }
+      ],
+      "title": "Asian Bites"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame",
+         "eggs"
+        ],
+        "desc": "Deep-fried pork dumpling [5 pieces].",
+        "name": "Wonton",
+        "price": "£8"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Pan-seared pork dumplings [4 pieces].",
+        "name": "Wor Tip",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "shellfish",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Steamed dumplings, pork & shrimp filling [4 pieces].",
+        "name": "Xiaolongbao",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Steamed prawn dumplings [4 pieces].",
+        "name": "Hagow",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "fish",
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Deep-fried prawn & pork dumplings, fish roe & Japanese mayo [5 pieces].",
+        "name": "Japanese Fried Sumai",
+        "price": "£8"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Deep-fried chicken & vegetable dumplings [5 pieces].",
+        "name": "Chicken & Vegetable Gyoza",
+        "price": "£8"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Deep-fried vegetable rolls, sweet chilli sauce [3 pieces].",
+        "name": "Vegetable Spring Rolls",
+        "price": "£8",
+        "tags": [
+         "v"
+        ]
+       }
+      ],
+      "title": "Delicious Dim Sum"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "fish",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Skin-on salmon marinated in miso, flame-grilled, teriyaki glaze.",
+        "name": "Black Miso Salmon Skewers",
+        "price": "£18.50",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "soy",
+         "gluten",
+         "sesame"
+        ],
+        "desc": "Marinated sirloin beef skewers, flame-grilled, teriyaki glaze.",
+        "name": "Sirloin Beef Kushiyaki",
+        "price": "£16.50"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "eggs",
+         "soy",
+         "mustard"
+        ],
+        "desc": "Coated in homemade Thai green sauce, served with fries & Asian slaw.",
+        "name": "Pattaya Prawn Skewers",
+        "price": "£21.50",
+        "tags": [
+         "new"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "dairy",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Whole scallops with prawns & crab meat, cheese & nori seasoning, fries.",
+        "name": "Geisha Signature Scallops",
+        "price": "£19.50"
+       },
+       {
+        "allergens": [
+         "soy",
+         "gluten",
+         "sesame",
+         "eggs",
+         "mustard"
+        ],
+        "desc": "In a teriyaki glaze, served with Asian slaw & fries.",
+        "name": "Japanese Robata Ribeye — 10oz",
+        "price": "£23",
+        "tags": [
+         "new"
+        ]
+       }
+      ],
+      "note": "Served with steamed rice unless stated — ask your server for upgrades.",
+      "title": "Robata Grill & Sizzling"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "soy",
+         "gluten",
+         "sesame"
+        ],
+        "name": "Chicken (Skin On)",
+        "price": "£16.50"
+       },
+       {
+        "allergens": [
+         "fish",
+         "soy",
+         "gluten",
+         "sesame"
+        ],
+        "name": "Salmon",
+        "price": "£18.50"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "soy",
+         "gluten",
+         "sesame"
+        ],
+        "name": "King Prawn",
+        "price": "£19.50"
+       },
+       {
+        "allergens": [
+         "soy",
+         "gluten",
+         "sesame"
+        ],
+        "name": "10oz Ribeye Steak",
+        "price": "£24"
+       }
+      ],
+      "note": "Our iconic sizzling dish served on a scorching iron plate alongside vegetables and your choice of black pepper sauce or honey BBQ.",
+      "title": "The Sizzling Teppan"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Robata chilli sirloin steak, homemade broth, vegetables, seaweed, noodles & shoyu egg.",
+        "name": "Chilli Beef Ramen",
+        "price": "£17.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Miso, tofu & vegetable dumplings, homemade broth, vegetables, seaweed, noodles & shoyu egg.",
+        "name": "Miso Gyoza Ramen",
+        "price": "£16.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "fish",
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Fresh seafood, chilli, ginger, lemongrass, homemade broth, vegetables, seaweed, noodles & shoyu egg.",
+        "name": "Tom Yum Ramen",
+        "price": "£18.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Robata-grilled chicken (skin on), homemade broth, vegetables, seaweed, noodles & shoyu egg.",
+        "name": "Sriracha Chicken Ramen",
+        "price": "£17.50",
+        "tags": [
+         "spicy",
+         "new"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Prawns, char siu pork, vegetable & egg, or vegan.",
+        "name": "Singapore Vermicelli",
+        "price": "£16 / £14",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "shellfish",
+         "eggs",
+         "soy",
+         "fish"
+        ],
+        "desc": "Choice of chicken, prawn or vegan.",
+        "name": "Pad Thai Noodles",
+        "price": "£15 / £16 / £15"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "shellfish",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Prawns, char siu pork & pork belly, or vegetarian.",
+        "name": "Geisha Crispy Noodles",
+        "price": "£18.50 / £14.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "shellfish",
+         "fish",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "In black bean sauce.",
+        "name": "Seafood Crispy Noodles",
+        "price": "£19.50",
+        "tags": [
+         "new"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Vegetables, chicken, beef or prawn.",
+        "name": "Chow Mein",
+        "price": "£13 / £14 / £16 / £16"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Yakisoba sauce, chicken katsu, vegetables & seaweed.",
+        "name": "Katsu Fried Noodles",
+        "price": "£16.50",
+        "tags": [
+         "new"
+        ]
+       }
+      ],
+      "note": "Rice upgrades available at £1.50 extra.",
+      "title": "Ramen & Noodle Dishes"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "soy"
+        ],
+        "desc": "Served with rice. Vegetables, chicken or seafood.",
+        "name": "Thai Green / Red Curry",
+        "price": "£13.50 / £15 / £17.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "fish",
+         "shellfish",
+         "soy"
+        ],
+        "desc": "Vegetables, chicken or seafood. Sweet potatoes, mixed veg, cashew nuts & rice.",
+        "name": "Massaman Curry",
+        "price": "£14 / £16 / £18",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "shellfish",
+         "soy",
+         "gluten"
+        ],
+        "desc": "Vegetables, chicken, beef or prawn. Add naan +£1.50.",
+        "name": "Rendang Malaysian Curry",
+        "price": "£13.50 / £14.50 / £15.50 / £17.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "shellfish",
+         "soy"
+        ],
+        "desc": "Vegetables, chicken, beef or seafood. Add naan +£1.50.",
+        "name": "Sri Lanka Kothu Curry",
+        "price": "£14 / £16 / £17 / £18",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Breaded chicken breast, Japanese curry sauce & rice.",
+        "name": "Japanese Chicken Katsu",
+        "price": "£16.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Korean fried boneless chicken thighs, sticky gochujang sauce with rice.",
+        "name": "Geisha KFC",
+        "price": "£16.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "soy",
+         "gluten",
+         "shellfish"
+        ],
+        "desc": "Vegetables, chicken, beef or prawn in a bold black bean sauce with rice.",
+        "name": "Chinese Black Bean",
+        "price": "£13 / £14 / £15 / £16"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Crispy chicken OR crispy strips of beef in szechuan sauce with rice.",
+        "name": "Spicy Szechuan",
+        "price": "£16 / £17",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "shellfish",
+         "soy"
+        ],
+        "desc": "Crispy chicken strips OR battered king prawns, sweet & sour sauce with rice.",
+        "name": "Far East Sweet & Sour",
+        "price": "£15.50 / £17.50"
+       },
+       {
+        "allergens": [
+         "nuts",
+         "gluten",
+         "eggs",
+         "shellfish",
+         "soy"
+        ],
+        "desc": "Crispy chicken strips OR battered king prawns in kung po sauce.",
+        "name": "Kung Po",
+        "price": "£16 / £17.50",
+        "tags": [
+         "spicy",
+         "new"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Roasted duck, pork belly & char siu pork, Asian BBQ sauce & rice.",
+        "name": "Three Meats Charcoal",
+        "price": "£18.50"
+       },
+       {
+        "allergens": [
+         "eggs",
+         "shellfish",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Egg fried rice with char siu pork, chicken, prawn & duck.",
+        "name": "Geisha Fried Rice",
+        "price": "£15"
+       }
+      ],
+      "note": "Served with steamed rice — ask your server for upgrades. Rice upgrades £1.50 extra.",
+      "title": "Curry & Rice Dishes"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "fish",
+         "eggs",
+         "soy",
+         "sesame",
+         "gluten"
+        ],
+        "name": "Teriyaki-Mayo Chicken Poke Bowl",
+        "price": "£14"
+       },
+       {
+        "allergens": [
+         "fish",
+         "eggs",
+         "soy",
+         "sesame",
+         "gluten"
+        ],
+        "name": "Raw Salmon Poke Bowl",
+        "price": "£15"
+       },
+       {
+        "allergens": [
+         "fish",
+         "eggs",
+         "soy",
+         "sesame",
+         "gluten"
+        ],
+        "name": "Raw Tuna Poke Bowl",
+        "price": "£15"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "fish",
+         "eggs",
+         "soy",
+         "sesame",
+         "gluten"
+        ],
+        "name": "Steamed Prawns Poke Bowl",
+        "price": "£15"
+       },
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "eggs",
+         "soy",
+         "sesame",
+         "gluten"
+        ],
+        "desc": "Raw salmon, raw tuna & steamed prawns.",
+        "name": "Original Poke Bowl",
+        "price": "£16.50"
+       },
+       {
+        "allergens": [
+         "soy",
+         "sesame"
+        ],
+        "desc": "Tofu skin, pickled radish, avocado, sweetcorn, wakame salad, edamame, seaweed, wasabi & soy.",
+        "name": "Vegan Poke Bowl",
+        "price": "£13",
+        "tags": [
+         "vg"
+        ]
+       }
+      ],
+      "note": "Shelled edamame, avocado, sweetcorn, wakame salad, tamago omelette, fish roe, pickled radish, wasabi & Japanese soy. Steamed or sushi rice. Choose a dressing: sesame, ponzu or teriyaki.",
+      "title": "Poke Bowl"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "soy",
+         "sesame",
+         "mustard"
+        ],
+        "desc": "Wagyu beef pattie, steamed seeded bun, cheese, wasabi ketchup, Asian slaw, crispy lettuce & spicy mayo with fries.",
+        "name": "Japanese Wagyu Burger",
+        "price": "£18"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame",
+         "mustard"
+        ],
+        "desc": "Panko breaded crispy chicken breast, steamed seeded bun, katsu sauce, Asian slaw, crispy lettuce & spicy mayo with fries.",
+        "name": "Chicken Katsu Burger",
+        "price": "£17"
+       }
+      ],
+      "title": "Burgers"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "shellfish",
+         "soy",
+         "gluten"
+        ],
+        "desc": "Seasonal vegetables, garlic & ginger or oyster sauce.",
+        "name": "Stir Fry Vegetables",
+        "price": "£7.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "mustard"
+        ],
+        "desc": "Plain, or upgrade to truffle mayo, wasabi or salt & chilli.",
+        "name": "Fries",
+        "price": "£4.50 / £5.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "eggs",
+         "soy"
+        ],
+        "desc": "Egg fried or coconut.",
+        "name": "Rice",
+        "price": "£4.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "With beansprouts and spring onions.",
+        "name": "Soft Noodles",
+        "price": "£6",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "soy",
+         "gluten",
+         "shellfish"
+        ],
+        "desc": "Katsu curry, Thai curry, satay, szechuan, sweet & sour.",
+        "name": "Sauces",
+        "price": "£4.50"
+       }
+      ],
+      "title": "Sides"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "nuts",
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Salt & chilli chicken, honey BBQ Asian ribs, satay chicken skewers, spring rolls, Geisha KFC, edamame beans.",
+        "name": "Geisha Sharing Platter",
+        "price": "£33.50",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "gluten",
+         "eggs",
+         "shellfish",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Korean BBQ ribs, kung po prawns, szechuan chicken, peking duck, edamame beans & spicy fried noodles.",
+        "name": "Deluxe Sharing Platter",
+        "price": "£37",
+        "tags": [
+         "spicy",
+         "new"
+        ]
+       }
+      ],
+      "title": "Sharing Platters"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "soy",
+         "sesame",
+         "eggs"
+        ],
+        "desc": "Smoked salmon filled with mango, kiwi, strawberries, salad dressing & sushi rice, topped with prawn, scallop & black caviar lumpfish roe [1 piece].",
+        "name": "Ocean Sake Flower",
+        "price": "£14.50",
+        "tags": [
+         "new"
+        ]
+       },
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Salmon, yellowtail, tuna, rolled with steamed prawn, diced fresh fish, kimchi sauce & fish roe.",
+        "name": "Ocean Maki",
+        "price": "£12"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame",
+         "mustard"
+        ],
+        "desc": "Tempura king prawn, cucumber & wasabi mayo, topped with wasabi peas.",
+        "name": "Wasabi Prawn Maki",
+        "price": "£11"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Fresh salad, karaage chicken & Japanese mayo in crispy panko nori, tonkatsu mayo & chilli threads.",
+        "name": "Karaage Maki",
+        "price": "£10"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Fillet beef, cucumber & melted cheese in crispy tempura nori, sriracha mayo & chilli threads.",
+        "name": "Beef Maki",
+        "price": "£12.50"
+       },
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Crab meat, cucumber, tamago & Japanese mayo, topped with salmon, yellowtail, tuna, avocado & wasabi fish roe.",
+        "name": "Rainbow Maki",
+        "price": "£12"
+       },
+       {
+        "allergens": [
+         "soy",
+         "sesame"
+        ],
+        "desc": "Wakame salad, cucumber, pickled radish & tofu skin, topped with avocado, vegan mayo & strawberry.",
+        "name": "Garden Maki",
+        "price": "£10",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "eggs",
+         "soy",
+         "sesame",
+         "gluten"
+        ],
+        "desc": "Crab meat, steamed prawn, cucumber, tamago, wakame & pickled radish, sriracha mayo, crispy onions & chilli threads.",
+        "name": "Futomaki",
+        "price": "£10"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "fish",
+         "dairy",
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Crispy prawn, cucumber, pickled radish, melted cheese, wasabi fish roe & chilli threads.",
+        "name": "Prawn Maki",
+        "price": "£10.50"
+       },
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "dairy",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Crab meat, tamago, asparagus & melted cheese, topped with smoked salmon & asparagus.",
+        "name": "Smoked Salmon Maki",
+        "price": "£11"
+       }
+      ],
+      "note": "Mat-rolled sushi, filled and topped with fresh ingredients [4 pieces].",
+      "title": "Signature Sushi — Maki"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "fish",
+         "soy"
+        ],
+        "desc": "Choice of raw or grilled [4 pieces].",
+        "name": "Salmon / Tuna / Yellowtail Nigiri",
+        "price": "£8 / £9 / £10"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "soy"
+        ],
+        "desc": "[4 pieces].",
+        "name": "Steamed Prawn Nigiri",
+        "price": "£8"
+       },
+       {
+        "allergens": [
+         "soy",
+         "gluten"
+        ],
+        "desc": "Sweetcorn, avocado, crispy onion & vegan mayo [4 pieces].",
+        "name": "Tofu Skin Nigiri",
+        "price": "£7",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "soy"
+        ],
+        "desc": "[4 pieces].",
+        "name": "Asparagus Nigiri",
+        "price": "£7",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "fish"
+        ],
+        "desc": "Fresh slices of fish, served raw [5 pieces].",
+        "name": "Salmon / Tuna / Yellowtail Sashimi",
+        "price": "£9 / £10 / £10",
+        "tags": [
+         "gf"
+        ]
+       }
+      ],
+      "title": "Signature Sushi — Nigiri & Sashimi"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "soy",
+         "sesame",
+         "gluten"
+        ],
+        "desc": "Garden maki, veg futomaki, pickle radish hosomaki, vegan gunkan, asparagus nigiri, tofu skin nigiri — 20 pieces.",
+        "name": "Spring Platter",
+        "price": "£27.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "dairy",
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Smoked salmon hosomaki, beef maki, karaage maki, prawn maki, grilled tuna nigiri — 20 pieces.",
+        "name": "Summer Platter",
+        "price": "£35.50"
+       },
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "dairy",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Rainbow maki, smoked salmon maki, salmon/tuna/yellowtail sashimi, fishroe & Geisha gunkan, crab meat nigiri — 20 pieces.",
+        "name": "Winter Platter",
+        "price": "£33.50"
+       }
+      ],
+      "title": "Sushi Platters"
+     }
+    ],
+    "slug": "main",
+    "subtitle": "Asian bites, dim sum, robata, ramen, sushi & more",
+    "title": "Main Menu"
+   },
+   {
+    "img": "https://pub-2a0f2fc510cf4088a1e1dc60daa6e94f.r2.dev/media/uploads/unnamed-f2a443ac-1020.webp",
+    "pdf": "/geisha_asia_evening_special_mar26.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "soy"
+        ],
+        "desc": "Salt & chilli.",
+        "name": "Edamame Beans",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Japanese mayo, nori seasoning.",
+        "name": "Karaage Chicken"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Honey BBQ OR chilli, garlic, onion & peppers.",
+        "name": "Asian Pork Ribs"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "shellfish",
+         "soy"
+        ],
+        "desc": "Chilli, garlic, onion & peppers with crispy chicken, squid OR tofu.",
+        "name": "Geisha Salt & Chilli",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Ebi prawns in panko, katsu sauce.",
+        "name": "Katsu Prawns"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Spicy gochujang OR chilli, garlic, onion & peppers.",
+        "name": "Geisha Wings",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "soy",
+         "sesame"
+        ],
+        "desc": "Wakame, cucumber, pickled radish & tofu skin, avocado, vegan mayo & strawberry [4 pieces].",
+        "name": "Garden Maki",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "dairy",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Crab meat, tamago, asparagus & melted cheese, smoked salmon & asparagus [4 pieces].",
+        "name": "Smoked Salmon Maki"
+       }
+      ],
+      "note": "Available Mon–Thu from 5pm & all day Sunday.",
+      "title": "Starters"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Vegetables, chicken, beef or prawn (+£1.50).",
+        "name": "Chow Mein"
+       },
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "soy"
+        ],
+        "desc": "With rice. Vegetables, chicken or prawns (+£1.50).",
+        "name": "Thai Green / Red Curry",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "shellfish",
+         "soy"
+        ],
+        "desc": "Vegetables, chicken or prawn (+£1.50). Sweet potatoes, mixed veg, cashew nuts & rice.",
+        "name": "Massaman Curry",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Breaded chicken breast, Japanese curry sauce & rice.",
+        "name": "Japanese Chicken Katsu"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Korean fried boneless chicken thighs, sticky gochujang sauce with rice.",
+        "name": "Geisha KFC",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "shellfish",
+         "soy"
+        ],
+        "desc": "Crispy chicken strips or battered king prawns (+£1.50), sweet & sour sauce with rice.",
+        "name": "Far East Sweet & Sour"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Crispy sirloin beef or chicken in szechuan sauce with rice.",
+        "name": "Spicy Szechuan",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "dairy",
+         "eggs",
+         "soy",
+         "sesame",
+         "mustard"
+        ],
+        "desc": "A5 Wagyu pattie, seeded bun, cheese, wasabi ketchup, Asian slaw, crispy lettuce & spicy mayo with fries.",
+        "name": "Japanese Wagyu Burger"
+       },
+       {
+        "allergens": [
+         "soy",
+         "sesame"
+        ],
+        "desc": "Tofu skin, pickled radish, avocado, sweetcorn, wakame, edamame, seaweed, wasabi & soy.",
+        "name": "Vegan Poke Bowl",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "fish",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Edamame, avocado, sweetcorn, wakame, tamago, fish roe, pickled radish, wasabi & soy.",
+        "name": "Raw Salmon Poke Bowl"
+       }
+      ],
+      "note": "Some proteins carry a +£1.50 supplement.",
+      "title": "Mains"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "shellfish",
+         "soy",
+         "gluten"
+        ],
+        "desc": "Seasonal vegetables, garlic & ginger or oyster sauce.",
+        "name": "Stir Fry Vegetables",
+        "price": "£7.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "mustard"
+        ],
+        "desc": "Plain, or upgrade to truffle mayo, wasabi or salt & chilli.",
+        "name": "Fries",
+        "price": "£4.50 / £5.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Egg noodles with beansprouts and spring onions.",
+        "name": "Soft Noodles",
+        "price": "£6",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "eggs",
+         "soy"
+        ],
+        "desc": "Egg fried or coconut.",
+        "name": "Rice",
+        "price": "£4.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "soy",
+         "gluten",
+         "shellfish"
+        ],
+        "desc": "Katsu curry, Thai curry, satay, szechuan, sweet & sour.",
+        "name": "Sauces",
+        "price": "£4.50"
+       }
+      ],
+      "note": "Charged separately from the £23.50 starter-and-main deal. Rice upgrades £1.50 extra.",
+      "title": "Sides"
+     }
+    ],
+    "slug": "evening-special",
+    "subtitle": "Starter & main — £23.50",
+    "title": "Evening Special"
+   },
+   {
+    "img": "/Content%20folder/IMG_6305.JPG",
+    "pdf": "/geisha_daytime_special_mar26.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "soy"
+        ],
+        "desc": "In shell, salt & chilli seasoning.",
+        "name": "Edamame Beans",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Crispy chicken, chilli, garlic, onion & peppers.",
+        "name": "Salt & Chilli Chicken",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "soy",
+         "gluten"
+        ],
+        "desc": "Crispy tofu, chilli, garlic, onion & peppers.",
+        "name": "Salt & Chilli Tofu",
+        "tags": [
+         "vg",
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Honey BBQ OR chilli, garlic, onion & peppers.",
+        "name": "Asian Pork Ribs"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Spicy gochujang OR chilli, garlic, onion & peppers.",
+        "name": "Geisha Wings",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "soy"
+        ],
+        "desc": "Chicken in satay sauce.",
+        "name": "Chicken Satay Skewers"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Steamed prawn dumplings [3 pieces].",
+        "name": "Hagow Dim Sum"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Deep-fried vegetable rolls [3 pieces].",
+        "name": "Vegetable Spring Rolls",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Deep-fried chicken & vegetable dumplings [4 pieces].",
+        "name": "Chicken & Vegetable Gyoza"
+       },
+       {
+        "allergens": [
+         "fish",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Salmon, tuna, yellowtail or cucumber (vegan).",
+        "name": "Sushi Maki",
+        "tags": [
+         "vg"
+        ]
+       }
+      ],
+      "note": "Available Mon–Fri 12–5pm. Excludes bank holidays and the festive season.",
+      "title": "Mix & Match (any two — £15)"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "eggs",
+         "soy"
+        ],
+        "desc": "Egg fried or coconut.",
+        "name": "Rice",
+        "price": "£4.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Egg noodles, beansprouts & spring onions.",
+        "name": "Soft Noodles",
+        "price": "£6",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten"
+        ],
+        "name": "Salt & Chilli Fries",
+        "price": "£5.50",
+        "tags": [
+         "vg",
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "nuts",
+         "soy",
+         "gluten",
+         "shellfish"
+        ],
+        "desc": "Katsu curry, Thai curry, satay, szechuan, sweet & sour.",
+        "name": "Sauces",
+        "price": "£4.50"
+       }
+      ],
+      "title": "Extras / Sides"
+     }
+    ],
+    "slug": "daytime-special",
+    "subtitle": "Mix & match any two dishes — £15",
+    "title": "Daytime Special"
+   },
+   {
+    "img": "https://pub-2a0f2fc510cf4088a1e1dc60daa6e94f.r2.dev/media/uploads/geisha-asia-mailing-list-3e7cf845-1080.webp",
+    "pdf": "/geisha_asia_2for14_mar26.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Absolut Raspberry shaken with triple sec, cranberry juice & fresh lime.",
+        "name": "Raspberry Cosmo"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Aperol, prosecco & soda, fresh orange & strawberries.",
+        "name": "Aperol Spritz"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bacardi white rum, muddled lime, sugar & mint, soda. Add fruit purée +£0.75.",
+        "name": "Geisha Mojito"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Cazadores tequila, triple sec, lime, sugar syrup. Add fruit purée +£0.75.",
+        "name": "Geisha Margarita"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bacardi white rum, lime, sugar syrup & fresh fruit purée.",
+        "name": "Geisha Daiquiri"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Eristoff vodka, orange & pineapple juice, lemon, peach purée, ginger ale & grenadine.",
+        "name": "Rising Sun"
+       }
+      ],
+      "note": "Available all day Sun–Thu / Fri until 5pm. Two of the same cocktail, ordered at the same time.",
+      "title": "Cocktails"
+     }
+    ],
+    "slug": "cocktails",
+    "subtitle": "Two of the same, ordered together — £14",
+    "title": "2 for £14 Cocktails"
+   },
+   {
+    "pdf": "/geisha_asia_bottomless_brunch.pdf",
+    "sections": [
+     {
+      "items": [],
+      "note": "Available all day Sun–Thu / Fri & Sat 12–4:30pm (last booking 3pm). 90 minutes of unlimited prosecco or large house wine (175ml), pints of house beer/cider, or bottled beers. Three dishes per guest. Feeling fancy? Upgrade to cocktails for £7.50pp (Aperol Spritz, Margarita, Pornstar Martini, Strawberry Daiquiri or Cosmopolitan) — you still get the bottomless drinks too.",
+      "title": "What’s included"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "soy"
+        ],
+        "desc": "Salt & chilli.",
+        "name": "Edamame Beans",
+        "tags": [
+         "vg",
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "sesame",
+         "eggs"
+        ],
+        "desc": "Sweet chilli sauce.",
+        "name": "XL King Prawn Toast"
+       },
+       {
+        "allergens": [
+         "nuts",
+         "soy"
+        ],
+        "desc": "Chicken in satay sauce.",
+        "name": "Chicken Satay Skewers"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "soy"
+        ],
+        "desc": "Crispy squid, chilli, garlic, salt & pepper.",
+        "name": "Salt & Chilli Squid",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Crispy chicken, chilli, garlic, salt & pepper.",
+        "name": "Salt & Chilli Chicken",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "eggs",
+         "soy"
+        ],
+        "desc": "Crispy prawns, chilli, garlic, salt & pepper.",
+        "name": "Salt & Chilli King Prawns",
+        "tags": [
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "soy",
+         "gluten"
+        ],
+        "desc": "Crispy tofu, chilli, garlic, salt & pepper.",
+        "name": "Salt & Chilli Tofu",
+        "tags": [
+         "vg",
+         "spicy"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Honey BBQ or chilli, garlic, salt.",
+        "name": "Asian Pork Ribs"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Buffalo wings — spicy gochujang or chilli, garlic, salt & pepper.",
+        "name": "Geisha Wings",
+        "tags": [
+         "spicy"
+        ]
+       }
+      ],
+      "title": "Asian Bites (choose your dishes)"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "shellfish",
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Steamed prawn dumplings.",
+        "name": "Hagow"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Deep-fried chicken & vegetable dumplings.",
+        "name": "Chicken & Vegetable Gyoza"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "soy"
+        ],
+        "desc": "Deep-fried vegetable rolls.",
+        "name": "Vegetable Spring Rolls",
+        "tags": [
+         "v"
+        ]
+       }
+      ],
+      "title": "Dim Sum"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Karaage chicken & Japanese mayo in crispy panko nori, tonkatsu mayo & chilli threads [4 pieces].",
+        "name": "Karaage Maki"
+       },
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "dairy",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Crab meat, tamago, asparagus & cheese, smoked salmon & asparagus [4 pieces].",
+        "name": "Smoked Salmon Maki"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "eggs",
+         "soy",
+         "sesame",
+         "gluten"
+        ],
+        "desc": "Crab meat, steamed prawn, cucumber, tamago, wakame & pickled radish, sriracha mayo, crispy onions & chilli threads [4 pieces].",
+        "name": "Futomaki"
+       },
+       {
+        "allergens": [
+         "shellfish",
+         "fish",
+         "dairy",
+         "gluten",
+         "eggs",
+         "soy",
+         "sesame"
+        ],
+        "desc": "Crispy prawn, cucumber, pickled radish, melted cheese, wasabi fish roe & chilli threads [4 pieces].",
+        "name": "Prawn Maki"
+       },
+       {
+        "allergens": [
+         "soy",
+         "sesame"
+        ],
+        "desc": "Wakame, cucumber, pickled radish & tofu skin, avocado, vegan mayo & strawberry [4 pieces].",
+        "name": "Garden Maki",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "fish",
+         "shellfish",
+         "soy"
+        ],
+        "desc": "Salmon, tuna, yellowtail (raw or grilled), steamed prawn, tofu skin or asparagus.",
+        "name": "Nigiri"
+       },
+       {
+        "allergens": [
+         "fish"
+        ],
+        "desc": "Fresh slices of salmon, tuna or yellowtail, served raw.",
+        "name": "Sashimi",
+        "tags": [
+         "gf"
+        ]
+       }
+      ],
+      "title": "Sushi (maki, nigiri & sashimi)"
+     }
+    ],
+    "slug": "bottomless-brunch",
+    "subtitle": "£40 per person · 90 minutes",
+    "title": "Bottomless Brunch"
+   },
+   {
+    "img": "https://pub-2a0f2fc510cf4088a1e1dc60daa6e94f.r2.dev/media/ca30316d-296f-400f-9143-b1adb941e0c9-1534.webp",
+    "pdf": "/geisha_asia_kids_menu_jun26.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "eggs",
+         "dairy",
+         "soy",
+         "sesame",
+         "mustard"
+        ],
+        "desc": "Choose chicken katsu, fried chicken or karaage mayo chicken. Served with fries, soft noodles, cucumber hosomaki & dorayaki dessert.",
+        "name": "Kids Combo Plate",
+        "price": "£8.50"
+       }
+      ],
+      "note": "The PDF doubles as an activity sheet (maze, word search & dot-to-dot) — ask for crayons.",
+      "title": "Kids Combo Plate — £8.50"
+     }
+    ],
+    "slug": "kids",
+    "subtitle": "Kids combo plate — £8.50",
+    "title": "Kids Menu"
+   },
+   {
+    "pdf": "/asia_drinks_menu_mar26.pdf",
+    "sections": [
+     {
+      "items": [
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Grey Goose Watermelon & Basil, St Germain elderflower, cucumber & lime, sparkling ginger beer.",
+        "name": "Bamboo Breeze",
+        "price": "£10"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Frozen — Bacardi Blanca, blue curaçao, pineapple, yuzu & lime, blueberry bubbles.",
+        "name": "Daydream in Blue",
+        "price": "£12"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Grey Goose, St Germain elderflower, ginger ale, fresh berries & cucumber.",
+        "name": "Gooseberry Garden",
+        "price": "£11"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Pink Strawberry Gin, Kwai Feh lychee, lemon, lychee juice & blackberries.",
+        "name": "Samurai Smash",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Vanilla vodka & Chambord, mixed berry purée & fresh juices.",
+        "name": "Rouge Royale",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Eristoff vodka, orange & pineapple, lemon, peach purée, ginger ale & grenadine.",
+        "name": "Rising Sun",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Frozen — Bacardi Caribbean Spiced & overproof rum, lime, guava, passion fruit & coconut.",
+        "name": "Tropical Daiquiri",
+        "price": "£11"
+       },
+       {
+        "allergens": [
+         "nuts",
+         "sulphites",
+         "eggs"
+        ],
+        "desc": "Disaronno, lemon, yuzu sake & rose.",
+        "name": "Yuzu & Rose Amaretto Sour",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Frozen passionfruit & mango margarita — Cazadores tequila, lime, pineapple, mango & passionfruit purée.",
+        "name": "Lucky Geisha",
+        "price": "£12"
+       },
+       {
+        "allergens": [
+         "dairy",
+         "sulphites"
+        ],
+        "desc": "Bacardi Coconut, cream, pineapple & coconut, raspberry swirl.",
+        "name": "Raspberry Ripple Piña Colada",
+        "price": "£9.50"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Aperol, prosecco & soda, fresh orange & strawberries.",
+        "name": "Aperol Spritz",
+        "price": "£9.50"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Eristoff vodka, Kwai Feh lychee, St Germain, lychee & lime, crushed raspberry rim.",
+        "name": "Lychee Martini",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bombay Sapphire, dragon fruit, mango & lemon, prosecco & soda.",
+        "name": "Kyoto Spritz",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "nuts",
+         "sulphites"
+        ],
+        "desc": "Bacardi spiced rum, triple sec, pineapple, lime, orgeat & mango purée (contains nuts).",
+        "name": "Mango Mai Tai",
+        "price": "£9.50"
+       },
+       {
+        "allergens": [
+         "dairy",
+         "soy",
+         "sulphites"
+        ],
+        "desc": "Eristoff vodka, Kahlua, fresh espresso & gomme, chocolate sauce. Add a flavour +60p.",
+        "name": "Espresso Martini",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Cazadores tequila, triple sec, lime & sugar, half-salted rim. Fruity/spicy options +£0.75. Upgrade to Patron Silver +£2.50.",
+        "name": "Geisha Margarita",
+        "price": "£9"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Absolut vanilla, passion fruit liqueur, pineapple & lime, shot of prosecco.",
+        "name": "Pornstar Martini",
+        "price": "£10"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bacardi Blanca, lime & sugar. Add fruit purée +£0.75.",
+        "name": "Geisha Daiquiri",
+        "price": "£8.50"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bacardi Blanca, lime, sugar & mint, soda. Add fruit purée +£0.75.",
+        "name": "Geisha Mojito",
+        "price": "£9"
+       }
+      ],
+      "title": "Cocktails"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Cazcabel coconut tequila, passion fruit liqueur, jasmine, lime & pineapple, served in a cast-iron teapot. For 3–4 people.",
+        "name": "Temple Tea",
+        "price": "£37.50"
+       }
+      ],
+      "title": "Sharing Cocktails"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Yuzu-infused sake — sweet & tangy.",
+        "name": "Ume No Yado ‘Yuzu’",
+        "price": "£6 / £45"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Ume plum sake liqueur.",
+        "name": "Ume No Yado ‘Plum’",
+        "price": "£6 / £45"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "House sake — light, subtly sweet, dry finish.",
+        "name": "Akitabare ‘Shunsetsu’",
+        "price": "£6 / £50"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Smooth, subtly sweet, organic.",
+        "name": "Masumi ‘Okuden Kantsukuri’",
+        "price": "£6.50 / £55"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Velvety, floral, pear & melon.",
+        "name": "Dewazakura ‘Oka’",
+        "price": "£6.50 / £60"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "3 × 50ml.",
+        "name": "Sampler",
+        "price": "£16.50"
+       }
+      ],
+      "note": "Per 50ml / bottle.",
+      "title": "Sake"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Pineapple, cream, coconut & orange.",
+        "name": "Virgin Piña Colada",
+        "price": "£5.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "desc": "Strawberry purée, lime & lychee, lemonade.",
+        "name": "Strawberry Lychee Sling",
+        "price": "£5.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "desc": "Mint, lime, apple juice, sugar & soda. Add purée +£0.75.",
+        "name": "Virgin Mojito",
+        "price": "£5.50",
+        "tags": [
+         "vg"
+        ]
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Vanilla, chocolate, caramel, strawberry, raspberry, blueberry, mixed berry or mango, blended with cream.",
+        "name": "Geisha Milkshake",
+        "price": "£5.50",
+        "tags": [
+         "v"
+        ]
+       },
+       {
+        "desc": "20 flavour combinations — choose your tea syrup & bubble flavour.",
+        "name": "Geisha Bubble Iced Tea",
+        "price": "£5.50",
+        "tags": [
+         "vg"
+        ]
+       }
+      ],
+      "title": "Mocktails"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "name": "Geisha House Wine",
+        "price": "£5.50 / £7 / £23.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Primi Soli, Italy — dry, crisp, hint of lemon.",
+        "name": "Pinot Grigio",
+        "price": "£6.25 / £7.25 / £28.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Luna Azul, Chile — passion fruit & guava.",
+        "name": "Sauvignon Blanc",
+        "price": "£6 / £7.25 / £26.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Dega Vignamade, Italy — floral, lemon zest, pear.",
+        "name": "Pecorino",
+        "price": "£6.75 / £8.50 / £29.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Waddling Duck, New Zealand — gooseberry, white peach.",
+        "name": "Sauvignon Blanc",
+        "price": "£7 / £9.50 / £33.50"
+       }
+      ],
+      "note": "Per 125ml / 175ml / bottle.",
+      "title": "Wine — White"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "name": "Geisha House Wine",
+        "price": "£5.50 / £7 / £23.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Luna Azul, Chile — soft, full-bodied, plum.",
+        "name": "Merlot",
+        "price": "£6 / £7.25 / £26.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Dega Vignamade, Italy — cherry, blueberry, soft tannins.",
+        "name": "Montepulciano",
+        "price": "£6.75 / £9.25 / £30.50"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "La Grupa, Argentina — ripe red fruit, sweet spice.",
+        "name": "Malbec",
+        "price": "£7 / £9.50 / £33.50"
+       }
+      ],
+      "note": "Per 125ml / 175ml / bottle.",
+      "title": "Wine — Red"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Primi Soli, Italy.",
+        "name": "Pinot Grigio Blush",
+        "price": "£5.50 / £7 / £23.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Charlie Zin, California.",
+        "name": "White Zinfandel",
+        "price": "£5.50 / £7 / £23.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Writer’s Block, South Africa.",
+        "name": "Sauvignon Blanc Rosé",
+        "price": "£6.75 / £8.50 / £29.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Famiglia Botter, Italy.",
+        "name": "Prosecco DOC",
+        "price": "£7 / £30.95"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Vilarnau, Spain.",
+        "name": "Cava Rosé",
+        "price": "£39.50"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "France.",
+        "name": "Champagne — Taittinger Brut Réserve NV",
+        "price": "£76.50"
+       }
+      ],
+      "title": "Wine — Rosé, Sparkling & Champagne"
+     },
+     {
+      "items": [
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Draught.",
+        "name": "Asahi Super Dry 5%",
+        "price": "£3.50 / £6.70"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Draught — Asian-style lager.",
+        "name": "Lucky Buddha 4.8%",
+        "price": "£3.50 / £6.70"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Draught — light & crisp.",
+        "name": "Geisha Export Lager 4%",
+        "price": "£3.20 / £5.75"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Draught.",
+        "name": "Meantime IPA 4.7%",
+        "price": "£3.50 / £6.70"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Draught — add a flavour.",
+        "name": "Geisha Cider 4.5%",
+        "price": "£3.20 / £5.75"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Bottle 330ml.",
+        "name": "Blue Moon 5.4%",
+        "price": "£5.50"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Bottle 330ml.",
+        "name": "Desperados 5.9%",
+        "price": "£5.25"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bottle 500ml.",
+        "name": "Rekorderlig Cider 3.4%",
+        "price": "£6"
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Bottle 330ml.",
+        "name": "Tiger 4.8%",
+        "price": "£5"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "Bottle 330ml.",
+        "name": "Peroni Gluten Free 5%",
+        "price": "£5",
+        "tags": [
+         "gf"
+        ]
+       },
+       {
+        "allergens": [
+         "gluten",
+         "sulphites"
+        ],
+        "desc": "Bottle 330ml.",
+        "name": "Asahi Super Dry Zero 0%",
+        "price": "£4.25"
+       }
+      ],
+      "note": "Draught: half / pint. Bottles as marked.",
+      "title": "Beer & Cider"
+     },
+     {
+      "items": [
+       {
+        "desc": "Dash / regular / pint.",
+        "name": "Pepsi / Pepsi Max / Lemonade",
+        "price": "£1.20 / £3.25 / £4"
+       },
+       {
+        "desc": "Orange, apple, pineapple, cranberry, lychee, guava.",
+        "name": "Eager & Rubicon Juices",
+        "price": "£1.20 / £3.25 / £4"
+       },
+       {
+        "allergens": [
+         "sulphites"
+        ],
+        "desc": "275ml.",
+        "name": "J2O",
+        "price": "£4"
+       },
+       {
+        "desc": "Natural aloe vera, mango.",
+        "name": "Aloe Vera Juice",
+        "price": "£3.50 / £4.50"
+       },
+       {
+        "desc": "200ml.",
+        "name": "Bottled Coke / Diet",
+        "price": "£3"
+       },
+       {
+        "desc": "750ml.",
+        "name": "Belu Bottled Water",
+        "price": "£4"
+       },
+       {
+        "desc": "Tonic, light tonic, ginger ale, ginger beer.",
+        "name": "Fever-Tree Mixer",
+        "price": "£2.75"
+       }
+      ],
+      "title": "Soft Drinks"
+     },
+     {
+      "items": [
+       {
+        "desc": "Single / double.",
+        "name": "Espresso",
+        "price": "£2.50 / £3.50"
+       },
+       {
+        "name": "Americano",
+        "price": "£3.50"
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "name": "Latte / Cappuccino / Flat White",
+        "price": "£3.75"
+       },
+       {
+        "allergens": [
+         "dairy",
+         "sulphites"
+        ],
+        "desc": "Teeling whisky, Kahlua, Baileys, Hennessy.",
+        "name": "Irish Coffee",
+        "price": "£7"
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "name": "Chai Latte",
+        "price": "£4.50"
+       },
+       {
+        "allergens": [
+         "dairy",
+         "nuts",
+         "soy"
+        ],
+        "name": "Nutella Hot Chocolate",
+        "price": "£4.50"
+       },
+       {
+        "allergens": [
+         "dairy"
+        ],
+        "desc": "Premium Japanese matcha, vanilla & steamed milk.",
+        "name": "Matcha Latte",
+        "price": "£4.50"
+       },
+       {
+        "name": "English Breakfast Tea",
+        "price": "£3"
+       },
+       {
+        "desc": "Lemongrass, jasmine, earl grey, peppermint, green tea.",
+        "name": "Herbal Teas (Teapigs)",
+        "price": "£4"
+       }
+      ],
+      "title": "Hot Drinks"
+     }
+    ],
+    "slug": "drinks",
+    "subtitle": "Cocktails, sake, wine, beer & more",
+    "title": "Drinks"
+   },
+   {
+    "pdf": "/geisha_allergy_menu_feb26.pdf",
+    "sections": [
+     {
+      "items": [],
+      "note": "Dishes are tagged throughout the menus (vegetarian, vegan, gluten-free, spicy), and the PDF above lists every dish against all 14 major allergens. Recipes are updated often, so please check on each visit and always inform your server of any allergy or intolerance before ordering.",
+      "title": "About our allergen information"
+     },
+     {
+      "items": [],
+      "note": "All food is prepared in kitchens where nuts, gluten and other allergens are present, so we cannot guarantee a 100% allergen-free environment, nor the processes used by our suppliers.",
+      "title": "What we cannot guarantee"
+     }
+    ],
+    "slug": "allergens",
+    "subtitle": "Full allergen matrix — download the PDF",
+    "title": "Allergens & Dietary"
+   }
+  ]
+ }
+]

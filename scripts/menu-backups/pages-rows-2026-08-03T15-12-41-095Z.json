@@ -1,0 +1,89 @@
+[
+  {
+    "collectionId": "pbc_3089169729",
+    "collectionName": "geisha_content",
+    "created": "2026-07-29 21:27:34.956Z",
+    "id": "1pvhqv55bx2fv8e",
+    "key": "pages",
+    "restaurant": "28p64j9l0nfxh35",
+    "updated": "2026-08-03 10:40:16.668Z",
+    "value": {
+      "contact": {
+        "formNote": "For table reservations, please use the [bookings page]({bookingsHref}).",
+        "lead": "{name} · {line1}, {postcode}",
+        "mapEmbedUrl": "https://maps.google.com/maps?q=55.0108685,-1.5716901+(Geisha)&z=17&hl=en&output=embed",
+        "mapLinkUrl": "https://www.google.com/maps/search/?api=1&query=55.0108685%2C-1.5716901",
+        "thanks": "Thanks — your message is on its way. We’ll reply by email soon.",
+        "title": "Contact"
+      },
+      "order": {
+        "deliveryBody": "Our full at-home menu, brought to your door by Uber~Eats.",
+        "deliveryFine": "Delivery times and area set by Uber Eats.",
+        "deliveryHeading": "Get it delivered",
+        "deliveryProvider": "via Uber Eats",
+        "eyebrow": "At home",
+        "lead": "Geisha, at home. Delivery, takeaway or collection.",
+        "takeawayBody": "Order ahead for takeaway and pick up fresh from the restaurant.",
+        "takeawayCtaLabel": "Order for Takeaway",
+        "takeawayFine": "Collection from {line1}, {postcode}.",
+        "takeawayHeading": "Takeaway & collection",
+        "takeawayProvider": "straight from {short}",
+        "title": "Order Online"
+      },
+      "parties": {
+        "altLine": "Or call us directly on [{phone}]({telHref}).",
+        "enquiryHeading": "Make an enquiry",
+        "intro": "Planning a special occasion often means finding the right room. Our function space is built for celebrations of every kind — from birthdays and engagements to baby showers, office parties and wakes. Stylish decor, a proper sound system and versatile lighting, with our team on hand to help with everything from decorations to entertainment.",
+        "lead": "Our space, your occasion.",
+        "occasions": [
+          "Birthday",
+          "Engagement",
+          "Anniversary",
+          "Hen party",
+          "Bottomless brunch",
+          "Baby shower",
+          "Christening",
+          "Graduation",
+          "Private dining",
+          "Business / networking",
+          "Office party",
+          "Leaving party",
+          "Wake",
+          "Other"
+        ],
+        "thanks": "Thank you — your enquiry is in. Our functions team will be in touch shortly. For anything urgent, call [{phone}]({telHref}).",
+        "title": "Parties & Functions"
+      },
+      "privacy": {
+        "sections": [
+          {
+            "body": "This policy applies to {name}. If you have any questions, contact us at {email} or {phone}.",
+            "heading": "Who we are"
+          },
+          {
+            "body": "When you book a table, make an enquiry, buy a gift voucher or join our mailing list, we collect the details you provide (such as your name, email, phone number and booking preferences). We use these only to provide the service you asked for and, where you’ve agreed, to send you news and offers. You can unsubscribe from marketing at any time.",
+            "heading": "What we collect"
+          },
+          {
+            "body": "Card payments (deposits and gift vouchers) are processed securely by our payment provider. We do not store your full card details on our servers.",
+            "heading": "Payments"
+          },
+          {
+            "body": "We use a small number of cookies to make the site work and to understand how it’s used. You can control cookies through your browser settings.",
+            "heading": "Cookies"
+          },
+          {
+            "body": "You can ask us for a copy of the data we hold about you, ask us to correct it, or ask us to delete it. To do so, contact {email}.",
+            "heading": "Your rights"
+          },
+          {
+            "body": "We do not serve alcohol to anyone under the age of 18, except in the case below. If you want to order alcohol you may be asked to show ID to a member of staff. Accepted ID: driving licences, passports and ID documents for European citizens, as long as they have a clear photo and date of birth. We only accept physical forms of ID — not photos or digital ones.\n\nYoung people aged 16–17 may be served alcohol only if: they have a physical ID document as proof of age; they are accompanied by an adult who orders the drink for them; it is a single drink, limited to a small measure of wine (125ml) or a half pint of beer or cider; they are also ordering a substantial meal; and the drink is brought to the table only once the food is served. Any breach of these rules may result in management asking you to leave.",
+            "heading": "Sale of Alcohol Policy"
+          }
+        ],
+        "subtitle": "{name} · Front Street, Benton, Newcastle Upon Tyne, {postcode}",
+        "title": "Privacy & Cookie Policy"
+      }
+    }
+  }
+]
