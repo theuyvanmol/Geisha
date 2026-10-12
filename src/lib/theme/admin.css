@@ -1,0 +1,450 @@
+/* Admin theme tokens — the editorial back-office palette ("warm paper").
+ *
+ * REDESIGN (S8-4): the admin area now wears the restaurant's own design
+ * language instead of a generic blue-grey SaaS skin. It reads as warm paper —
+ * an off-white, ink-brown, hairline-ruled workspace with a serif display face
+ * for headings and the house accent (Asia gold / Fusion terracotta) used
+ * sparingly for emphasis. Practical-first: dense, fast, legible tables and
+ * forms; the editorial feel comes from type, colour and hairline geometry, not
+ * heavy decoration.
+ *
+ * This file is the SINGLE source of truth for admin colour, type, geometry,
+ * shadow and motion. Pages read these --admin-* custom properties; they must
+ * not hardcode chrome hex. Imported ONCE at the top of
+ * src/routes/admin/+layout.svelte.
+ *
+ * Brand tint: --admin-accent maps from the public --accent per brand. The
+ * shell sets [data-admin-brand] on its root; the per-brand blocks below derive
+ * the accent + a faint wash used for the page field and active states, so the
+ * whole back-office reads in the house colour while surfaces stay paper-light.
+ * With no brand attribute present it falls back to Asia gold.
+ *
+ * Semantic tones (positive | info | warn | danger | neutral) are defined here
+ * ONCE and consumed by StatusPill and every page. They are tuned to sit on the
+ * warm paper ground rather than a cool grey one. */
+
+:root {
+	/* --- surfaces & ink ----------------------------------------------------
+	   A warm paper stack, NOT cool grey. --admin-bg is the page field; the
+	   brand tint mixes its house colour into it per-brand. Surfaces step up
+	   toward the near-white card. Ink is a warm near-black brown so text on
+	   paper reads like print, not a screen. */
+	--admin-bg: #f3ede1; /* page field (warm oat paper; brand-tinted per-brand) */
+	--admin-surface: #fbf6ec; /* cards / panels (light parchment) */
+	--admin-surface-2: #f0e8d8; /* subtle raised / hover fill */
+	--admin-surface-3: #e7dcc6; /* pressed / track / table head */
+	--admin-border: #ddd0b8; /* hairlines / dividers (warm) */
+	--admin-border-strong: #cbb992; /* emphasised dividers */
+	--admin-ink: #221a12; /* primary text (warm ink-brown) */
+	--admin-muted: #6b5d49; /* secondary text */
+	--admin-faint: #9a8a72; /* tertiary / disabled text */
+
+	/* The sidebar is a deep lacquer rail — the one dark surface, echoing the
+	   Asia lacquer ground. Warm espresso-brown, gold-tinted text. */
+	--admin-side-bg: #1c1611;
+	--admin-side-bg-2: #241c14;
+	--admin-side-ink: #e6dcc6;
+	--admin-side-ink-muted: #a99a7e;
+	--admin-side-hover: rgba(212, 160, 76, 0.1);
+	--admin-side-active: rgba(212, 160, 76, 0.18);
+	--admin-side-section: #8a7a5e; /* sidebar group headings */
+	--admin-side-line: rgba(230, 220, 198, 0.12);
+
+	/* --- intent colours (solid, for buttons/icons) ---
+	   Primary is ink-brown (the workhorse button); house accent is reserved
+	   for the single most important action on a view. */
+	--admin-primary: #2c2118; /* primary buttons / strong ink */
+	--admin-primary-ink: #fbf6ec;
+	--admin-primary-hover: #3a2c20;
+	--admin-success: #2f7d52;
+	--admin-warning: #b8722a;
+	--admin-danger: #b23a2b;
+
+	/* --- semantic tones: soft warm bg + readable fg, used by StatusPill +
+	   pages. ONE vocabulary for every status pill, alert banner and tinted
+	   surface — tuned for the paper ground. */
+	--admin-tone-positive-bg: #dceedd;
+	--admin-tone-positive-fg: #1f6638;
+	--admin-tone-info-bg: #dde7ee;
+	--admin-tone-info-fg: #2a5a7a;
+	--admin-tone-warn-bg: #f6e6c4;
+	--admin-tone-warn-fg: #7e5410;
+	--admin-tone-danger-bg: #f4dcd6;
+	--admin-tone-danger-fg: #97342a;
+	--admin-tone-neutral-bg: #ece2cf;
+	--admin-tone-neutral-fg: #50442f;
+
+	/* --- accent: defaults to Asia gold; per-brand overrides below --- */
+	--admin-accent: #c08a2e; /* slightly deepened gold for AA on paper */
+	--admin-accent-strong: #9c6e1c; /* darker accent for text/links */
+	--admin-accent-ink: #221a12; /* readable text ON the accent */
+	--admin-accent-soft: rgba(192, 138, 46, 0.14); /* faint accent wash */
+	--admin-accent-line: rgba(192, 138, 46, 0.32); /* accent hairline */
+	--admin-tint: #f3ede1; /* brand-tinted page field */
+
+	/* --- ResDiary service palette (--rd-*) ---------------------------------
+	   The diary and floor plan are the ONE place the back-office deliberately
+	   stops speaking warm-paper and speaks ResDiary instead: staff read these
+	   screens the way they read ResDiary, at a glance, mid-service, and a
+	   half-remembered colour has to mean the same thing here as it does there.
+	   So statuses, alerts and the grid field come from this set, while the
+	   chrome around them (buttons, active states, service bands, covers counts,
+	   drag affordances) keeps --admin-accent — the house colour stays in view.
+
+	   EXACT values, lifted from ResDiary's own View Management dialog (the
+	   colour-scheme picker's `behaviours-color` swatches, account 21255). These
+	   are quoted, not eyeballed — do not "improve" them, and do not re-derive
+	   them from screenshots of the ResDiary chrome: its buttons and nav run on a
+	   Bootstrap-3 ramp that has NOTHING to do with the status key, and matching
+	   those instead is how every one of these was wrong the first time.
+
+	   The grammar matters as much as the values. ResDiary reuses ONE ramp across
+	   every scheme, and the meanings are positional:
+	     #77d9ff cyan   — "nothing has happened yet": Unarrived, Unconfirmed,
+	                      No payments, Normal, Standard. NOT grey. This is the
+	                      single most-repeated colour in the product.
+	     #88d435 green  — the good/complete end: Arrived, Fully paid, Important.
+	     #ffad00 amber  — acted upon: Confirmed, Waiting in bar.
+	     #ff6682 pink   — the problem end: Late, Outstanding. A PINK red, not the
+	                      alert red — alerts keep their own --rd-danger below.
+	     #d5d5d5 grey   — spent/inert: Left / Finished.
+	   Every fill is light, so every ink here is dark; text clears AA on all of
+	   them. Two states are ours, not ResDiary's — no-show and table-ready — and
+	   borrow unused colours from the same key rather than inventing new ones. */
+	--rd-unarrived: #77d9ff; /* to arrive — and the "nothing set" band everywhere */
+	--rd-unarrived-ink: #05384d;
+	--rd-arrived: #88d435;
+	--rd-arrived-ink: #1b3300;
+	--rd-partial: #ffeb66; /* partially seated */
+	--rd-partial-ink: #453d00;
+	--rd-late: #ff6682;
+	--rd-late-ink: #4d0010;
+	--rd-waiting-bar: #ffad00; /* waiting in the bar */
+	--rd-waiting-bar-ink: #402a00;
+	--rd-table-ready: #81e4b8; /* ours — ResDiary's Concierge mint, unused by us */
+	--rd-table-ready-ink: #04372a;
+	--rd-left: #d5d5d5; /* finished / left */
+	--rd-left-ink: #333333;
+	--rd-no-show: #888888; /* ours — ResDiary's "unconfirmed (attempts made)" grey */
+	--rd-no-show-ink: #1f1f1f;
+
+	/* Channel squares. ResDiary colours the covers square by where the booking
+	   came from; we only split guest-booked from staff-booked, so we take those
+	   two channels' exact swatches and its ResPhone tan for anything unknown. */
+	--rd-online: #ffeb66; /* guest booked it themselves */
+	--rd-online-ink: #453d00;
+	--rd-internal: #93c7fa; /* staff put it in the diary */
+	--rd-internal-ink: #0c2b47;
+	--rd-channel-other: #d7c7a9;
+	--rd-channel-other-ink: #3a3020;
+	/* The "nothing set" band IS the cyan — see the grammar note above. */
+	--rd-neutral: #77d9ff;
+	--rd-neutral-ink: #05384d;
+	--rd-large-party: #f6a804; /* ResDiary's Complete Area amber */
+	--rd-large-party-ink: #402a00;
+
+	/* Intents. One red, one amber, one green, one blue for every alert,
+	   warning chip, destructive button and info wash on a service screen. */
+	--rd-primary: #337ab7;
+	--rd-primary-dark: #2a6496;
+	--rd-primary-soft: #d9edf7;
+	--rd-danger: #d9534f;
+	--rd-danger-dark: #c9302c;
+	--rd-danger-ink: #a12f2b; /* danger used as TEXT on a light ground */
+	--rd-danger-soft: #f7e2e1;
+	--rd-warning: #f0ad4e;
+	--rd-warning-dark: #c77c11;
+	--rd-warning-ink: #8a5a10;
+	--rd-warning-soft: #fcf3e3;
+	--rd-success: #5cb85c;
+	--rd-success-dark: #3d8b3d;
+	--rd-success-ink: #2c6e2c;
+	--rd-success-soft: #e3f1e3;
+
+	/* Grid field. ResDiary's timeline is a crisp near-white sheet with cool
+	   hairlines — that contrast is what makes the bars read. Kept a hair warm
+	   so the grid still belongs to the paper page it sits on. */
+	--rd-grid-bg: #fdfcfa;
+	--rd-grid-alt: #f2f2f0; /* alternating 15-min cell */
+	--rd-grid-line: #dfe1e2;
+	--rd-grid-line-major: #a8b0b6;
+	--rd-grid-head: #eef0f1; /* time / covers / section header bands */
+	--rd-grid-hover: #a8def5; /* time / covers cells under the hovered booking */
+	--rd-grid-label: #f8f8f7; /* sticky table-name column */
+	--rd-grid-ink: #2f353a;
+	--rd-grid-muted: #6b757d;
+	--rd-now: #e04a45; /* live "now" cursor */
+	--rd-blocked: #c6d0da; /* closed / unavailable hatch */
+
+	/* --- radius scale ---
+	   Smaller, more architectural than the old 6/10px. Cards get a crisp 3px;
+	   pills stay round. The editorial look favours near-square geometry with
+	   hairline frames over soft bubbly corners. */
+	--admin-radius-sm: 2px;
+	--admin-radius: 3px;
+	--admin-radius-lg: 5px;
+	--admin-radius-pill: 999px;
+
+	/* --- minimum tap target (floor tablets / touch) --- */
+	--admin-tap: 44px;
+
+	/* --- space scale (4px base) --- */
+	--admin-space-1: 0.25rem;
+	--admin-space-2: 0.5rem;
+	--admin-space-3: 0.75rem;
+	--admin-space-4: 1rem;
+	--admin-space-5: 1.5rem;
+	--admin-space-6: 2rem;
+
+	/* --- shadow scale ---
+	   Soft, warm, low. Editorial UIs lean on hairline borders, not drop
+	   shadows; these stay subtle and tinted toward the ink-brown. */
+	--admin-shadow-sm: 0 1px 2px rgba(34, 26, 18, 0.05);
+	--admin-shadow: 0 2px 10px rgba(34, 26, 18, 0.07);
+	--admin-shadow-lg: 0 14px 40px rgba(34, 26, 18, 0.16);
+
+	/* --- type ---
+	   Body stays Space Grotesk (clean, legible at small sizes for dense data).
+	   Headings get Cormorant Garamond — the public display serif — so the
+	   back-office speaks the same editorial language as the guest site. */
+	--admin-font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--admin-font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+	/* signature editorial easing (mirrors the public --ease-editorial) */
+	--admin-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Per-brand accent + tint. Matches either the public brand wrapper
+   ([data-brand]) used across shared components OR the admin shell's own
+   [data-admin-brand] attribute. The accent tracks the public --accent for that
+   brand; --admin-tint is a barely-there wash of that colour for the page field
+   so the whole back-office reads in the house colour while cards stay paper. */
+[data-brand='asia'],
+[data-admin-brand='asia'] {
+	--admin-accent: #c08a2e; /* Asia gold, deepened for AA on paper */
+	--admin-accent-strong: #9c6e1c;
+	--admin-accent-ink: #221a12;
+	--admin-accent-soft: rgba(192, 138, 46, 0.14);
+	--admin-accent-line: rgba(192, 138, 46, 0.32);
+	--admin-tint: #f4ecdb; /* warm gold-tinted field */
+}
+
+[data-brand='fusion'],
+[data-admin-brand='fusion'] {
+	--admin-accent: #c45a3a; /* Fusion terracotta */
+	--admin-accent-strong: #a84529;
+	--admin-accent-ink: #fbf6ec;
+	--admin-accent-soft: rgba(196, 90, 58, 0.13);
+	--admin-accent-line: rgba(196, 90, 58, 0.3);
+	--admin-tint: #f5e9e1; /* warm terracotta-tinted field */
+	/* Fusion's lacquer rail leans warmer red-brown */
+	--admin-side-bg: #1a120e;
+	--admin-side-bg-2: #221610;
+	--admin-side-ink: #f0e3d4;
+	--admin-side-ink-muted: #b39a86;
+	--admin-side-hover: rgba(196, 90, 58, 0.12);
+	--admin-side-active: rgba(196, 90, 58, 0.2);
+	--admin-side-section: #9a7a66;
+	--admin-side-line: rgba(240, 227, 212, 0.12);
+}
+
+/* ── Admin base layer ───────────────────────────────────────────────────────
+   Scoped to the back-office content area (.admin .content), set up by the shell
+   in +layout.svelte. These element defaults give EVERY admin page the editorial
+   look — serif headings, hairline-ruled tables, paper inputs, refined geometry
+   — without editing each page. Page-level scoped styles still win where they set
+   their own values; this layer just upgrades the unset defaults from the
+   browser/old SaaS look to the warm-paper system. Kept deliberately light so it
+   doesn't fight bespoke page layouts (floor planner, diary grid, etc.). */
+
+.admin .content {
+	font-family: var(--admin-font);
+	color: var(--admin-ink);
+	font-size: 0.92rem;
+	line-height: 1.5;
+}
+
+/* Editorial serif headings. Cormorant runs large, so the sizes are pulled in a
+   touch vs. a sans equivalent; letter-spacing tightened for the display face. */
+.admin .content h1 {
+	font-family: var(--admin-font-display);
+	font-weight: 600;
+	font-size: 2.1rem;
+	line-height: 1.08;
+	letter-spacing: 0.005em;
+	color: var(--admin-ink);
+	margin: 0 0 0.4rem;
+}
+.admin .content h2 {
+	font-family: var(--admin-font-display);
+	font-weight: 600;
+	font-size: 1.5rem;
+	line-height: 1.15;
+	color: var(--admin-ink);
+	margin: 1.8rem 0 0.7rem;
+}
+.admin .content h3 {
+	font-family: var(--admin-font);
+	font-weight: 600;
+	font-size: 0.78rem;
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	color: var(--admin-muted);
+	margin: 1.4rem 0 0.6rem;
+}
+
+/* Links default to the deepened accent so they read as branded actions. */
+.admin .content a {
+	color: var(--admin-accent-strong);
+	text-decoration-color: var(--admin-accent-line);
+	text-underline-offset: 2px;
+}
+.admin .content a:hover {
+	color: var(--admin-ink);
+}
+
+/* Tables: hairline-ruled "ledger" look. Header row sits on a warm fill with
+   small-caps labels; body rows separated by faint warm hairlines; the whole
+   table framed and clipped to the card radius. */
+.admin .content table {
+	width: 100%;
+	border-collapse: collapse;
+	background: var(--admin-surface);
+	border: 1px solid var(--admin-border);
+	border-radius: var(--admin-radius-lg);
+	overflow: hidden;
+}
+.admin .content th,
+.admin .content td {
+	text-align: left;
+	padding: 0.62rem 0.9rem;
+	font-size: 0.86rem;
+	border-bottom: 1px solid var(--admin-border);
+}
+.admin .content tbody tr:last-child td {
+	border-bottom: 0;
+}
+.admin .content tbody tr:hover td {
+	background: var(--admin-surface-2);
+}
+.admin .content thead th {
+	background: var(--admin-surface-3);
+	font-size: 0.68rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--admin-muted);
+	border-bottom: 1px solid var(--admin-border-strong);
+}
+
+/* Form controls: paper inputs with hairline borders, crisp geometry, accent
+   focus ring. Covers the common text-like inputs + selects + textareas. */
+.admin
+	.content
+	input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']),
+.admin .content select,
+.admin .content textarea {
+	box-sizing: border-box;
+	width: 100%;
+	min-width: 0;
+	font: inherit;
+	font-size: 0.88rem;
+	color: var(--admin-ink);
+	background: var(--admin-surface);
+	border: 1px solid var(--admin-border);
+	border-radius: var(--admin-radius);
+	padding: 0.5rem 0.65rem;
+	transition:
+		border-color 0.16s var(--admin-ease),
+		box-shadow 0.16s var(--admin-ease);
+}
+.admin
+	.content
+	input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):focus,
+.admin .content select:focus,
+.admin .content textarea:focus {
+	outline: none;
+	border-color: var(--admin-accent);
+	box-shadow: 0 0 0 3px var(--admin-accent-soft);
+}
+.admin .content input::placeholder,
+.admin .content textarea::placeholder {
+	color: var(--admin-faint);
+}
+
+/* THE 16px RULE — every admin form field, on a phone.
+   iOS Safari zooms the whole viewport whenever a field smaller than 16px takes
+   focus, and it does not zoom back out afterwards. The base size above is
+   0.88rem (14.08px), so on an iPhone every single admin form threw the page to
+   an arbitrary zoom and pan on the first tap — worst of all on the Diary, where
+   it dumped a host who was taking a booking somewhere else on the board.
+
+   It has to live HERE rather than in the pages. The selector above scores
+   (0,6,1) — the four :not([type=…]) clauses each count as an attribute
+   selector — so a page's own `.wk-fld input` (0,2,1) silently loses to it, which
+   is exactly how the per-page attempts at this failed. Matching that selector
+   shape in the same stylesheet, later, wins on source order with no !important
+   and no specificity arms race. It is also the correct home: this is a property
+   of admin form fields, not of any one page. */
+@media (max-width: 1024px), (max-height: 500px) and (max-width: 1280px) {
+	.admin
+		.content
+		input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']),
+	.admin .content select,
+	.admin .content textarea {
+		font-size: 16px;
+	}
+}
+
+/* Generic button baseline — only for buttons that DON'T set their own
+   background (so bespoke page buttons are untouched). The ink-brown primary is
+   the workhorse; pages opt a button into the accent themselves. */
+.admin .content button:not([class]) {
+	font: inherit;
+	font-size: 0.85rem;
+	font-weight: 500;
+	color: var(--admin-primary-ink);
+	background: var(--admin-primary);
+	border: 1px solid transparent;
+	border-radius: var(--admin-radius);
+	padding: 0.5rem 0.95rem;
+	cursor: pointer;
+	transition: background 0.16s var(--admin-ease);
+}
+.admin .content button:not([class]):hover {
+	background: var(--admin-primary-hover);
+}
+
+/* code/kbd inline tone on paper */
+.admin .content :not(pre) > code {
+	font-size: 0.85em;
+	background: var(--admin-surface-2);
+	border: 1px solid var(--admin-border);
+	border-radius: var(--admin-radius-sm);
+	padding: 0.05em 0.35em;
+}
+
+/* hr as a warm hairline */
+.admin .content hr {
+	border: 0;
+	border-top: 1px solid var(--admin-border);
+	margin: 1.5rem 0;
+}
+
+/* The content area's own scrollbar in the house accent (thin, warm). */
+.admin .content {
+	scrollbar-width: thin;
+	scrollbar-color: var(--admin-border-strong) transparent;
+}
+.admin .content::-webkit-scrollbar {
+	width: 11px;
+	height: 11px;
+}
+.admin .content::-webkit-scrollbar-thumb {
+	background: var(--admin-border-strong);
+	border-radius: 999px;
+	border: 3px solid var(--admin-tint);
+}
+.admin .content::-webkit-scrollbar-thumb:hover {
+	background: var(--admin-accent);
+}

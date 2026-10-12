@@ -1,0 +1,208 @@
+/* Brand theme tokens. Shared components read these custom properties; each
+   brand sets them via a [data-brand="asia|fusion"] wrapper. This is how one
+   component renders Asia-dark or Fusion-bright automatically. Layout/section
+   choices stay per-brand in the route files — only the palette/type swap here. */
+
+:root {
+	--font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+	--font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	/* Display face for large editorial headings. Asia keeps the serif default;
+	   Fusion overrides this to Libre Baskerville below. */
+	--font-display: var(--font-serif);
+	/* Running/body face. Asia sets its prose in Cormorant, Fusion in Space
+	   Grotesk — so shared panels must read THIS, never --font-serif directly.
+	   Reaching for --font-serif is what put Cormorant Garamond (Asia's face) on
+	   half the Fusion site: /fusion/parties, /gift-cards, /contact, /order,
+	   /privacy, /circle and /offers all inherited it from their panel root.
+	   Rule of thumb for shared components:
+	     heading  → var(--font-display)
+	     prose/UI → var(--font-body)
+	   Both are no-ops on Asia (where display == serif == body) and correct on
+	   Fusion. */
+	--font-body: var(--font-serif);
+
+	/* Default editorial easing + framing tokens (Fusion leans on these; Asia
+	   simply doesn't reference them). */
+	--ease-editorial: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+	/* Uber Eats brand green (official badge colour) */
+	--uber-green: #06c167;
+	--uber-ink: #000000;
+}
+
+/* Asia now runs the 2026 redesign palette (see the design template): near-black
+   ink grounds, ivory prose, antique gold as the accent and sakura pink as the
+   action colour. Set HERE rather than per-section on purpose — the home page's
+   redesigned bands declare the same values locally, but every shared component
+   (reviews, gallery, Instagram wall, marquee, footer) and all twelve inner Asia
+   pages inherit the new look from these tokens alone. Fusion is untouched. */
+[data-brand='asia'] {
+	/* Shippori Mincho for display, Jost for prose — the template's pairing. The
+	   webfonts are linked once in asia/+layout.svelte, so every Asia route has
+	   them; the fallbacks matter only for the first paint. */
+	--font-display: 'Shippori Mincho', Georgia, 'Times New Roman', serif;
+	--font-body: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--bg: #08080b;
+	--bg-2: #131316;
+	--ink: #f5f1e8;
+	/* Jost is a lighter face than Cormorant, so the two soft tiers are pitched a
+	   touch brighter than a straight port of #a3a0a0 would give — the template's
+	   muted grey on its own drops body copy under WCAG AA on this ground. */
+	--ink-soft: rgba(245, 241, 232, 0.76);
+	--ink-faint: rgba(245, 241, 232, 0.62);
+	--accent: #d4af37;
+	--accent-2: #ef3c5c;
+	--line: rgba(255, 255, 255, 0.12);
+	--card: #131316;
+	--page-bg: linear-gradient(to bottom, #08080b 0%, #101014 55%, #08080b 100%);
+}
+
+/* Fusion now runs the SAME 2026 redesign structure as Asia — same hero, story,
+   specials, menu, reserve and info bands — in its own palette. The two brands
+   share a design language and differ only here: Asia is a neutral near-black under
+   antique gold, Fusion a deep GREEN-black under ember orange.
+   Sakura pink is deliberately NOT overridden. It's the sitewide action colour
+   (buttons, the scroll pip, the hero's emphasis word) and keeping it shared is
+   what makes the two restaurants read as one family rather than two websites. */
+[data-brand='fusion'] {
+	/* Tell the browser this is a dark surface, so native controls (the booking
+	   dial's date/time inputs, select dropdowns, autofill) render dark too. */
+	color-scheme: dark;
+	/* ===== EMBER ON GREEN (2026 pass) =====
+	   The ACCENT moved, the grounds did NOT. The gold was a muted #c98a4b; it's now
+	   an ember orange, so the brand carries the firelight in the hero artwork.
+
+	   The green-black grounds stay exactly as they were, and that is the point: an
+	   earlier attempt at this took them to a warm near-black at the same time, which
+	   pulled the green out of the site altogether. Fusion is a GREEN ground with an
+	   ORANGE hue over it — both, not one instead of the other. The green is also
+	   what separates this brand from Asia's neutral #08080b, so neutralising these
+	   greys collapses the two houses into one palette.
+
+	   The tiers sit deliberately LOW. Every section here carries a warm ambient wash,
+	   and a glow laid over a lighter panel lifts it well past where the design
+	   reference reads — an earlier pass ran these much higher and the surfaces went
+	   milky. Keep the panels dark and let the wash do the lifting. */
+	--bg: #0a0d0b;
+	--bg-2: #101a15;
+	--ink: #f2ece0;
+	--ink-soft: rgba(242, 236, 224, 0.78);
+	--ink-faint: rgba(242, 236, 224, 0.62);
+	--accent: #dd8236;
+	/* ===== THE ACTION COLOUR IS NOT PINK ON FUSION =====
+	   Asia keeps sakura (#ef3c5c) — see its block above, which is untouched. Fusion
+	   takes the SPRAY-PAINT TRIAD out of its own hero mural instead: red splashes,
+	   cobalt hair, a yellow streak. Sampled from the artwork (fusion-hero-1600.webp
+	   gives red #c71b13, blue #194c83, yellow #cc8808) and each raised in lightness,
+	   because the values as painted are too dark to carry text or a button edge on
+	   this ground.
+	   Red takes --accent-2 because that slot IS the action colour — every shared
+	   component (StickyCTA, SiteFooter, ReviewsPanel, HomeSections) reads it for
+	   buttons, so red lands everywhere the pink used to without touching one of
+	   them. Blue and yellow are additions, for emphasis text and small marks. */
+	--accent-2: #d92e22;
+	--accent-3: #2f78d0;
+	--accent-4: #e9b21f;
+	/* The hairline is accent-tinted rather than plain white — on a green-black ground a
+	   neutral rule reads cold and slightly blue. */
+	--line: rgba(221, 130, 54, 0.2);
+	--card: #101a15;
+	--page-bg: linear-gradient(to bottom, #0a0d0b 0%, #101a15 55%, #0a0d0b 100%);
+	/* SAME type pair as Asia — Shippori Mincho over Jost. That's what the design
+	   template does: its `body.fusion, #view-fusion` block overrides the colour
+	   tokens and NOTHING else, so both houses set their type identically and the
+	   palette alone tells them apart. Fusion ran Libre Baskerville + Space Grotesk
+	   under the old Gucci-Osteria design; keeping that would have left the type
+	   contradicting the rest of the redesign. */
+	--font-display: 'Shippori Mincho', Georgia, 'Times New Roman', serif;
+	--font-body: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	/* The <FrameGrid> ledger rules are gone from the Fusion pages, but these two
+	   tokens are NOT dead: ReviewsPanel, SiteFooter, StickyCTA, HomeSections and
+	   the booking dial all draw their hairlines from --frame-line. Dropping it
+	   silently fell those back to their hardcoded midnight-era defaults. */
+	--frame-line: rgba(221, 130, 54, 0.2);
+	--frame-inset: clamp(16px, 6vw, 90px);
+}
+
+/* Both wordmark PNGs (/geisha-asia-wordmark.png, /geisha-fusion-wordmark.png)
+   are white marks trimmed to transparent, so neither needs a knock-out filter —
+   see BrandTopNav. */
+
+/* Shared interior-page shell — reads the brand's --page-bg. Routes just add
+   data-brand + class="brand-page". */
+.brand-page {
+	min-height: 100vh;
+	background: var(--page-bg);
+	color: var(--ink);
+}
+
+/* ── Fusion custom scrollbar ───────────────────────────────────────────────
+   Ember thumb (--accent: #dd8236) on the green-black ground
+   (--bg: #0a0d0b). Scoped to [data-route-brand='fusion'], which the root
+   layout sets on <html> only on /fusion routes — so this styles the real
+   viewport scrollbar while leaving Asia's default (and the rest of the app)
+   completely alone. Standard `scrollbar-*` for Firefox, the `::-webkit-*`
+   pseudo-elements for Chrome/Safari/Edge. */
+html[data-route-brand='fusion'] {
+	scrollbar-width: thin;
+	scrollbar-color: #dd8236 #0c1410;
+}
+html[data-route-brand='fusion'] ::-webkit-scrollbar,
+html[data-route-brand='fusion']::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+}
+html[data-route-brand='fusion'] ::-webkit-scrollbar-track,
+html[data-route-brand='fusion']::-webkit-scrollbar-track {
+	background: #0c1410;
+}
+html[data-route-brand='fusion'] ::-webkit-scrollbar-thumb,
+html[data-route-brand='fusion']::-webkit-scrollbar-thumb {
+	background: #dd8236;
+	border-radius: 999px;
+	/* Ground-coloured border insets the thumb so it reads as a slim gold
+	   pill floating on the track rather than filling the gutter edge-to-edge. */
+	border: 3px solid #0c1410;
+}
+html[data-route-brand='fusion'] ::-webkit-scrollbar-thumb:hover,
+html[data-route-brand='fusion']::-webkit-scrollbar-thumb:hover {
+	background: #f79a4a;
+}
+html[data-route-brand='fusion'] ::-webkit-scrollbar-corner,
+html[data-route-brand='fusion']::-webkit-scrollbar-corner {
+	background: #0c1410;
+}
+
+/* ── Asia custom scrollbar ─────────────────────────────────────────────────
+   Gold thumb (--accent: #d4a04c) on Asia's dark lacquer background
+   (--bg: #0e0c0a). Same scoping mechanism as Fusion: the root layout sets
+   data-route-brand='asia' on <html> only on /asia routes, so this reaches the
+   real viewport scrollbar while leaving Fusion and the rest of the app alone. */
+html[data-route-brand='asia'] {
+	scrollbar-width: thin;
+	scrollbar-color: #d4a04c #0e0c0a;
+}
+html[data-route-brand='asia'] ::-webkit-scrollbar,
+html[data-route-brand='asia']::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+}
+html[data-route-brand='asia'] ::-webkit-scrollbar-track,
+html[data-route-brand='asia']::-webkit-scrollbar-track {
+	background: #0e0c0a;
+}
+html[data-route-brand='asia'] ::-webkit-scrollbar-thumb,
+html[data-route-brand='asia']::-webkit-scrollbar-thumb {
+	background: #d4a04c;
+	border-radius: 999px;
+	/* Dark-bg border insets the thumb into a slim gold pill in the gutter. */
+	border: 3px solid #0e0c0a;
+}
+html[data-route-brand='asia'] ::-webkit-scrollbar-thumb:hover,
+html[data-route-brand='asia']::-webkit-scrollbar-thumb:hover {
+	background: #b8722a;
+}
+html[data-route-brand='asia'] ::-webkit-scrollbar-corner,
+html[data-route-brand='asia']::-webkit-scrollbar-corner {
+	background: #0e0c0a;
+}
