@@ -207,7 +207,6 @@
 
 	// Hero artwork + feature stills — editable from admin → Content → Media (with the
 	// original assets as fallback). Full-bleed bands break up the page.
-	const heroImage = $derived(data.media.heroImage);
 	const blossomImage = $derived(data.media.blossomImage);
 
 	// Resolve each slot to its optimized AVIF/WebP ladder. A CMS-uploaded URL that
@@ -224,7 +223,15 @@
 	// screen 1170 device px across; at 85vw it takes the 1024px one — under half
 	// the bytes, and not a difference the eye finds. 2x phones are unaffected.
 	const PHONE_CAP = '(max-width: 760px) 85vw';
-	const hero = $derived(imgAttrs(heroImage, '(orientation: portrait) 190vh, 100vw'));
+	// The hero is the warm-lit dining room under the pink blossom (owner, Oct 2026),
+	// shipped with the site rather than read from the CMS slot.
+	const hero = {
+		src: '/images/hero/fusion-blossom-1672.webp',
+		srcset: '/images/hero/fusion-blossom-960.webp 960w, /images/hero/fusion-blossom-1672.webp 1672w',
+		sizes: '(orientation: portrait) 190vh, 100vw',
+		width: 1672,
+		height: 941
+	};
 	const blossom = $derived(imgAttrs(blossomImage, `${PHONE_CAP}, 100vw`));
 
 	// Shared pool for the specials slider: an offer with no artwork of its own
@@ -242,8 +249,21 @@
 	// One slide per live offer (the same list the What's On page and the admin
 	// Offers editor use). An offer with no image of its own borrows from the
 	// gallery so a slide is never a bare gradient.
+	// Poster artwork for offers whose saved copy has no picture of its own (the
+	// live content can predate the artwork) — matched by offer id or title.
+	const POSTERS: Record<string, string> = {
+		special: '/images/specials/fusion-special-menu.webp',
+		'special menu': '/images/specials/fusion-special-menu.webp',
+		brunch: '/images/specials/fusion-bottomless-brunch.webp',
+		'bottomless brunch': '/images/specials/fusion-bottomless-brunch.webp'
+	};
+	const withPoster = (o: (typeof data.offers)[number]) => {
+		if (o.img) return o;
+		const art = POSTERS[o.id] ?? POSTERS[(o.title ?? '').toLowerCase()];
+		return art ? { ...o, img: art, imgFit: 'poster' as const } : o;
+	};
 	const specials = $derived(
-		data.offers.map((o, i) => ({
+		data.offers.map(withPoster).map((o, i) => ({
 			...o,
 			image: o.img || foodPool[i % Math.max(foodPool.length, 1)]?.src || '',
 			// Only real artwork can be a poster — a borrowed gallery photo carries no
@@ -257,10 +277,15 @@
 	let specialIndex = $state(0);
 	let specialsPaused = $state(false);
 
+	// The slide being covered — it stays visible under the incoming wipe.
+	let prevSpecial = $state(-1);
 	function goSpecial(i: number) {
 		const n = specials.length;
 		if (!n) return;
-		specialIndex = ((i % n) + n) % n;
+		const next = ((i % n) + n) % n;
+		if (next === specialIndex) return;
+		prevSpecial = specialIndex;
+		specialIndex = next;
 	}
 
 	// Is the banner on screen? It sits four screens down a phone page, and the
@@ -284,8 +309,11 @@
 	$effect(() => {
 		if (specialsPaused || !specialsOnScreen || specials.length < 2) return;
 		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-		const id = setInterval(() => goSpecial(specialIndex + 1), 7000);
-		return () => clearInterval(id);
+		// Restarts on every change, so a manual click gets a full 7s (and the
+		// tab's progress bar, which runs on the same 7s, stays in step).
+		const at = specialIndex;
+		const id = setTimeout(() => goSpecial(at + 1), 7000);
+		return () => clearTimeout(id);
 	});
 </script>
 
@@ -456,6 +484,8 @@
 		<section class="specials" id="specials" aria-label="What's on at Geisha Fusion">
 			<div
 				class="specials-slider"
+				class:paused={specialsPaused}
+				data-reveal="frame"
 				bind:this={specialsEl}
 				onmouseenter={() => (specialsPaused = true)}
 				onmouseleave={() => (specialsPaused = false)}
@@ -467,6 +497,7 @@
 					<div
 						class="special-slide"
 						class:active={i === specialIndex}
+						class:prev={i === prevSpecial && i !== specialIndex}
 						class:poster={s.poster}
 						class:borrowed={s.borrowed}
 						aria-hidden={i !== specialIndex}
@@ -513,6 +544,11 @@
 						</div>
 					</div>
 				{/each}
+
+				<div class="specials-count" aria-hidden="true">
+					{#key specialIndex}<span class="now">{String(specialIndex + 1).padStart(2, '0')}</span>{/key}
+					<span class="of">/ {String(specials.length).padStart(2, '0')}</span>
+				</div>
 
 				<div class="specials-tabs">
 					{#each specials as s, i}
@@ -891,7 +927,7 @@
 		   the FACE — a centred crop shaved ~124px off each side at 1440 and cut into
 		   her hair. What gets trimmed instead is the far-right lantern, which the
 		   headline sits over anyway. */
-		object-position: 18% 34%;
+		object-position: 30% 45%;
 		display: block;
 	}
 	/* A RIGHT→LEFT wash, deepening only across the half the copy sits in. The right
@@ -900,6 +936,29 @@
 	   carry type over the face and buried the picture doing it. The face side is
 	   left completely untouched.
 	   The small top fade is only there to seat the nav, not to dim the image. */
+	/* The blossom photograph is far brighter than the painting this wash was tuned
+	   for (lit lanterns sit right under the headline), so a second right-hand wash
+	   seats the copy. Wide screens only: on a phone the copy sits at the foot,
+	   under the bottom wash. */
+	.hero-bg::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		pointer-events: none;
+		background: linear-gradient(
+			270deg,
+			rgba(10, 13, 11, 0.86) 0%,
+			rgba(10, 13, 11, 0.7) 30%,
+			rgba(10, 13, 11, 0.25) 55%,
+			transparent 72%
+		);
+	}
+	@media (max-width: 760px) {
+		.hero-bg::after {
+			background: linear-gradient(0deg, rgba(10, 13, 11, 0.5) 0%, transparent 60%);
+		}
+	}
 	.hero-bg::before {
 		content: '';
 		position: absolute;
@@ -1369,7 +1428,7 @@
 		   `transform` — the entry push-in owns that — and on the padding's clock, so
 		   the face and the copy settle together when the notice goes. */
 		.hero-bg img {
-			object-position: 22% 30%;
+			object-position: 30% 40%;
 			translate: 0 calc((var(--cb-lift) + var(--face-lift)) * -1);
 			transition:
 				transform 1.2s cubic-bezier(0.22, 0.9, 0.3, 1),
@@ -1501,23 +1560,106 @@
 			0 60px 120px -50px rgba(0, 0, 0, 0.9),
 			0 0 0 1px rgba(221, 130, 54, 0.2);
 	}
+	/* SLIDE CHANGE — the incoming slide wipes across the outgoing one from the
+	   right (a curtain, not a fade), its artwork settling out of a push-in, while
+	   the slide underneath sinks back and dims. The picture always comes to rest
+	   whole, at scale 1. */
 	.special-slide {
 		position: absolute;
 		inset: 0;
 		display: flex;
 		align-items: flex-end;
-		opacity: 0;
 		visibility: hidden;
-		/* visibility waits out the fade so slides crossfade instead of dipping. */
-		transition:
-			opacity 1.1s var(--ease),
-			visibility 0s linear 1.1s;
+		z-index: 0;
+		clip-path: inset(0 0 0 100%);
 	}
-	.special-slide.active {
-		opacity: 1;
+	.special-slide.prev {
 		visibility: visible;
 		z-index: 1;
-		transition-delay: 0s;
+		clip-path: inset(0);
+	}
+	.special-slide.prev .slide-bg {
+		transform: scale(0.92);
+		filter: brightness(0.45);
+		transition:
+			transform 1.3s cubic-bezier(0.77, 0, 0.18, 1),
+			filter 1.3s ease;
+	}
+	.special-slide.active {
+		visibility: visible;
+		z-index: 2;
+		clip-path: inset(0);
+		transition: clip-path 1.25s cubic-bezier(0.77, 0, 0.18, 1);
+	}
+	.special-slide.active .slide-bg .sharp {
+		animation: spec-settle 1.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+	}
+	@keyframes spec-settle {
+		from {
+			scale: 1.18;
+		}
+		to {
+			scale: 1;
+		}
+	}
+	/* the button (and a photo slide's copy) rises in once the wipe has passed */
+	.special-slide.active .special-copy-inner > :global(*) {
+		animation: spec-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+		animation-delay: 0.75s;
+	}
+	.special-slide.active .special-copy-inner > :global(*:nth-child(2)) {
+		animation-delay: 0.85s;
+	}
+	.special-slide.active .special-copy-inner > :global(*:nth-child(3)) {
+		animation-delay: 0.95s;
+	}
+	.special-slide.active .special-copy-inner > :global(*:nth-child(4)) {
+		animation-delay: 1.05s;
+	}
+	@keyframes spec-rise {
+		from {
+			opacity: 0;
+			transform: translateY(26px);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+	/* slide counter, top-right */
+	.specials-count {
+		position: absolute;
+		z-index: 3;
+		top: 26px;
+		right: 32px;
+		display: flex;
+		align-items: baseline;
+		gap: 8px;
+		font-family: var(--display);
+		color: var(--ivory);
+		text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+		overflow: hidden;
+	}
+	.specials-count .now {
+		display: inline-block;
+		font-size: 1.6rem;
+		animation: spec-count 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+	}
+	.specials-count .of {
+		font-family: var(--body-f);
+		font-size: 0.72rem;
+		letter-spacing: 0.2em;
+		color: rgba(242, 236, 224, 0.7);
+	}
+	@keyframes spec-count {
+		from {
+			transform: translateY(100%);
+			opacity: 0;
+		}
+		to {
+			transform: none;
+			opacity: 1;
+		}
 	}
 	.special-slide .slide-bg {
 		position: absolute;
@@ -1534,12 +1676,6 @@
 	.special-slide .slide-bg .sharp {
 		object-fit: contain;
 		object-position: center;
-		/* a gentle settle as each slide arrives — scale only, never past 1 */
-		transform: scale(0.97);
-		transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-	}
-	.special-slide.active .slide-bg .sharp {
-		transform: scale(1);
 	}
 	.special-slide .slide-bg .poster-fill {
 		object-fit: cover;
@@ -1621,8 +1757,33 @@
 		cursor: pointer;
 		transition: background 0.3s;
 	}
-	.specials-tabs button.active {
+	/* each tab is a 7s progress bar for its slide */
+	.specials-tabs button {
+		position: relative;
+		overflow: hidden;
+	}
+	.specials-tabs button::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 50%;
+		width: 100%;
+		height: 3px;
+		margin-top: -1.5px;
 		background: var(--gold);
+		transform-origin: left;
+		transform: scaleX(0);
+	}
+	.specials-tabs button.active::after {
+		animation: spec-progress 7s linear forwards;
+	}
+	.specials-slider.paused .specials-tabs button.active::after {
+		animation-play-state: paused;
+	}
+	@keyframes spec-progress {
+		to {
+			transform: scaleX(1);
+		}
 	}
 	.specials-nav {
 		position: absolute;
@@ -2272,6 +2433,19 @@
 	}
 
 
+	/* frame — the What's On banner opens out of an inset, rising into place */
+	.page :global([data-reveal='frame']) {
+		clip-path: inset(9% 7% round 22px);
+		transform: translateY(50px) scale(0.97);
+		transition:
+			clip-path 1.5s cubic-bezier(0.77, 0, 0.18, 1),
+			transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.page :global([data-reveal='frame'][data-in]) {
+		clip-path: inset(0 round 22px);
+		transform: none;
+	}
+
 	/* QUICKER ON A PHONE. A flick lands a section on screen all at once, and at
 	   the desktop timings the last staggered line (the story's tag, the menu's
 	   PDF links) was not 95% there until 650–710ms and still moving at 900 — a
@@ -2348,6 +2522,21 @@
 			opacity: 1 !important;
 			transform: none !important;
 			transition: none !important;
+		}
+		.page :global([data-reveal='frame']) {
+			clip-path: none !important;
+		}
+		.special-slide,
+		.special-slide .slide-bg,
+		.special-slide .slide-bg .sharp,
+		.special-slide .special-copy-inner > :global(*),
+		.specials-count .now {
+			transition: none !important;
+			animation: none !important;
+		}
+		.specials-tabs button.active::after {
+			animation: none;
+			transform: scaleX(1);
 		}
 		.page :global([data-reveal] .wi) {
 			transform: none !important;

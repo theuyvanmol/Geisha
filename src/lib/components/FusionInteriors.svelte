@@ -2,8 +2,8 @@
 	// THE ROOM — Geisha Fusion's interiors, on the home page.
 	//
 	// Three columns: the copy on the left, the Interiors film standing tall in the
-	// middle, and on the right a still gallery of the room — a four-picture mosaic
-	// (one of them a short looping clip). As the section arrives the film opens out
+	// middle, and on the right a still gallery of the room — a full mosaic of
+	// photos and two short looping clips, filling the column top to bottom. As the section arrives the film opens out
 	// of a slit, the caption rises word by word and the gallery tiles fade up one
 	// after another. The gallery itself never scrolls or drifts (owner feedback).
 	// Phone: copy, then the film, then the mosaic.
@@ -21,13 +21,15 @@
 	type Tile = { kind: 'img' | 'clip'; src: string; poster?: string; alt: string };
 	const IMG = '/images/interiors';
 	const CLIP = '/videos/interiors';
-	const COL_A: Tile[] = [
+	// Order = mosaic slots t1..t6 (see .wall in the styles). t6 shows only when
+	// the gallery is three columns wide.
+	const TILES: Tile[] = [
 		{ kind: 'img', src: `${IMG}/mural-canopy.webp`, alt: 'Blossom canopy over the booths, beside the face mural' },
-		{ kind: 'clip', src: `${CLIP}/clip-2.mp4`, poster: `${CLIP}/clip-2.webp`, alt: '' }
-	];
-	const COL_B: Tile[] = [
+		{ kind: 'clip', src: `${CLIP}/clip-2.mp4`, poster: `${CLIP}/clip-2.webp`, alt: '' },
 		{ kind: 'img', src: `${IMG}/lantern-hall.webp`, alt: 'Painted paper lanterns over the dining room' },
-		{ kind: 'img', src: `${IMG}/dining-room.webp`, alt: 'Lantern-lit dining room with blossom trees' }
+		{ kind: 'img', src: `${IMG}/dining-room.webp`, alt: 'Lantern-lit dining room with blossom trees' },
+		{ kind: 'img', src: `${IMG}/blossom-interior.webp`, alt: 'Blossom trees and lanterns in the restaurant' },
+		{ kind: 'clip', src: `${CLIP}/clip-1.mp4`, poster: `${CLIP}/clip-1.webp`, alt: '' }
 	];
 
 	const FEATURES = ['Lantern-lit ceilings', 'Blossom canopy', 'Street-art murals'];
@@ -110,12 +112,9 @@
 		</figure>
 
 		<div class="wall">
-			<div class="col a">
-				{#each COL_A as t, i}<div class="cell" style="--d:{0.35 + i * 0.15}s">{@render tile(t)}</div>{/each}
-			</div>
-			<div class="col b">
-				{#each COL_B as t, i}<div class="cell" style="--d:{0.5 + i * 0.15}s">{@render tile(t)}</div>{/each}
-			</div>
+			{#each TILES as t, i}
+				<div class="cell t{i + 1}" style="--d:{0.3 + i * 0.1}s">{@render tile(t)}</div>
+			{/each}
 		</div>
 	</div>
 </section>
@@ -157,11 +156,11 @@
 	.grid {
 		position: relative;
 		z-index: 1;
-		max-width: 1400px;
+		max-width: 1680px;
 		margin: 0 auto;
 		padding: 0 32px;
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+		grid-template-columns: minmax(320px, 0.8fr) auto minmax(0, 1.3fr);
 		gap: clamp(28px, 3.6vw, 56px);
 		align-items: center;
 	}
@@ -359,23 +358,56 @@
 		}
 	}
 
-	/* ---- the gallery: a still mosaic, tiles fade up on arrival ---- */
+	/* ---- the gallery: a still mosaic that fills its column top to bottom.
+	   Two columns by default; three on wide screens. Tiles fade up on arrival. */
 	.wall {
 		height: var(--h);
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 14px;
+		grid-template-rows: repeat(6, minmax(0, 1fr));
+		gap: 12px;
 	}
-	.col {
-		display: grid;
-		gap: 14px;
-		min-height: 0;
+	.t1 {
+		grid-area: 1 / 1 / 4 / 2;
 	}
-	.col.a {
-		grid-template-rows: 1.35fr 1fr;
+	.t2 {
+		grid-area: 1 / 2 / 3 / 3;
 	}
-	.col.b {
-		grid-template-rows: 1fr 1.35fr;
+	.t3 {
+		grid-area: 3 / 2 / 5 / 3;
+	}
+	.t4 {
+		grid-area: 4 / 1 / 7 / 2;
+	}
+	.t5 {
+		grid-area: 5 / 2 / 7 / 3;
+	}
+	.t6 {
+		display: none;
+	}
+	@media (min-width: 1400px) {
+		.wall {
+			grid-template-columns: 1.1fr 1fr 1fr;
+		}
+		.t1 {
+			grid-area: 1 / 1 / 7 / 2;
+		}
+		.t2 {
+			grid-area: 1 / 2 / 4 / 3;
+		}
+		.t3 {
+			grid-area: 1 / 3 / 3 / 4;
+		}
+		.t4 {
+			grid-area: 4 / 2 / 7 / 3;
+		}
+		.t5 {
+			grid-area: 3 / 3 / 5 / 4;
+		}
+		.t6 {
+			display: block;
+			grid-area: 5 / 3 / 7 / 4;
+		}
 	}
 	.cell {
 		min-height: 0;
@@ -439,7 +471,8 @@
 			aspect-ratio: 4 / 5;
 		}
 		.wall {
-			height: 128vw;
+			height: 150vw;
+			gap: 10px;
 		}
 	}
 

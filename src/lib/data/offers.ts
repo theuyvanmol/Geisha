@@ -120,7 +120,10 @@ export const OFFERS: Record<BrandId, Offer[]> = {
 			blurb: 'Two courses from our seasonal special selection.',
 			when: 'Limited time',
 			price: '£17.95',
-			href: '/fusion/menus/special'
+			href: '/fusion/menus/special',
+			img: '/images/specials/fusion-special-menu.webp',
+			imgFit: 'poster',
+			cta: 'View Special Menu'
 		},
 		// NB: Fusion has NO lunch special — a "Lunch Special, Mon–Fri 12–5:30pm"
 		// offer used to sit here and was advertising something the kitchen doesn't
@@ -132,7 +135,10 @@ export const OFFERS: Record<BrandId, Offer[]> = {
 			blurb: '90 minutes of free-flowing drinks with three dishes each.',
 			when: 'Mon–Thu all day / Fri & Sat 12–5:30pm',
 			price: '£35pp',
-			href: '/fusion/menus/bottomless-brunch'
+			href: '/fusion/menus/bottomless-brunch',
+			img: '/images/specials/fusion-bottomless-brunch.webp',
+			imgFit: 'poster',
+			cta: 'View Brunch Menu'
 		}
 	]
 };
