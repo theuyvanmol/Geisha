@@ -25,8 +25,10 @@
     },
     fusion: {
       eyebrow: 'Global Flavours · Family Table',
-      title: 'One kitchen,',
-      accent: 'every craving',
+      // Was 'One kitchen, every craving' — the story section above already
+      // carries that line, so the page showed the same headline twice.
+      title: 'Plan your',
+      accent: 'next visit',
       lede: 'Burgers, curry, stone-baked pizza and a proper Sunday roast, open seven days on Front Street, Benton.'
     }
   };

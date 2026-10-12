@@ -27,7 +27,11 @@ import videoManifest from '$lib/data/video-manifest.json';
  * paths resolve to the CDN. That's the whole switch: no URL rewriting, no code
  * change, and the repo can drop the binaries once it's pointing at R2.
  */
-const BASE = (env.PUBLIC_MEDIA_BASE ?? '').replace(/\/$/, '');
+// Fallback: the restaurant's public media bucket, so a deploy with no
+// PUBLIC_MEDIA_BASE set (this repo has no static/media/ binaries) still shows
+// the hero, Doorway and specials artwork instead of broken images.
+const MEDIA_FALLBACK = 'https://pub-2a0f2fc510cf4088a1e1dc60daa6e94f.r2.dev';
+const BASE = (env.PUBLIC_MEDIA_BASE || MEDIA_FALLBACK).replace(/\/$/, '');
 
 const at = (url: string) => `${BASE}${url}`;
 

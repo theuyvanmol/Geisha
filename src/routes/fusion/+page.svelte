@@ -23,8 +23,9 @@
 	import RestaurantSchema from '$lib/components/RestaurantSchema.svelte';
 	import RichText from '$lib/components/RichText.svelte';
 	import FusionMenuCarousel from '$lib/components/FusionMenuCarousel.svelte';
-	import FusionInteriorsFilm from '$lib/components/FusionInteriorsFilm.svelte';
-	import { inviewVideo } from '$lib/data/showcase';
+	import FusionInteriors from '$lib/components/FusionInteriors.svelte';
+	import FusionMarquee from '$lib/components/FusionMarquee.svelte';
+	import { inviewVideo, scrollProgress } from '$lib/data/showcase';
 	import { onMount } from 'svelte';
 	import { isCovered, isEntering } from '$lib/nav/entering';
 	import type { PageData } from './$types';
@@ -222,6 +223,14 @@
 	// so "100vw" made it fetch the 1600px variant (up to 360 KB a picture) for a
 	// screen 1170 device px across; at 85vw it takes the 1024px one — under half
 	// the bytes, and not a difference the eye finds. 2x phones are unaffected.
+	// The three plates that float round the New Menu film (stills cut from it).
+	const DISH_FLOATS = [
+		{ src: '/images/dishes/d15_5.webp', label: 'Burgers' },
+		{ src: '/images/dishes/d4_2.webp', label: 'Curry' },
+		{ src: '/images/dishes/d23_5.webp', label: 'Pizza' }
+	];
+	let dishP = $state(0.5);
+
 	const PHONE_CAP = '(max-width: 760px) 85vw';
 	const hero = $derived(imgAttrs(heroImage, '(orientation: portrait) 190vh, 100vw'));
 	const blossom = $derived(imgAttrs(blossomImage, `${PHONE_CAP}, 100vw`));
@@ -379,11 +388,13 @@
 	<!-- INSIDE — the premises and the food, straight under the hero. -->
 	<ShowcaseDoorway {brand} />
 
-	<!-- THE ROOM — the Geisha Interiors film (replaced the "Colour on every wall"
-	     still band). A pinned stage: the portrait film opens out of a slit, grows and
-	     glides right while the caption writes itself in. See FusionInteriorsFilm. It
-	     sits ABOVE the story now, straight after the Doorway. -->
-	<FusionInteriorsFilm eyebrow={home.bandEyebrow} line={home.roomLine} />
+	<!-- THE ROOM — copy left, the Interiors film centre stage, a drifting wall of
+	     room photos and clips right (replaced the "Colour on every wall" still band).
+	     See FusionInteriors. Sits ABOVE the story, straight after the Doorway. -->
+	<FusionInteriors eyebrow={home.bandEyebrow} line={home.roomLine} bookingUrl={brand.bookingUrl} />
+	<FusionMarquee
+		items={['Lantern-lit', 'Blossom canopy', 'Street-art murals', 'Open kitchen', 'Cocktails', 'Family tables']}
+	/>
 
 	<!-- OUR STORY.
 	     Deliberately NOT Asia's layout. Asia runs a bordered, matted frame with a
@@ -415,10 +426,16 @@
 				<p class="about-tag" data-reveal="rise" style="--rd: 0.25s">{home.aboutTag}</p>
 			</div>
 
-			<!-- The New Menu dishes film in place of the still: a portrait frame that
-			     unveils from the bottom as the section scrolls in, the film easing out of
-			     a push-in, with an offset gold hairline frame drawn round it. -->
-			<div class="about-media" data-reveal="film">
+			<!-- The New Menu, alive: the dishes film standing tall in the middle, three
+			     plates from it floating round it at their own scroll speeds, and a
+			     slowly turning "New menu" seal. The film unveils from the bottom as the
+			     section scrolls in (--o, from the handler in onMount). -->
+			<div
+				class="about-media"
+				data-reveal="film"
+				use:scrollProgress={{ mode: 'through', onprogress: (v) => (dishP = v) }}
+				style="--pp:{dishP}"
+			>
 				<span class="dish-outline" aria-hidden="true"></span>
 				<div class="dish-frame">
 					<video
@@ -432,8 +449,18 @@
 						aria-label="Dishes from the new Geisha Fusion menu being served"
 					></video>
 				</div>
-				<a class="dish-chip" href="/fusion/menus">
-					<span class="dot" aria-hidden="true"></span>New menu &middot; now serving
+				{#each DISH_FLOATS as d, i}
+					<figure class="float f{i + 1}" aria-hidden="true">
+						<img src={d.src} alt="" loading="lazy" decoding="async" />
+						<figcaption>{d.label}</figcaption>
+					</figure>
+				{/each}
+				<a class="seal" href="/fusion/menus" aria-label="See the new menu">
+					<svg viewBox="0 0 120 120" aria-hidden="true">
+						<defs><path id="seal-ring" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" /></defs>
+						<text><textPath href="#seal-ring">NEW MENU · NOW SERVING · NEW MENU · NOW SERVING ·</textPath></text>
+					</svg>
+					<img src="/images/brand/geisha-g.webp" alt="" />
 				</a>
 			</div>
 		</div>
@@ -443,6 +470,13 @@
 		     real hours. -->
 	</section>
 
+
+	<FusionMarquee
+		variant="outline"
+		reverse
+		speed={0.7}
+		items={['Stone-baked pizza', 'Curry', 'Burgers', 'Sunday roast', 'Pasta', 'Grill', 'Sizzlers', 'Desserts']}
+	/>
 
 	<!-- SPECIALS — full-bleed cinematic banner, one slide per live offer. -->
 	{#if specials.length}
@@ -1386,45 +1420,49 @@
 	   viewport's right edge so the artwork bleeds off the page. `max()` keeps the
 	   copy aligned with every other section on a wide screen and falls back to a
 	   plain 32px gutter once the viewport is narrower than the container. */
-	/* Copy left, the New Menu film right — a portrait frame now, not a slab that
-	   bleeds off the page (a 9:16 film in a landscape slab would have shown a
-	   letterbox of plate). Both columns sit inside the 1240px container. */
+	/* Copy left, the New Menu composition right: the film standing tall in the
+	   middle with plates floating round it. Inside the 1320px container. */
 	.about-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-		gap: clamp(36px, 6vw, 96px);
+		grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+		gap: clamp(36px, 5vw, 80px);
 		align-items: center;
-		max-width: 1240px;
+		max-width: 1320px;
 		margin: 0 auto;
 		padding: 0 32px;
 		box-sizing: border-box;
 	}
 	.about-media {
 		position: relative;
-		justify-self: end;
-		width: min(100%, 440px, calc(78vh * 4 / 5));
-		aspect-ratio: 4 / 5;
+		height: clamp(560px, 84vh, 820px);
+	}
+	.dish-frame,
+	.dish-outline {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 50%;
+		aspect-ratio: 9 / 16;
+		border-radius: 22px;
 	}
 	/* Offset hairline frame, drawn in once the section arrives. */
 	.dish-outline {
-		position: absolute;
-		inset: -16px 16px 16px -16px;
-		border: 1px solid rgba(221, 130, 54, 0.45);
-		border-radius: 22px;
+		transform: translate(calc(-50% - 18px), -18px);
+		border: 1px solid rgba(221, 130, 54, 0.5);
 		pointer-events: none;
 	}
-	/* The film's frame. --o (0→1, written by the scroll handler in onMount) unveils
-	   it from the bottom and settles the film out of a push-in. Fallback 1 = fully
-	   open, for reduced motion and a no-JS render. */
+	/* The film. --o (0→1, written by the scroll handler in onMount) unveils it
+	   from the bottom and settles it out of a push-in. Fallback 1 = fully open. */
 	.dish-frame {
-		position: absolute;
-		inset: 0;
-		border-radius: 20px;
+		transform: translateX(-50%);
 		overflow: hidden;
 		background: #050706;
-		box-shadow: 0 50px 110px -40px rgba(0, 0, 0, 0.9);
-		clip-path: inset(calc((1 - var(--o, 1)) * 100%) 0 0 0 round 20px);
+		box-shadow:
+			0 60px 120px -40px rgba(0, 0, 0, 0.9),
+			0 0 0 1px rgba(221, 130, 54, 0.25);
+		clip-path: inset(calc((1 - var(--o, 1)) * 100%) 0 0 0 round 22px);
 		will-change: clip-path;
+		z-index: 2;
 	}
 	.dish-frame video {
 		width: 100%;
@@ -1433,50 +1471,115 @@
 		display: block;
 		transform: scale(calc(1.2 - var(--o, 1) * 0.2));
 	}
-	.dish-chip {
+	/* Plates floating round the film, each on its own scroll speed (--pp) and a
+	   slow bob of its own. */
+	.float {
 		position: absolute;
-		left: -28px;
-		bottom: 34px;
-		display: inline-flex;
-		align-items: center;
-		gap: 10px;
-		padding: 12px 18px;
+		z-index: 3;
+		margin: 0;
+		width: clamp(140px, 13vw, 210px);
+		aspect-ratio: 4 / 5;
+		border-radius: 16px;
+		overflow: hidden;
+		border: 1px solid rgba(242, 236, 224, 0.18);
+		box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.85);
+		animation: dish-bob 7s ease-in-out infinite alternate;
+	}
+	.float img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		transition: transform 0.8s var(--ease);
+	}
+	.float:hover img {
+		transform: scale(1.08);
+	}
+	.float figcaption {
+		position: absolute;
+		left: 10px;
+		bottom: 10px;
+		padding: 6px 11px;
 		border-radius: 999px;
-		background: rgba(10, 13, 11, 0.72);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(221, 130, 54, 0.4);
-		color: var(--ivory);
+		background: rgba(10, 13, 11, 0.6);
+		backdrop-filter: blur(6px);
 		font-family: var(--body-f);
-		font-size: 0.68rem;
-		letter-spacing: 0.24em;
+		font-size: 0.6rem;
+		letter-spacing: 0.22em;
 		text-transform: uppercase;
-		text-decoration: none;
+		color: var(--ivory);
+	}
+	.f1 {
+		left: 0;
+		top: 5%;
+		transform: translateY(calc((0.5 - var(--pp, 0.5)) * 180px)) rotate(-6deg);
+	}
+	.f2 {
+		right: 0;
+		top: 36%;
+		transform: translateY(calc((var(--pp, 0.5) - 0.5) * 200px)) rotate(5deg);
+		animation-delay: -2.5s;
+	}
+	.f3 {
+		left: 5%;
+		bottom: 3%;
+		transform: translateY(calc((0.5 - var(--pp, 0.5)) * 260px)) rotate(4deg);
+		animation-delay: -4.5s;
+	}
+	@keyframes dish-bob {
+		from {
+			translate: 0 0;
+		}
+		to {
+			translate: 0 -14px;
+		}
+	}
+	/* The turning "New menu" seal. */
+	.seal {
+		position: absolute;
+		z-index: 4;
+		right: 6%;
+		top: 3%;
+		width: 124px;
+		height: 124px;
+		border-radius: 50%;
+		background: rgba(10, 13, 11, 0.7);
+		backdrop-filter: blur(8px);
+		border: 1px solid rgba(221, 130, 54, 0.45);
+		display: grid;
+		place-items: center;
 		transition:
 			background 0.3s var(--ease),
 			transform 0.4s var(--ease);
 	}
-	.dish-chip:hover,
-	.dish-chip:focus-visible {
-		background: rgba(221, 130, 54, 0.9);
-		transform: translateY(-3px);
+	.seal:hover,
+	.seal:focus-visible {
+		background: rgba(217, 46, 34, 0.85);
+		transform: scale(1.06);
 	}
-	.dish-chip .dot {
-		width: 7px;
-		height: 7px;
-		border-radius: 50%;
-		background: var(--sakura);
-		box-shadow: 0 0 0 0 var(--sakura-glow);
-		animation: dish-pulse 2.2s ease-out infinite;
+	.seal svg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		animation: seal-turn 16s linear infinite;
 	}
-	@keyframes dish-pulse {
-		0% {
-			box-shadow: 0 0 0 0 var(--sakura-glow);
+	.seal text {
+		fill: var(--ivory);
+		font-family: var(--body-f);
+		font-size: 9.4px;
+		letter-spacing: 2.6px;
+	}
+	.seal img {
+		width: 30px;
+		height: auto;
+	}
+	@keyframes seal-turn {
+		to {
+			transform: rotate(360deg);
 		}
-		70%,
-		100% {
-			box-shadow: 0 0 0 10px rgba(217, 46, 34, 0);
-		}
 	}
+
 	/* A short gold rule and small caps, in place of Asia's solid plaque. */
 	.about-tag {
 		margin: 30px 0 0 !important;
@@ -2036,8 +2139,9 @@
 			gap: 56px;
 		}
 		.about-media {
+			width: min(100%, 720px);
 			justify-self: center;
-			width: min(100%, 420px);
+			height: clamp(520px, 78vh, 720px);
 		}
 		.info-grid {
 			grid-template-columns: 1fr;
@@ -2073,18 +2177,24 @@
 			will-change: auto;
 		}
 		.about-media {
-			width: calc(100% - 24px);
-			margin-left: 12px;
+			height: clamp(480px, 132vw, 640px);
 		}
-		.dish-chip {
-			left: 50%;
-			bottom: -20px;
-			transform: translateX(-50%);
-			white-space: nowrap;
+		.float {
+			width: 31vw;
 		}
-		.dish-chip:hover,
-		.dish-chip:focus-visible {
-			transform: translateX(-50%) translateY(-3px);
+		.f1 {
+			top: 3%;
+		}
+		.f2 {
+			top: 40%;
+		}
+		.seal {
+			width: 92px;
+			height: 92px;
+			right: 0;
+		}
+		.seal img {
+			width: 24px;
 		}
 		/* Two even lines instead of one long one with "MEET" orphaned under it —
 		   and the same for the headline, which broke as "One kitchen, every /
@@ -2353,18 +2463,29 @@
 	.page :global([data-reveal='film'][data-in] .dish-outline) {
 		clip-path: inset(0 0 0 0 round 22px);
 	}
-	.page :global([data-reveal='film'] .dish-chip) {
+	.page :global([data-reveal='film'] .float),
+	.page :global([data-reveal='film'] .seal) {
 		opacity: 0;
-		translate: -16px 0;
+		scale: 0.7;
 		transition:
-			opacity 0.7s var(--ease-fusion) 0.9s,
-			translate 0.9s var(--ease-fusion) 0.9s,
+			opacity 0.8s var(--ease-fusion) var(--fd, 0.7s),
+			scale 1.1s cubic-bezier(0.34, 1.4, 0.64, 1) var(--fd, 0.7s),
 			background 0.3s var(--ease),
 			transform 0.4s var(--ease);
 	}
-	.page :global([data-reveal='film'][data-in] .dish-chip) {
+	.page :global([data-reveal='film'] .f2) {
+		--fd: 0.85s;
+	}
+	.page :global([data-reveal='film'] .f3) {
+		--fd: 1s;
+	}
+	.page :global([data-reveal='film'] .seal) {
+		--fd: 1.2s;
+	}
+	.page :global([data-reveal='film'][data-in] .float),
+	.page :global([data-reveal='film'][data-in] .seal) {
 		opacity: 1;
-		translate: 0 0;
+		scale: 1;
 	}
 
 	/* QUICKER ON A PHONE. A flick lands a section on screen all at once, and at
@@ -2444,17 +2565,21 @@
 			transform: none !important;
 			transition: none !important;
 		}
-		.page :global([data-reveal] .wi),
-		.page :global([data-reveal] .dish-chip) {
-			opacity: 1 !important;
+		.page :global([data-reveal] .wi) {
 			transform: none !important;
-			translate: none !important;
+			transition: none !important;
+		}
+		.page :global([data-reveal] .float),
+		.page :global([data-reveal] .seal) {
+			opacity: 1 !important;
+			scale: 1 !important;
 			transition: none !important;
 		}
 		.page :global([data-reveal] .dish-outline) {
 			clip-path: none !important;
 		}
-		.dish-chip .dot {
+		.float,
+		.seal svg {
 			animation: none;
 		}
 	}
