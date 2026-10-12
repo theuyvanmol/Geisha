@@ -11,6 +11,7 @@
 	import AIAssistantChat from '$lib/components/AIAssistantChat.svelte';
 	import BrandTopNav from '$lib/components/BrandTopNav.svelte';
 	import SakuraPetals from '$lib/components/SakuraPetals.svelte';
+	import FusionMotion from '$lib/components/FusionMotion.svelte';
 	import { page } from '$app/state';
 	import { isEntering, clearEntering } from '$lib/nav/entering';
 	import { onMount } from 'svelte';
@@ -92,6 +93,10 @@
 <div class="asia-body" class:offset={!onHome}>
 	{@render children()}
 </div>
+
+<!-- Site-wide motion layer (scroll reveals, magnetic buttons, progress hairline),
+     shared with Fusion — see FusionMotion.svelte. The sakura above is untouched. -->
+<FusionMotion brand="asia" />
 
 <!-- Guest assistant, mounted ONCE for all Asia pages (was per-page). -->
 <AIAssistantChat brand="asia" />

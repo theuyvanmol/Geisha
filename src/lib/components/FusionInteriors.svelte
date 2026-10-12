@@ -1,5 +1,5 @@
 <script lang="ts">
-	// THE ROOM — Geisha Fusion's interiors, on the home page.
+	// THE ROOM — each house's interiors on its home page (Fusion and Asia).
 	//
 	// Three columns: the copy on the left, the Interiors film standing tall in the
 	// middle, and on the right a still gallery of the room: one wide photo over two
@@ -11,25 +11,65 @@
 	// Reduced motion: everything shown, nothing moves.
 	import { inviewVideo, scrollProgress } from '$lib/data/showcase';
 
+	type Brand = 'fusion' | 'asia';
 	let {
+		brand = 'fusion',
 		eyebrow = 'The Room',
 		line = 'Colour on every wall. A room with the volume up.',
+		body = '',
 		bookingUrl = '/fusion/bookings'
-	}: { eyebrow?: string; line?: string; bookingUrl?: string } = $props();
+	}: { brand?: Brand; eyebrow?: string; line?: string; body?: string; bookingUrl?: string } = $props();
 
 	const words = $derived(line.replace(/[*_]/g, '').trim().split(/\s+/));
 
 	type Tile = { kind: 'img' | 'clip'; src: string; poster?: string; alt: string };
-	const IMG = '/images/interiors';
-	// Photos only (owner: the clips looked choppy). Slot t1 is the wide shot
-	// across the top, t2/t3 the two tall shots under it — each at its own shape.
-	const TILES: Tile[] = [
-		{ kind: 'img', src: `${IMG}/blossom-room.webp`, alt: 'Warm-lit dining room under the pink blossom tree' },
-		{ kind: 'img', src: `${IMG}/mural-canopy.webp`, alt: 'Blossom canopy over the booths, beside the face mural' },
-		{ kind: 'img', src: `${IMG}/lantern-canopy.webp`, alt: 'Hanging flowers and lanterns above the tables' }
-	];
-
-	const FEATURES = ['Lantern-lit ceilings', 'Blossom canopy', 'Street-art murals'];
+	// Per-house content. Photos only (owner: clips looked choppy).
+	//   fusion — 'wide': the wide shot across the top, two tall shots under it.
+	//   asia   — 'grid4': four 3:4 photos, 2 x 2.
+	const HOUSE: Record<
+		Brand,
+		{
+			layout: 'wide' | 'grid4';
+			tiles: Tile[];
+			features: string[];
+			film: string;
+			poster: string;
+			filmLabel: string;
+			tag: string;
+			parties: string;
+		}
+	> = {
+		fusion: {
+			layout: 'wide',
+			tiles: [
+				{ kind: 'img', src: '/images/interiors/blossom-room.webp', alt: 'Warm-lit dining room under the pink blossom tree' },
+				{ kind: 'img', src: '/images/interiors/mural-canopy.webp', alt: 'Blossom canopy over the booths, beside the face mural' },
+				{ kind: 'img', src: '/images/interiors/lantern-canopy.webp', alt: 'Hanging flowers and lanterns above the tables' }
+			],
+			features: ['Lantern-lit ceilings', 'Blossom canopy', 'Street-art murals'],
+			film: '/videos/interiors.mp4',
+			poster: '/videos/interiors-poster.webp',
+			filmLabel: 'A walk through the Geisha Fusion dining room: lanterns, blossom trees and street-art murals',
+			tag: 'Inside Geisha Fusion',
+			parties: '/fusion/parties'
+		},
+		asia: {
+			layout: 'grid4',
+			tiles: [
+				{ kind: 'img', src: '/images/asia/interiors/geisha-mural.webp', alt: 'Geisha mural above the bar, under red lanterns' },
+				{ kind: 'img', src: '/images/asia/interiors/blossom-tables.webp', alt: 'Tables beneath the blossom trees and lanterns' },
+				{ kind: 'img', src: '/images/asia/interiors/lantern-bar.webp', alt: 'Long table lit by paper lanterns' },
+				{ kind: 'img', src: '/images/asia/interiors/booths.webp', alt: 'Booths and high tables under the blossom canopy' }
+			],
+			features: ['Blossom-tree canopy', 'Red paper lanterns', 'Hand-painted geisha murals'],
+			film: '/videos/asia/interiors.mp4',
+			poster: '/videos/asia/interiors-poster.webp',
+			filmLabel: 'A walk through the Geisha Asia dining room: blossom trees, red lanterns and neon',
+			tag: 'Inside Geisha Asia',
+			parties: '/asia/parties'
+		}
+	};
+	const h = $derived(HOUSE[brand]);
 
 	let sp = $state(0.5); // scroll progress through the section
 	let seen = $state(false);
@@ -69,6 +109,7 @@
 
 <section
 	class="rooms"
+	data-brand={brand}
 	class:seen
 	aria-label={eyebrow}
 	use:arrive
@@ -83,33 +124,34 @@
 			<p class="line">
 				{#each words as w, i}<span class="w"><span class="wi" style="--i:{i}">{w}</span></span>{' '}{/each}
 			</p>
+			{#if body}<p class="body">{body}</p>{/if}
 			<ul class="features">
-				{#each FEATURES as f, i}
+				{#each h.features as f, i}
 					<li style="--i:{i}"><span class="num">0{i + 1}</span>{f}</li>
 				{/each}
 			</ul>
 			<div class="actions">
 				<a class="btn btn-solid" href={bookingUrl}>Book a Table</a>
-				<a class="link" href="/fusion/parties">Private parties <span aria-hidden="true">→</span></a>
+				<a class="link" href={h.parties}>Private parties <span aria-hidden="true">→</span></a>
 			</div>
 		</div>
 
 		<figure class="feature">
 			<video
 				use:inviewVideo={{ fetchAt: '50% 0px' }}
-				data-src="/videos/interiors.mp4"
-				data-poster="/videos/interiors-poster.webp"
+				data-src={h.film}
+				data-poster={h.poster}
 				muted
 				loop
 				playsinline
 				preload="none"
-				aria-label="A walk through the Geisha Fusion dining room: lanterns, blossom trees and street-art murals"
+				aria-label={h.filmLabel}
 			></video>
-			<figcaption class="tag"><span class="live"></span>Inside Geisha Fusion</figcaption>
+			<figcaption class="tag"><span class="live"></span>{h.tag}</figcaption>
 		</figure>
 
-		<div class="wall">
-			{#each TILES as t, i}
+		<div class="wall" class:grid4={h.layout === 'grid4'}>
+			{#each h.tiles as t, i}
 				<div class="cell t{i + 1}" style="--d:{0.3 + i * 0.1}s">{@render tile(t)}</div>
 			{/each}
 		</div>
@@ -118,16 +160,44 @@
 
 <style>
 	.rooms {
+		--rm-ink: #0a0d0b;
+		--rm-ink-rgb: 10, 13, 11;
+		--rm-gold: #dd8236;
+		--rm-gold-rgb: 221, 130, 54;
+		--rm-act: #d92e22;
+		--rm-act-rgb: 217, 46, 34;
+		--rm-act-2: #dd8236;
+		--rm-ivory: #f2ece0;
+		--rm-ivory-rgb: 242, 236, 224;
+		--rm-soft: #cfd7d2;
+		--rm-tile: #121a16;
+		--rm-frame: #050706;
 		--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 		--h: min(80vh, 760px);
 		position: relative;
 		overflow: hidden;
 		background:
-			radial-gradient(ellipse 60% 50% at 50% 50%, rgba(221, 130, 54, 0.1), transparent 70%),
-			radial-gradient(ellipse 40% 40% at 85% 20%, rgba(217, 46, 34, 0.08), transparent 70%),
-			#0a0d0b;
-		color: #f2ece0;
+			radial-gradient(ellipse 60% 50% at 50% 50%, rgba(var(--rm-gold-rgb), 0.1), transparent 70%),
+			radial-gradient(ellipse 40% 40% at 85% 20%, rgba(var(--rm-act-rgb), 0.08), transparent 70%),
+			var(--rm-ink);
+		color: var(--rm-ivory);
 		padding: clamp(80px, 11vh, 130px) 0;
+	}
+
+	/* Geisha Asia's palette: lacquer black, gold, sakura pink. */
+	.rooms[data-brand='asia'] {
+		--rm-ink: #08080b;
+		--rm-ink-rgb: 8, 8, 11;
+		--rm-gold: #d4af37;
+		--rm-gold-rgb: 212, 175, 55;
+		--rm-act: #ef3c5c;
+		--rm-act-rgb: 239, 60, 92;
+		--rm-act-2: #ff7a94;
+		--rm-ivory: #f5f1e8;
+		--rm-ivory-rgb: 245, 241, 232;
+		--rm-soft: #d8d3d0;
+		--rm-tile: #16161b;
+		--rm-frame: #050507;
 	}
 
 	/* ---- giant outlined word drifting behind ---- */
@@ -147,7 +217,7 @@
 		line-height: 1;
 		text-transform: uppercase;
 		color: transparent;
-		-webkit-text-stroke: 1px rgba(221, 130, 54, 0.14);
+		-webkit-text-stroke: 1px rgba(var(--rm-gold-rgb), 0.14);
 	}
 
 	.grid {
@@ -171,7 +241,7 @@
 		font-size: 0.72rem;
 		letter-spacing: 0.32em;
 		text-transform: uppercase;
-		color: #dd8236;
+		color: var(--rm-gold);
 	}
 	.rule {
 		height: 1px;
@@ -206,22 +276,40 @@
 	.seen .wi {
 		transform: none;
 	}
+	.body {
+		margin: 22px 0 0;
+		max-width: 46ch;
+		font-family: 'Jost', system-ui, sans-serif;
+		font-weight: 300;
+		font-size: 1.02rem;
+		line-height: 1.7;
+		color: var(--rm-soft);
+		opacity: 0;
+		transform: translateY(16px);
+		transition:
+			opacity 0.8s ease 0.5s,
+			transform 0.9s var(--ease-out) 0.5s;
+	}
+	.seen .body {
+		opacity: 1;
+		transform: none;
+	}
 	.features {
 		list-style: none;
 		margin: 34px 0 0;
 		padding: 0;
-		border-top: 1px solid rgba(221, 130, 54, 0.2);
+		border-top: 1px solid rgba(var(--rm-gold-rgb), 0.2);
 	}
 	.features li {
 		display: flex;
 		align-items: baseline;
 		gap: 16px;
 		padding: 14px 0;
-		border-bottom: 1px solid rgba(221, 130, 54, 0.2);
+		border-bottom: 1px solid rgba(var(--rm-gold-rgb), 0.2);
 		font-family: 'Jost', system-ui, sans-serif;
 		font-weight: 300;
 		font-size: 1rem;
-		color: #cfd7d2;
+		color: var(--rm-soft);
 		opacity: 0;
 		transform: translateX(-24px);
 		transition:
@@ -235,7 +323,7 @@
 	.num {
 		font-size: 0.7rem;
 		letter-spacing: 0.2em;
-		color: #dd8236;
+		color: var(--rm-gold);
 	}
 	.actions {
 		display: flex;
@@ -258,7 +346,7 @@
 		align-items: center;
 		padding: 15px 28px;
 		border-radius: 999px;
-		background: #d92e22;
+		background: var(--rm-act);
 		color: #fff;
 		text-decoration: none;
 		font-family: 'Jost', system-ui, sans-serif;
@@ -271,16 +359,16 @@
 	}
 	.btn:hover,
 	.btn:focus-visible {
-		background: #dd8236;
+		background: var(--rm-act-2);
 	}
 	.link {
 		font-family: 'Jost', system-ui, sans-serif;
 		font-size: 0.74rem;
 		letter-spacing: 0.24em;
 		text-transform: uppercase;
-		color: #f2ece0;
+		color: var(--rm-ivory);
 		text-decoration: none;
-		border-bottom: 1px solid rgba(242, 236, 224, 0.35);
+		border-bottom: 1px solid rgba(var(--rm-ivory-rgb), 0.35);
 		padding-bottom: 4px;
 	}
 	.link span {
@@ -299,10 +387,10 @@
 		aspect-ratio: 9 / 16;
 		border-radius: 22px;
 		overflow: hidden;
-		background: #050706;
+		background: var(--rm-frame);
 		box-shadow:
 			0 60px 120px -40px rgba(0, 0, 0, 0.9),
-			0 0 0 1px rgba(221, 130, 54, 0.3);
+			0 0 0 1px rgba(var(--rm-gold-rgb), 0.3);
 		clip-path: inset(48% 0 48% 0 round 22px);
 		transform: translate3d(0, calc((0.5 - var(--sp)) * 50px), 0);
 		transition: clip-path 1.5s cubic-bezier(0.65, 0, 0.35, 1) 0.1s;
@@ -330,9 +418,9 @@
 		gap: 8px;
 		padding: 8px 13px;
 		border-radius: 999px;
-		background: rgba(10, 13, 11, 0.45);
+		background: rgba(var(--rm-ink-rgb), 0.45);
 		backdrop-filter: blur(8px);
-		border: 1px solid rgba(242, 236, 224, 0.22);
+		border: 1px solid rgba(var(--rm-ivory-rgb), 0.22);
 		font-family: 'Jost', system-ui, sans-serif;
 		font-size: 10px;
 		letter-spacing: 0.26em;
@@ -342,16 +430,16 @@
 		width: 6px;
 		height: 6px;
 		border-radius: 50%;
-		background: #d92e22;
+		background: var(--rm-act);
 		animation: pulse 2s ease-out infinite;
 	}
 	@keyframes pulse {
 		0% {
-			box-shadow: 0 0 0 0 rgba(217, 46, 34, 0.6);
+			box-shadow: 0 0 0 0 rgba(var(--rm-act-rgb), 0.6);
 		}
 		80%,
 		100% {
-			box-shadow: 0 0 0 9px rgba(217, 46, 34, 0);
+			box-shadow: 0 0 0 9px rgba(var(--rm-act-rgb), 0);
 		}
 	}
 
@@ -373,6 +461,16 @@
 	.t3 {
 		aspect-ratio: 9 / 16;
 	}
+	/* 'grid' gallery (Asia: four 3:4 photos, 2 x 2). Same rule as above: the
+	   block is exactly the film's height with each photo at its own shape —
+	   2 x (w/2 - 6) x 4/3 + 12 = --h  =>  w = 0.75h + 3px. */
+	.wall.grid4 {
+		width: calc(var(--h) * 0.75 + 3px);
+	}
+	.wall.grid4 .cell {
+		grid-column: auto;
+		aspect-ratio: 3 / 4;
+	}
 	.cell {
 		min-height: 0;
 		opacity: 0;
@@ -390,7 +488,7 @@
 		height: 100%;
 		border-radius: 16px;
 		overflow: hidden;
-		background: #121a16;
+		background: var(--rm-tile);
 	}
 	.tile img,
 	.tile video {
@@ -434,7 +532,8 @@
 			width: 100%;
 			aspect-ratio: 4 / 5;
 		}
-		.wall {
+		.wall,
+		.wall.grid4 {
 			width: 100%;
 			gap: 10px;
 		}

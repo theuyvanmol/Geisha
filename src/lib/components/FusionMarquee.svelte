@@ -9,8 +9,15 @@
 		items,
 		variant = 'serif',
 		reverse = false,
-		speed = 0.5
-	}: { items: string[]; variant?: 'serif' | 'outline'; reverse?: boolean; speed?: number } = $props();
+		speed = 0.5,
+		brand = 'fusion'
+	}: {
+		items: string[];
+		variant?: 'serif' | 'outline';
+		reverse?: boolean;
+		speed?: number;
+		brand?: 'fusion' | 'asia';
+	} = $props();
 
 	let root: HTMLElement;
 	let track: HTMLElement;
@@ -52,7 +59,7 @@
 	});
 </script>
 
-<div class="fx-marquee {variant}" bind:this={root} aria-hidden="true">
+<div class="fx-marquee {variant}" data-brand={brand} bind:this={root} aria-hidden="true">
 	<div class="track" bind:this={track}>
 		{#each [0, 1] as copy (copy)}
 			<div class="run">
@@ -65,7 +72,7 @@
 								<ellipse cx="12" cy="6.2" rx="3.4" ry="5" transform="rotate({r} 12 12)" />
 							{/each}
 						</g>
-						<circle cx="12" cy="12" r="2.2" fill="#0a0d0b" />
+						<circle cx="12" cy="12" r="2.2" fill="var(--mq-ink)" />
 					</svg>
 				{/each}
 			</div>
@@ -75,13 +82,29 @@
 
 <style>
 	.fx-marquee {
+		--mq-ink: #0a0d0b;
+		--mq-gold: #dd8236;
+		--mq-gold-2: #f79a4a;
+		--mq-gold-rgb: 221, 130, 54;
+		--mq-sep: #d92e22;
+		--mq-ivory: #f2ece0;
+		--mq-ivory-rgb: 242, 236, 224;
 		position: relative;
 		overflow: hidden;
 		padding: 26px 0;
-		background: #0a0d0b;
-		border-top: 1px solid rgba(221, 130, 54, 0.16);
-		border-bottom: 1px solid rgba(221, 130, 54, 0.16);
+		background: var(--mq-ink);
+		border-top: 1px solid rgba(var(--mq-gold-rgb), 0.16);
+		border-bottom: 1px solid rgba(var(--mq-gold-rgb), 0.16);
 		user-select: none;
+	}
+	.fx-marquee[data-brand='asia'] {
+		--mq-ink: #08080b;
+		--mq-gold: #d4af37;
+		--mq-gold-2: #ff7a94;
+		--mq-gold-rgb: 212, 175, 55;
+		--mq-sep: #ef3c5c;
+		--mq-ivory: #f5f1e8;
+		--mq-ivory-rgb: 245, 241, 232;
 	}
 	.track {
 		display: flex;
@@ -103,7 +126,7 @@
 		font-style: italic;
 		font-weight: 500;
 		font-size: clamp(1.6rem, 3.6vw, 3.2rem);
-		color: #f2ece0;
+		color: var(--mq-ivory);
 	}
 	.outline .item {
 		font-weight: 700;
@@ -111,11 +134,11 @@
 		letter-spacing: 0.02em;
 		font-size: clamp(2.6rem, 7vw, 6.4rem);
 		color: transparent;
-		-webkit-text-stroke: 1px rgba(242, 236, 224, 0.55);
+		-webkit-text-stroke: 1px rgba(var(--mq-ivory-rgb), 0.55);
 		transition: color 0.4s ease;
 	}
 	.outline .item:nth-child(4n + 1) {
-		color: #dd8236;
+		color: var(--mq-gold);
 		-webkit-text-stroke: 0;
 	}
 	.sep {
@@ -123,10 +146,10 @@
 		width: clamp(18px, 2vw, 28px);
 		height: clamp(18px, 2vw, 28px);
 		margin: 0 0.4em;
-		color: #d92e22;
+		color: var(--mq-sep);
 	}
 	.outline .sep {
-		color: #f79a4a;
+		color: var(--mq-gold-2);
 	}
 	@media (max-width: 760px) {
 		.fx-marquee {

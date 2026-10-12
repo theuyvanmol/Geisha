@@ -52,7 +52,10 @@ export const OFFERS: Record<BrandId, Offer[]> = {
 			blurb: 'A starter and a main from our evening selection.',
 			when: 'Mon–Thu from 5pm & all day Sunday',
 			price: '£23.50',
-			href: '/asia/menus/evening-special'
+			href: '/asia/menus/evening-special',
+			img: '/images/asia/specials/asia-special-menu.webp',
+			imgFit: 'poster',
+			cta: 'View Evening Special'
 		},
 		{
 			id: '2for14',
@@ -63,7 +66,7 @@ export const OFFERS: Record<BrandId, Offer[]> = {
 			href: '/asia/menus/cocktails',
 			// Finished artwork from the design pack — it carries its own wording, so
 			// the home banner shows it whole and drops the title/blurb over the top.
-			img: '/geisha-asia-special-cocktails.webp',
+			img: '/images/asia/specials/asia-cocktails.webp',
 			imgFit: 'poster',
 			cta: 'View Cocktail Menu'
 		},
@@ -73,7 +76,10 @@ export const OFFERS: Record<BrandId, Offer[]> = {
 			blurb: '90 minutes of free-flowing drinks with three pan-Asian dishes each.',
 			when: 'Sun–Thu all day / Fri & Sat 12–4:30pm',
 			price: '£40pp',
-			href: '/asia/menus/bottomless-brunch'
+			href: '/asia/menus/bottomless-brunch',
+			img: '/images/asia/specials/asia-bottomless-brunch.webp',
+			imgFit: 'poster',
+			cta: 'View Brunch Menu'
 		}
 	],
 	fusion: [

@@ -19,8 +19,10 @@
   const HEAD: Record<BrandId, { eyebrow: string; title: string; accent: string; lede: string }> = {
     asia: {
       eyebrow: 'Modern Pan-Asian Cuisine',
-      title: 'Rooted in tradition,',
-      accent: 'crafted for today',
+      // Was 'Rooted in tradition, crafted for today' — the story section above
+      // already carries that line, so the page showed the same headline twice.
+      title: 'Plan your',
+      accent: 'next visit',
       lede: 'Sushi, sashimi and dim sum in a Japanese garden-inspired dining room, open every day from midday in the heart of Benton.'
     },
     fusion: {

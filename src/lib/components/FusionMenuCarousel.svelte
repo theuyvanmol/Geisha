@@ -1,5 +1,5 @@
 <script lang="ts">
-	// Fusion menus as a 3D coverflow carousel (replaces the menu spreads section on /fusion).
+	// Each house's menus as a 3D coverflow carousel (replaces the menu spreads on /fusion and /asia).
 	// Reads the same editable menu list as before (data.menuIndex), so menus added or
 	// removed in the admin still show up. Menus with cover artwork in
 	// static/images/menus/ show it; the rest get a cream cover with the Geisha G.
@@ -9,10 +9,16 @@
 	import { onMount } from 'svelte';
 
 	type MenuEntry = { slug: string; title: string; pdf?: string | null };
-	let { menus, startSlug = 'main' }: { menus: MenuEntry[]; startSlug?: string } = $props();
+	type Brand = 'fusion' | 'asia';
+	let {
+		menus,
+		startSlug = 'main',
+		brand = 'fusion'
+	}: { menus: MenuEntry[]; startSlug?: string; brand?: Brand } = $props();
 
-	// Cover artwork, matched by a keyword in the menu's slug or title.
-	const ART: { key: string; src: string; alt: string }[] = [
+	// Cover artwork per house, matched by a keyword in the menu's slug or title
+	// (first match wins, so the more specific keys come first).
+	const FUSION_ART: { key: string; src: string; alt: string }[] = [
 		{ key: 'christmas', src: '/images/menus/christmas.webp', alt: 'Festive Christmas Menu cover' },
 		{ key: 'special', src: '/images/menus/special.webp', alt: 'Special Menu cover with cherry blossom' },
 		{ key: 'sunday', src: '/images/menus/sunday.webp', alt: 'Sunday Menu cover with a roast dinner' },
@@ -23,6 +29,21 @@
 		{ key: 'allergen', src: '/images/menus/allergens.webp', alt: 'Allergens & Dietary cover with cherry blossom' },
 		{ key: 'main', src: '/images/menus/main.webp', alt: 'Main Menu cover with cherry blossom' }
 	];
+	const ASIA_ART: { key: string; src: string; alt: string }[] = [
+		{ key: 'evening', src: '/images/asia/menus/evening.webp', alt: 'Evening Special cover with a geisha among red blossom' },
+		{ key: 'daytime', src: '/images/asia/menus/daytime.webp', alt: 'Daytime Special cover with a geisha among red blossom' },
+		{ key: 'cocktail', src: '/images/asia/menus/cocktails.webp', alt: '2 for £14 Cocktails cover' },
+		{ key: 'brunch', src: '/images/asia/menus/brunch.webp', alt: 'Bottomless Brunch cover' },
+		{ key: 'kids', src: '/images/asia/menus/kids.webp', alt: 'Kids Menu cover' },
+		{ key: 'drink', src: '/images/asia/menus/drinks.webp', alt: 'Drinks Menu cover beneath red lanterns' },
+		{ key: 'allergen', src: '/images/asia/menus/allergens.webp', alt: 'Allergens & Dietary cover' },
+		{ key: 'main', src: '/images/asia/menus/main.webp', alt: 'Main Menu cover with a geisha in pink blossom' }
+	];
+	const ART = $derived(brand === 'asia' ? ASIA_ART : FUSION_ART);
+	const LEDE: Record<Brand, string> = {
+		fusion: 'From stone-baked pizza to a proper Sunday roast.',
+		asia: 'From sushi and dim sum to the robata grill.'
+	};
 	const artFor = (m: MenuEntry) => {
 		const hay = `${m.slug} ${m.title}`.toLowerCase();
 		return ART.find((a) => hay.includes(a.key));
@@ -41,7 +62,7 @@
 	const items = $derived(
 		ordered.map((m) => ({
 			...m,
-			href: m.pdf || `/fusion/menus/${m.slug}`,
+			href: m.pdf || `/${brand}/menus/${m.slug}`,
 			external: !!m.pdf,
 			art: artFor(m)
 		}))
@@ -135,12 +156,12 @@
 	});
 </script>
 
-<section class="menus" id="menu" aria-labelledby="menus-title">
+<section class="menus" id="menu" data-brand={brand} aria-labelledby="menus-title">
 	<p class="bigword" aria-hidden="true">MENUS</p>
 	<div class="intro">
 		<span class="eyebrow">Explore Our Menu</span>
 		<h2 id="menus-title">Have a look at the menu</h2>
-		<p>From stone-baked pizza to a proper Sunday roast. Drag through the menus and open the one you fancy, or <a href="/fusion/menus">browse every menu</a>.</p>
+		<p>{LEDE[brand]} Drag through the menus and open the one you fancy, or <a href="/{brand}/menus">browse every menu</a>.</p>
 	</div>
 
 	<div
@@ -225,6 +246,19 @@
 		background:
 			radial-gradient(40% 50% at 12% 100%, rgba(221, 130, 54, 0.14), transparent 70%),
 			radial-gradient(40% 40% at 90% 0%, rgba(91, 163, 240, 0.06), transparent 70%),
+			var(--lacquer);
+	}
+	.menus[data-brand='asia'] {
+		--lacquer: #131316;
+		--ink: #08080b;
+		--rice: #f5f1e8;
+		--paper: #f8f4f0;
+		--sage: #a3a0a0;
+		--ember: #d4af37;
+		--hair: rgba(245, 241, 232, 0.22);
+		background:
+			radial-gradient(40% 50% at 12% 100%, rgba(212, 175, 55, 0.12), transparent 70%),
+			radial-gradient(40% 40% at 90% 0%, rgba(239, 60, 92, 0.08), transparent 70%),
 			var(--lacquer);
 	}
 	.bigword { position: absolute; left: 50%; top: clamp(20px, 3vw, 48px); transform: translateX(-50%); margin: 0; font-family: var(--mincho); font-weight: 600; font-size: clamp(120px, 24vw, 420px); line-height: 1; letter-spacing: 0.02em; color: transparent; -webkit-text-stroke: 1.5px rgba(242, 236, 224, 0.13); white-space: nowrap; pointer-events: none; user-select: none; }

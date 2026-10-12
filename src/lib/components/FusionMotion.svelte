@@ -14,6 +14,7 @@
 	// reduced motion) everything simply shows.
 	import { onMount } from 'svelte';
 	import { afterNavigate } from '$app/navigation';
+	let { brand = 'fusion' }: { brand?: 'fusion' | 'asia' } = $props();
 
 	let bar: HTMLElement | undefined = $state();
 
@@ -56,7 +57,7 @@
 
 	function scan() {
 		if (reduce || !io) return;
-		const root = document.querySelector('.fusion-body');
+		const root = document.querySelector('.fusion-body, .asia-body');
 		if (!root) return;
 		const vh = window.innerHeight;
 		const tag = (el: HTMLElement, kind: string) => {
@@ -102,7 +103,7 @@
 				clearTimeout(t);
 				t = window.setTimeout(scan, 250);
 			});
-			const root = document.querySelector('.fusion-body');
+			const root = document.querySelector('.fusion-body, .asia-body');
 			if (root) mo.observe(root, { childList: true, subtree: true });
 			cleanups.push(() => {
 				mo.disconnect();
@@ -166,7 +167,7 @@
 	});
 </script>
 
-<div class="fx-progress" bind:this={bar} aria-hidden="true"></div>
+<div class="fx-progress" data-brand={brand} bind:this={bar} aria-hidden="true"></div>
 
 
 
@@ -187,18 +188,18 @@
 	}
 
 	/* ---- scroll reveals (states set by the script only) ---- */
-	:global(.fusion-body [data-fx='line']) {
+	:global(:is(.fusion-body, .asia-body) [data-fx='line']) {
 		clip-path: inset(-0.3em -1em 100% -1em);
 		transform: translate3d(0, 0.6em, 0);
 		transition:
 			clip-path 1.1s cubic-bezier(0.16, 1, 0.3, 1),
 			transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
 	}
-	:global(.fusion-body [data-fx='line'][data-fx-in]) {
+	:global(:is(.fusion-body, .asia-body) [data-fx='line'][data-fx-in]) {
 		clip-path: inset(-0.3em -1em -0.4em -1em);
 		transform: none;
 	}
-	:global(.fusion-body [data-fx='unveil']) {
+	:global(:is(.fusion-body, .asia-body) [data-fx='unveil']) {
 		clip-path: inset(22% 0 0 0);
 		scale: 1.14;
 		opacity: 0.4;
@@ -207,10 +208,13 @@
 			scale 1.8s cubic-bezier(0.16, 1, 0.3, 1),
 			opacity 1s ease;
 	}
-	:global(.fusion-body [data-fx='unveil'][data-fx-in]) {
+	:global(:is(.fusion-body, .asia-body) [data-fx='unveil'][data-fx-in]) {
 		clip-path: inset(0 0 0 0);
 		scale: 1;
 		opacity: 1;
+	}
+	.fx-progress[data-brand='asia'] {
+		background: linear-gradient(90deg, #ef3c5c, #d4af37 60%, #ff7a94);
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.fx-progress {

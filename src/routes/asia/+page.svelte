@@ -12,6 +12,10 @@
 	import Seo from '$lib/components/Seo.svelte';
 	import ShowcaseDoorway from '$lib/components/showcase/ShowcaseDoorway.svelte';
 	import HomeCards from '$lib/components/HomeCards.svelte';
+	import FusionInteriors from '$lib/components/FusionInteriors.svelte';
+	import FusionMarquee from '$lib/components/FusionMarquee.svelte';
+	import FusionMenuCarousel from '$lib/components/FusionMenuCarousel.svelte';
+	import { inviewVideo } from '$lib/data/showcase';
 	import { menuFileKind } from '$lib/data/menu-types';
 
 	let { data }: { data: PageData } = $props();
@@ -164,8 +168,6 @@
 
 	// Hero portrait + feature stills — editable from admin → Content → Media (with the
 	// original assets as fallback). Full-bleed bands break up the page (Tattu-style).
-	const heroImage = $derived(data.media.heroImage);
-	const aboutImage = $derived(data.media.aboutImage);
 	const roomImage = $derived(data.media.roomImage);
 	const blossomImage = $derived(data.media.blossomImage);
 
@@ -175,37 +177,26 @@
 	// they are in fact full width: a 3x phone then fetches the 1024px variant, not
 	// the 1600px one — under half the bytes for a difference the eye doesn't find.
 	// (Same note, at more length, on the Fusion page.)
+	// "Step into Geisha Asia" — the room section's copy. Deliberately NOT the story
+	// block's "Our unique setting…" sentence again (owner, Oct 2026): same idea,
+	// told from the door in.
+	const STEP_INSIDE =
+		'Walk in beneath a canopy of blossom trees and glowing red lanterns, with hand-painted geishas watching over the room. It is a Japanese garden brought indoors, made for long dinners with the family, a quiet table for two or a lively night with friends, with the best of pan-Asian cooking at the centre of it all.';
+
 	const PHONE_CAP = '(max-width: 760px) 85vw';
-	const hero = $derived(imgAttrs(heroImage, '100vw'));
-	const about = $derived(imgAttrs(aboutImage, `${PHONE_CAP}, (max-width: 1080px) 92vw, 46vw`));
+	// The hero is the geisha-and-blossom dining room artwork (owner, Oct 2026),
+	// shipped with the site rather than read from the CMS hero slot.
+	const hero = {
+		src: '/images/asia/hero/asia-geisha-hero-1672.webp',
+		srcset:
+			'/images/asia/hero/asia-geisha-hero-960.webp 960w, /images/asia/hero/asia-geisha-hero-1672.webp 1672w',
+		sizes: '(orientation: portrait) 190vh, 100vw',
+		width: 1672,
+		height: 941
+	};
 	const room = $derived(imgAttrs(roomImage, `${PHONE_CAP}, 100vw`));
 	const blossom = $derived(imgAttrs(blossomImage, `${PHONE_CAP}, 100vw`));
 
-	// ===== THE MENU =====
-	// The home page shows the printed menu itself — the two spreads of the current
-	// Geisha Asia design, rasterised from the PDF (static/menu/*, regenerated
-	// whenever the PDF is replaced) rather than a grid of tiles. The tiles moved
-	// nowhere: /asia/menus still lists every menu, and the row of PDF links under
-	// the spreads still reaches each one directly.
-	// ONE sheet since 2026-08-06, not two. The August reprint is published only as
-	// a single-page image (the inside spread) — the client's own site carries the
-	// same one page. The July PDF's cover panel was dropped rather than kept
-	// alongside it: pairing a July cover with an August inside page would show a
-	// menu that doesn't exist in either printing. Add it back as a second entry
-	// here if they ever send the full August artwork.
-	const MENU_SPREADS = [
-		{
-			base: '/menu/asia-menu-p1',
-			alt: 'Geisha Asia menu — Asian bites, dim sum, robata, ramen, curry, sushi'
-		}
-	];
-	const MENU_SPREAD_W = [800, 1280, 1860];
-	const srcset = (base: string, ext: string) =>
-		MENU_SPREAD_W.map((w) => `${base}-${w}.${ext} ${w}w`).join(', ');
-
-	/** The main menu's own PDF — the "download the whole thing" target. */
-	const mainPdf = $derived(data.menuIndex.find((m) => m.slug === 'main')?.pdf);
-	const menuPdfs = $derived(data.menuIndex.filter((m) => !!m.pdf && m.slug !== 'main'));
 
 	// The "Our Story" stat row (days open / kitchen hours / menus to explore) was
 	// removed, along with the daysOpen + kitchenSpan derivations and the shortTime
@@ -222,8 +213,23 @@
 		const food = data.gallery.filter((g) => g.category === 'food');
 		return food.length ? food : data.gallery;
 	});
+	// Poster artwork for offers whose saved copy has no picture of its own (the
+	// live content can predate the artwork) — matched by offer id or title.
+	const POSTERS: Record<string, string> = {
+		evening: '/images/asia/specials/asia-special-menu.webp',
+		'evening special': '/images/asia/specials/asia-special-menu.webp',
+		'2for14': '/images/asia/specials/asia-cocktails.webp',
+		'2 for £14 cocktails': '/images/asia/specials/asia-cocktails.webp',
+		brunch: '/images/asia/specials/asia-bottomless-brunch.webp',
+		'bottomless brunch': '/images/asia/specials/asia-bottomless-brunch.webp'
+	};
+	// The new posters win over older saved artwork for the same offer.
+	const withPoster = (o: (typeof data.offers)[number]) => {
+		const art = POSTERS[o.id] ?? POSTERS[(o.title ?? '').toLowerCase()];
+		return art ? { ...o, img: art, imgFit: 'poster' as const } : o;
+	};
 	const specials = $derived(
-		data.offers.map((o, i) => ({
+		data.offers.map(withPoster).map((o, i) => ({
 			...o,
 			image: o.img || fallbackPool[i % Math.max(fallbackPool.length, 1)]?.src || '',
 			// Only real artwork can be a poster — a borrowed gallery photo carries no
@@ -244,10 +250,15 @@
 	let specialsInView = $state(false);
 	let specialsEl: HTMLElement | undefined = $state();
 
+	// The slide being covered — it stays visible under the incoming wipe.
+	let prevSpecial = $state(-1);
 	function goSpecial(i: number) {
 		const n = specials.length;
 		if (!n) return;
-		specialIndex = ((i % n) + n) % n;
+		const next = ((i % n) + n) % n;
+		if (next === specialIndex) return;
+		prevSpecial = specialIndex;
+		specialIndex = next;
 	}
 
 	$effect(() => {
@@ -351,32 +362,61 @@
 	<!-- INSIDE — the premises and the food, straight under the hero. -->
 	<ShowcaseDoorway {brand} />
 
-	<!-- OUR STORY — a still cut out by an ink-brush mask, with an offset caption tag,
-	     beside the story copy. Replaces the old centred "statement" block. -->
+	<!-- STEP INSIDE — the Asia interiors: copy left, the Interiors film centre, a
+	     gallery of the room right (same layout as Fusion's; see FusionInteriors). -->
+	<FusionInteriors
+		brand="asia"
+		eyebrow="Japanese-garden dining"
+		line="Step into Geisha Asia."
+		body={STEP_INSIDE}
+		bookingUrl={brand.bookingUrl}
+	/>
+	<FusionMarquee
+		brand="asia"
+		items={['Blossom canopy', 'Red lanterns', 'Sushi & sashimi', 'Dim sum', 'Robata grill', 'Cocktails']}
+	/>
+
+	<!-- OUR STORY — copy left, the "Rooted in tradition" film right, in a gold
+	     hairline frame that draws itself in (same layout as Fusion's story). -->
 	<section class="about" id="about">
 		<div class="about-grid">
-			<div class="about-media" data-reveal="rise" bind:this={aboutMedia}>
-				<!-- The frame is a window: the still is taller than the opening and
-				     slides against it as the section crosses the viewport, so what you
-				     see through it depends on where you've scrolled to. -->
-				<div class="frame">
-					<div class="window"><img {...about} alt="" loading="lazy" /></div>
-				</div>
-				<div class="tag">{home.aboutTag}</div>
-			</div>
-
 			<div class="about-copy">
 				<span class="eyebrow" data-reveal="rise">{home.aboutEyebrow}</span>
-				<h2 data-reveal="rise" style="--rd: 0.05s">{home.aboutTitle}</h2>
+				<h2 data-reveal="words" aria-label={home.aboutTitle}>
+					{#each home.aboutTitle.split(' ') as w, i}<span class="w" aria-hidden="true"
+							><span class="wi" style="--i:{i}">{w}</span></span
+						>{' '}{/each}
+				</h2>
 				<p data-reveal="rise" style="--rd: 0.1s"><RichText text={home.statementLead} /></p>
 				<p data-reveal="rise" style="--rd: 0.15s"><RichText text={home.statementColLeft} /></p>
 				<p data-reveal="rise" style="--rd: 0.2s"><RichText text={home.statementColRight} /></p>
-				<!-- The big-number strip that sat here (days open / kitchen hours /
-				     menus to explore) is gone — the prose above already says the room
-				     is open all day, every day, and the footer carries the real hours. -->
+				<p class="about-tag" data-reveal="rise" style="--rd: 0.25s">{home.aboutTag}</p>
+			</div>
+
+			<div class="about-media" data-reveal="film" bind:this={aboutMedia}>
+				<span class="dish-outline" aria-hidden="true"></span>
+				<div class="dish-frame">
+					<video
+						use:inviewVideo={{ fetchAt: '40% 0px' }}
+						data-src="/videos/asia/rooted.mp4"
+						data-poster="/videos/asia/rooted-poster.webp"
+						muted
+						loop
+						playsinline
+						preload="none"
+						aria-label="Dim sum, robata, sushi and cocktails at Geisha Asia"
+					></video>
+				</div>
 			</div>
 		</div>
 	</section>
+	<FusionMarquee
+		brand="asia"
+		variant="outline"
+		reverse
+		speed={0.7}
+		items={['Daytime Special', 'Evening Special', '2 for £14 Cocktails', 'Bottomless Brunch', 'Kids Menu', 'Drinks Menu']}
+	/>
 
 	<!-- SPECIALS — full-bleed cinematic banner, one slide per live offer.
 	     Replaces the old full-width grill band. -->
@@ -384,6 +424,8 @@
 		<section class="specials" id="specials" aria-label="What's on at Geisha Asia">
 			<div
 				class="specials-slider"
+				class:paused={specialsPaused || specialsTouched}
+				data-reveal="frame"
 				bind:this={specialsEl}
 				onmouseenter={() => (specialsPaused = true)}
 				onmouseleave={() => (specialsPaused = false)}
@@ -398,28 +440,27 @@
 					<div
 						class="special-slide"
 						class:active={i === specialIndex}
+						class:prev={i === prevSpecial && i !== specialIndex}
 						class:poster={s.poster}
 						class:borrowed={s.borrowed}
 						aria-hidden={i !== specialIndex}
 					>
 						<div class="slide-bg">
 							{#if s.image}
-								<!-- Poster artwork is shown whole, so whenever the banner's frame is a
-								     different shape to the artwork there's a gap. This blurred, cropped
-								     copy of the same file fills it, so the banner reads edge-to-edge at
-								     any viewport instead of pillar/letterboxing onto black. Same attrs
-								     as the sharp copy on purpose — the browser serves it from cache, so
-								     it costs no extra bytes. -->
-								{#if s.poster}
-									<img
-										class="poster-fill"
-										{...imgAttrs(s.image, `${PHONE_CAP}, 100vw`)}
-										alt=""
-										aria-hidden="true"
-										loading={i === 0 ? 'eager' : 'lazy'}
-									/>
-								{/if}
+								<!-- Every picture is shown WHOLE — never cropped, never stretched. The
+								     banner is 16:9, the shape of the poster artwork, so a poster fills
+								     it exactly; a photo slide shows its photo complete beside the copy.
+								     Any sliver the artwork doesn't cover is filled by this blurred copy
+								     of the same file (same attrs, so it comes from cache). -->
 								<img
+									class="poster-fill"
+									{...imgAttrs(s.image, `${PHONE_CAP}, 100vw`)}
+									alt=""
+									aria-hidden="true"
+									loading={i === 0 ? 'eager' : 'lazy'}
+								/>
+								<img
+									class="sharp"
 									{...imgAttrs(s.image, `${PHONE_CAP}, 100vw`)}
 									alt={s.poster ? `${s.title} — ${s.when}` : ''}
 									loading={i === 0 ? 'eager' : 'lazy'}
@@ -446,6 +487,11 @@
 						</div>
 					</div>
 				{/each}
+
+				<div class="specials-count" aria-hidden="true">
+					{#key specialIndex}<span class="now">{String(specialIndex + 1).padStart(2, '0')}</span>{/key}
+					<span class="of">/ {String(specials.length).padStart(2, '0')}</span>
+				</div>
 
 				<div class="specials-tabs">
 					{#each specials as s, i}
@@ -474,68 +520,9 @@
 		</section>
 	{/if}
 
-	<!-- EXPLORE OUR MENU — the printed menu itself, both spreads, straight off the
-	     current PDF design. Each spread opens the full PDF. -->
-	<section class="menu" id="menu">
-		<div class="menu-inner">
-			<div class="section-head" data-reveal="rise">
-				<span class="eyebrow">Explore Our Menu</span>
-				<h2>Exquisite flavours, beautifully crafted</h2>
-				<!-- Was "Our full menu, exactly as it lands on the table." — the owner
-				     didn't like the phrase. This opens on the food instead, and takes
-				     the same shape as Fusion's lead on the matching section: what you'll
-				     find, then what to tap. -->
-				<p class="lead">
-					From dim sum and robata to ramen, curry and sushi. Tap either page to open it, or
-					<a href="/asia/menus">browse every menu</a>.
-				</p>
-			</div>
-
-			<div class="menu-spreads" data-reveal="rise" style="--rd: 0.08s">
-				{#each MENU_SPREADS as s, i}
-					<a
-						class="spread"
-						href={mainPdf ?? '/asia/menus'}
-						target={mainPdf ? '_blank' : undefined}
-						rel={mainPdf ? 'noopener' : undefined}
-						style="--rd: {0.08 + i * 0.06}s"
-					>
-						<picture>
-							<source
-								type="image/avif"
-								srcset={srcset(s.base, 'avif')}
-								sizes="(max-width: 1080px) 92vw, 1100px"
-							/>
-							<source
-								type="image/webp"
-								srcset={srcset(s.base, 'webp')}
-								sizes="(max-width: 1080px) 92vw, 1100px"
-							/>
-							<img
-								src="{s.base}-1280.webp"
-								alt={s.alt}
-								width="2790"
-								height="1967"
-								loading="lazy"
-								decoding="async"
-							/>
-						</picture>
-					</a>
-				{/each}
-			</div>
-
-			<div class="menu-links-extra" data-reveal="rise" style="--rd: 0.2s">
-				{#if mainPdf}
-					<a class="pdf-primary" href={mainPdf} target="_blank" rel="noopener">
-						Download the full menu ({menuFileKind(mainPdf)})
-					</a>
-				{/if}
-				{#each menuPdfs as m}
-					<a href={m.pdf} target="_blank" rel="noopener">{m.title} ({menuFileKind(m.pdf)})</a>
-				{/each}
-			</div>
-		</div>
-	</section>
+	<!-- MENUS: 3D coverflow of the menus, opening on the Main Menu mid-row (same
+	     component as Fusion's, in Asia's colours and covers). -->
+	<FusionMenuCarousel brand="asia" menus={data.menuIndex} />
 </div>
 
 <!-- DENSITY SECTIONS (shared, real data) — gallery, reviews, order and Instagram.
@@ -802,6 +789,46 @@
 		flex-wrap: wrap;
 		justify-content: flex-start;
 	}
+	/* CENTRED (owner, Oct 2026 — the same layout as Fusion): the wordmark,
+	   eyebrow, headline, line and buttons stand in the middle of the artwork,
+	   which is faded down a step and a little deeper behind the type. */
+	.hero {
+		justify-content: center;
+		text-align: center;
+	}
+	.hero-inner {
+		display: flex;
+		justify-content: center;
+	}
+	.hero-copy {
+		max-width: 820px;
+		align-items: center;
+		text-align: center;
+	}
+	.hero-line {
+		max-width: 560px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.hero-actions {
+		justify-content: center;
+	}
+	.hero-eyebrow::after {
+		content: '';
+		flex: none;
+		width: 34px;
+		height: 1px;
+		background: var(--gold);
+	}
+	.hero-bg img {
+		object-position: 50% 40%;
+	}
+	.hero-bg::after {
+		background:
+			radial-gradient(ellipse 55% 52% at 50% 52%, rgba(8, 8, 11, 0.5), transparent 75%),
+			linear-gradient(0deg, rgba(8, 8, 11, 0.6) 0%, transparent 24%, transparent 78%, rgba(8, 8, 11, 0.6) 100%),
+			rgba(8, 8, 11, 0.42);
+	}
 
 	/* Buttons — the hover is one idea in two registers: a soft lift, a single
 	   specular sheen crossing the face, and (outline only) sakura ink rising
@@ -1042,6 +1069,7 @@
 		   ordinary phone; see --face-lift on .hero. */
 		.hero-bg img {
 			height: 82%;
+			object-position: 20% 30%;
 			translate: 0 calc(var(--face-lift) * -1);
 		}
 		/* Vertical scrims in place of the left→right wash: a top fade for the bar,
@@ -1291,11 +1319,14 @@
 		background: currentColor;
 	}
 
-	/* ===== OUR STORY ===== */
+	/* ===== OUR STORY =====
+	   Copy left, the "Rooted in tradition" film right — the same layout as
+	   Fusion's story, in Asia's colours. The film is square, shown whole. */
 	.about {
 		position: relative;
 		background: var(--panel);
-		padding: 130px 0;
+		padding: 120px 0;
+		overflow: hidden;
 	}
 	.about-grid {
 		max-width: 1240px;
@@ -1303,73 +1334,53 @@
 		padding: 0 32px;
 		box-sizing: border-box;
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 70px;
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: clamp(40px, 6vw, 96px);
 		align-items: center;
+	}
+	.about-copy {
+		max-width: 560px;
 	}
 	.about-media {
 		position: relative;
+		height: clamp(440px, 68vh, 640px);
+		aspect-ratio: 1 / 1;
 	}
-	/* A CUT-OUT, not a framed rectangle — the same change Fusion's Our Story picture
-	   had (owner, Oct 2026), in Asia's vocabulary: the picture is shown through one
-	   broad pass of an ink brush (static/asia-story-mask.png, drawn by
-	   scripts/make-story-mask.mjs), and the hairline frame and mat that used to box
-	   it are gone. The mask is stretched over the window, so whichever picture the
-	   CMS holds gets the shape, and the still keeps panning inside it. */
-	.about-media .frame {
-		position: relative;
-	}
-	/* A second stroke in sakura, under the picture and a little down-left of it.
-	   Asia's picture is near-black along its left side; on this dark panel the
-	   brushed edge would vanish there without something lighter behind it. It is
-	   the mask mirrored, so its bristles do not line up with the picture's. */
-	.about-media .frame::before {
-		content: '';
+	.dish-frame,
+	.dish-outline {
 		position: absolute;
 		inset: 0;
-		translate: -22px 20px;
-		transform: scaleX(-1);
-		background: linear-gradient(165deg, var(--sakura), #9c1f38);
-		-webkit-mask: url('/asia-story-mask.png') center / 100% 100% no-repeat;
-		mask: url('/asia-story-mask.png') center / 100% 100% no-repeat;
+		border-radius: 24px;
+	}
+	/* Offset gold hairline frame, drawn in once the section arrives. */
+	.dish-outline {
+		transform: translate(-20px, -20px);
+		border: 1px solid rgba(212, 175, 55, 0.55);
 		pointer-events: none;
 	}
-	/* The opening. Its height is what the old <img> height used to be, so the
-	   section's proportions are unchanged — only the crop inside now moves. */
-	.about-media .window {
-		--pan-range: 76px;
-		position: relative;
-		height: 520px;
+	.dish-frame {
 		overflow: hidden;
-		-webkit-mask: url('/asia-story-mask.png') center / 100% 100% no-repeat;
-		mask: url('/asia-story-mask.png') center / 100% 100% no-repeat;
+		background: #050507;
+		box-shadow:
+			0 60px 120px -40px rgba(0, 0, 0, 0.9),
+			0 0 0 1px rgba(212, 175, 55, 0.25);
 	}
-	/* Oversized by the full travel and pulled up by half, so the rest position
-	   (--pan: 0) is the exact centre crop the still had before. Only the vertical
-	   dimension grows — the sides are never re-cropped. */
-	.about-media img {
+	.dish-frame video {
 		width: 100%;
-		height: calc(100% + var(--pan-range));
-		margin-top: calc(var(--pan-range) / -2);
+		height: 100%;
 		object-fit: cover;
 		display: block;
-		transform: translate3d(0, calc(var(--pan, 0) * var(--pan-range) / 2), 0);
-		will-change: transform;
 	}
-	/* Gold plaque hanging off the bottom-left corner of the frame. */
-	.about-media .tag {
-		position: absolute;
-		bottom: -26px;
-		left: -26px;
-		max-width: 220px;
-		padding: 20px 26px;
-		background: var(--gold);
-		color: var(--ink);
-		font-family: var(--display);
-		font-size: 0.85rem;
-		line-height: 1.45;
-		letter-spacing: 0.06em;
-		box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+	/* A short gold rule and small caps under the copy. */
+	.about-tag {
+		margin: 30px 0 0 !important;
+		padding-top: 22px;
+		border-top: 1px solid var(--hair);
+		font-family: var(--body-f);
+		font-size: 0.72rem !important;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+		color: var(--gold) !important;
 	}
 	.about-copy h2 {
 		font-family: var(--display);
@@ -1394,144 +1405,175 @@
 		font-size: 1.15rem;
 	}
 
-	/* ===== SPECIALS ===== */
+	/* ===== SPECIALS =====
+	   A framed 16:9 banner inside the page container — the shape of the poster
+	   artwork, so posters fill it exactly. Nothing is cropped or stretched: posters
+	   are contained, and a photo slide shows its photo whole in a panel on the
+	   right beside the copy. Slides wipe in over each other; the frame stays fixed
+	   so the page never jumps on autoplay. (Same as Fusion's.) */
 	.specials {
 		position: relative;
 		background: var(--ink);
-		padding: 0;
+		padding: clamp(56px, 8vw, 110px) 32px;
 	}
-	/* The frame is deliberately close to the shape of the design pack's poster
-	   artwork (~2.5:1), so a poster very nearly fills it on its own and the blurred
-	   backdrop behind it has almost nothing to do. It stays FIXED across slides:
-	   sizing the banner to each slide's own artwork would grow and shrink it every
-	   seven seconds and shunt the whole page below it up and down.
-	   max-height is what actually decides the shape on a wide screen — past
-	   2.4 × 640px the frame stops growing taller and only gets wider. */
 	.specials-slider {
 		position: relative;
 		width: 100%;
-		aspect-ratio: 2.4 / 1;
-		/* The floor is what the copy slides need for eyebrow + headline + blurb +
-		   button at tablet width, not a shape — a 2.4:1 frame runs out of room for
-		   them below ~900px. */
-		min-height: 380px;
-		max-height: 640px;
+		max-width: 1240px;
+		margin: 0 auto;
+		aspect-ratio: 16 / 9;
 		overflow: hidden;
+		border-radius: 22px;
 		background: #08080b;
+		box-shadow:
+			0 60px 120px -50px rgba(0, 0, 0, 0.9),
+			0 0 0 1px rgba(212, 175, 55, 0.22);
 	}
 	.special-slide {
 		position: absolute;
 		inset: 0;
 		display: flex;
 		align-items: flex-end;
-		opacity: 0;
 		visibility: hidden;
-		/* visibility waits out the fade. Flipped at once (as it was), the outgoing
-		   slide vanished the instant the index changed and the incoming one faded
-		   up from the bare #08080b frame — every change dipped the banner to black
-		   instead of crossfading. */
+		z-index: 0;
+		clip-path: inset(0 0 0 100%);
+	}
+	.special-slide.prev {
+		visibility: visible;
+		z-index: 1;
+		clip-path: inset(0);
+	}
+	.special-slide.prev .slide-bg {
+		transform: scale(0.92);
+		filter: brightness(0.45);
 		transition:
-			opacity 1.1s var(--ease),
-			visibility 0s linear 1.1s;
+			transform 1.3s cubic-bezier(0.77, 0, 0.18, 1),
+			filter 1.3s ease;
 	}
 	.special-slide.active {
-		opacity: 1;
 		visibility: visible;
-		/* On top of the one it is replacing, and visible from the first frame. */
-		z-index: 1;
-		transition-delay: 0s;
+		z-index: 2;
+		clip-path: inset(0);
+		transition: clip-path 1.25s cubic-bezier(0.77, 0, 0.18, 1);
 	}
-	/* Slow Ken Burns: the backdrop rests at 1.06 and eases to 1 over the slide's
-	   own dwell time, so the banner is never completely static. */
+	.special-slide.active .slide-bg .sharp {
+		animation: spec-settle 1.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+	}
+	@keyframes spec-settle {
+		from {
+			scale: 1.18;
+		}
+		to {
+			scale: 1;
+		}
+	}
+	.special-slide.active .special-copy-inner > :global(*) {
+		animation: spec-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+		animation-delay: 0.75s;
+	}
+	.special-slide.active .special-copy-inner > :global(*:nth-child(2)) {
+		animation-delay: 0.85s;
+	}
+	.special-slide.active .special-copy-inner > :global(*:nth-child(3)) {
+		animation-delay: 0.95s;
+	}
+	.special-slide.active .special-copy-inner > :global(*:nth-child(4)) {
+		animation-delay: 1.05s;
+	}
+	@keyframes spec-rise {
+		from {
+			opacity: 0;
+			transform: translateY(26px);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+	.specials-count {
+		position: absolute;
+		z-index: 3;
+		top: 26px;
+		right: 32px;
+		display: flex;
+		align-items: baseline;
+		gap: 8px;
+		font-family: var(--display);
+		color: var(--ivory);
+		text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+		overflow: hidden;
+	}
+	.specials-count .now {
+		display: inline-block;
+		font-size: 1.6rem;
+		animation: spec-count 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+	}
+	.specials-count .of {
+		font-family: var(--body-f);
+		font-size: 0.72rem;
+		letter-spacing: 0.2em;
+		color: rgba(245, 241, 232, 0.7);
+	}
+	@keyframes spec-count {
+		from {
+			transform: translateY(100%);
+			opacity: 0;
+		}
+		to {
+			transform: none;
+			opacity: 1;
+		}
+	}
 	.special-slide .slide-bg {
 		position: absolute;
 		inset: 0;
-		/* z-index 0 so the scrim below (::before, z-index 1) paints OVER the photo.
-		   Without it the pseudo-element — being the slide's first child — is painted
-		   under the .slide-bg div that follows it, and the copy sits on bare image. */
 		z-index: 0;
 		background: #0a0908;
-		transform: scale(1.06);
-		transition: transform 9s linear;
-	}
-	.special-slide.active .slide-bg {
-		transform: scale(1);
 	}
 	.special-slide .slide-bg img {
 		position: absolute;
 		inset: 0;
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
+	}
+	.special-slide .slide-bg .sharp {
+		object-fit: contain;
 		object-position: center;
 	}
-	/* Poster slides: finished artwork, shown whole rather than cropped — cropping
-	   one cuts its own headline off. It also holds still (no Ken Burns push) and
-	   takes only a light bottom scrim, since there's no copy set over it. */
-	.special-slide.poster .slide-bg {
-		transform: none;
-		transition: none;
-	}
-	.special-slide.poster .slide-bg img {
-		object-fit: contain;
-	}
-	/* ...and whatever the frame is left over — a band down each side on a wide
-	   screen, a band top and bottom on a phone — is filled with the same artwork,
-	   cropped to fill and blurred out. The alternative to a poster not filling its
-	   frame is either black bars (the artwork looks dropped in by mistake) or
-	   cropping to fill, which cuts the headline off its own design. This does
-	   neither. The 1.15 scale pushes the blur's own soft edges outside the frame,
-	   where a plain blur would otherwise fade to transparent at the border. */
-	.special-slide.poster .slide-bg .poster-fill {
+	.special-slide .slide-bg .poster-fill {
 		object-fit: cover;
 		transform: scale(1.15);
-		filter: blur(44px) saturate(1.1) brightness(0.42);
+		filter: blur(44px) saturate(1.1) brightness(0.4);
+	}
+	/* Photo slides: the photo whole, at its own shape, in a panel on the right. */
+	.special-slide:not(.poster) .slide-bg .sharp {
+		left: auto;
+		right: 0;
+		width: auto;
+		max-width: 52%;
+		aspect-ratio: 3 / 4;
+		-webkit-mask-image: linear-gradient(to right, transparent, #000 14%);
+		mask-image: linear-gradient(to right, transparent, #000 14%);
 	}
 	.special-slide.poster::before {
-		background: linear-gradient(0deg, rgba(10, 9, 8, 0.72) 0%, transparent 26%);
+		background: linear-gradient(0deg, rgba(10, 9, 8, 0.55) 0%, transparent 22%);
 	}
-	/* Two scrims, not the template's one. Its specials were all dark photography;
-	   ours are the venue's real offer/gallery shots, some of them bright daylight
-	   food, so the bottom ramp is deepened and a left-hand wash added under the
-	   copy column — the same trick the hero uses. */
-	/* The template's scrim, unchanged — the design pack's artwork is dark and
-	   high-contrast already, and anything heavier just muddies it. */
 	.special-slide::before {
 		content: '';
 		position: absolute;
 		inset: 0;
 		z-index: 1;
-		background: linear-gradient(
-			0deg,
-			rgba(10, 9, 8, 0.92) 6%,
-			rgba(10, 9, 8, 0.35) 55%,
-			rgba(10, 9, 8, 0.55) 100%
-		);
-	}
-	/* ...but a slide with no artwork of its own borrows a gallery photo, and some of
-	   those are bright daylight food the copy vanishes into. Only those get the
-	   deeper ramp plus a left-hand wash under the copy column. */
-	.special-slide.borrowed::before {
-		background:
-			linear-gradient(
-				0deg,
-				rgba(10, 9, 8, 0.94) 8%,
-				rgba(10, 9, 8, 0.66) 42%,
-				rgba(10, 9, 8, 0.28) 72%,
-				rgba(10, 9, 8, 0.5) 100%
-			),
-			linear-gradient(90deg, rgba(10, 9, 8, 0.6) 0%, rgba(10, 9, 8, 0.25) 42%, transparent 68%);
+		background: linear-gradient(90deg, rgba(10, 9, 8, 0.9) 0%, rgba(10, 9, 8, 0.6) 45%, transparent 62%);
 	}
 	.special-copy {
 		position: relative;
 		z-index: 2;
 		width: 100%;
-		padding: 70px 0;
+		padding: 0 0 96px;
 	}
 	.special-copy-inner {
-		max-width: 1240px;
-		margin: 0 auto;
-		padding: 0 32px;
+		max-width: 52%;
+		padding: 0 48px;
 		box-sizing: border-box;
 	}
 	.special-copy .eyebrow {
@@ -1571,8 +1613,33 @@
 		cursor: pointer;
 		transition: background 0.3s;
 	}
-	.specials-tabs button.active {
+	/* each tab is a 7s progress bar for its slide */
+	.specials-tabs button {
+		position: relative;
+		overflow: hidden;
+	}
+	.specials-tabs button::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 50%;
+		width: 100%;
+		height: 3px;
+		margin-top: -1.5px;
 		background: var(--gold);
+		transform-origin: left;
+		transform: scaleX(0);
+	}
+	.specials-tabs button.active::after {
+		animation: spec-progress 7s linear forwards;
+	}
+	.specials-slider.paused .specials-tabs button.active::after {
+		animation-play-state: paused;
+	}
+	@keyframes spec-progress {
+		to {
+			transform: scaleX(1);
+		}
 	}
 	.specials-nav {
 		position: absolute;
@@ -1610,8 +1677,9 @@
 			grid-template-columns: 1fr;
 			gap: 60px;
 		}
-		.about-media .window {
-			height: 400px;
+		.about-media {
+			justify-self: center;
+			height: min(72vw, 560px);
 		}
 	}
 	@media (max-width: 760px) {
@@ -1620,82 +1688,60 @@
 		}
 		.about-grid {
 			padding: 0 20px;
-			/* 24px of this is taken by the plaque's overhang below. */
-			gap: 64px;
+			gap: 48px;
 		}
-		/* (The 10px "thinner mat" that was set on .frame here went with the frame:
-		   the picture is a cut-out now, and on a phone the padding only shrank it
-		   by 20px and let the under-stroke stand 22px proud of it instead of 12.) */
-		/* The plaque still hangs off the frame's bottom-left corner, just by less —
-		   the gutter is only 20px. Laid out static and full width it read as a
-		   solid gold bar across the page rather than a caption. */
-		.about-media .tag {
-			left: -8px;
-			bottom: -24px;
-			max-width: 210px;
-			padding: 14px 18px;
-			box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+		.about-media {
+			height: auto;
+			width: calc(100% - 12px);
+			margin-left: 12px;
 		}
-		/* The under-stroke stays inside the 20px page margin. */
-		.about-media .frame::before {
-			translate: -12px 12px;
+		.dish-outline {
+			transform: translate(-12px, -12px);
 		}
-		/* Shorter opening on a phone, so the travel comes down with it. */
-		.about-media .window {
-			--pan-range: 52px;
-			height: 340px;
+		/* Phone: the picture on top at its true 16:9 (a poster fills it exactly,
+		   a photo sits whole in its own blurred copy), and the copy, button and
+		   controls on the panel underneath — never printed over it. */
+		.specials {
+			padding: 56px 14px;
 		}
-		/* The frame tracks the WIDTH a little rather than sitting at a flat 480px:
-		   a poster is as tall as the screen is wide (50vw for the 2:1 artwork, 40vw
-		   for the 2.5:1), so a fixed frame left a different amount of slack at
-		   every phone size. 50vw + 250 = a 2:1 poster + the 178px CTA/controls foot
-		   below it + a 72px band of blurred artwork above. The 440px floor is the
-		   copy slides' (they need ~370 at 360px wide). Still one height for every
-		   slide, so nothing below it shifts on autoplay. Same scheme as Fusion. */
 		.specials-slider {
 			aspect-ratio: auto;
-			min-height: clamp(440px, calc(50vw + 250px), 560px);
-			max-height: 560px;
+			height: calc((100vw - 28px) * 9 / 16 + 230px);
+			border-radius: 16px;
 		}
-		/* A phone frame can't be anywhere near a poster's shape — this is a portrait
-		   box holding a 2:1 or 2.5:1 landscape image, and the frame can't shrink to
-		   suit because the copy slides need the height for their headline and
-		   blurb. So the poster stands on a fixed line 178px above the foot,
-		   whatever its own height, and the CTA hangs a constant 24px under it. (It
-		   used to float at 25% of the slack, which left the button 73px under the
-		   Restaurant Week poster at 360, 62px at 390 and 47px at 430 — and 30px
-		   more than that under the shallower Cocktails one.) What is left over
-		   sits ABOVE the poster as blurred artwork, not black. */
-		.special-slide.poster .slide-bg img:not(.poster-fill) {
-			height: calc(100% - 178px);
-			object-position: center bottom;
+		.special-slide .slide-bg {
+			bottom: auto;
+			height: calc((100vw - 28px) * 9 / 16);
 		}
-		/* On a phone the copy runs the full width and stands much higher up the
-		   frame than the template's scrim was drawn for, so the headline and blurb
-		   landed on bare photo (ivory on a white plate). One deeper ramp for every
-		   slide that carries copy; posters keep their own light one. The stops are
-		   measured up from the foot in px, not %: the copy is bottom-anchored, so
-		   the ink has to stay under it whatever height the frame takes. */
-		.special-slide:not(.poster)::before {
-			background: linear-gradient(
-				0deg,
-				rgba(10, 9, 8, 0.95) 48px,
-				rgba(10, 9, 8, 0.8) 230px,
-				rgba(10, 9, 8, 0.28) 374px,
-				rgba(10, 9, 8, 0.5) 100%
-			);
+		.special-slide:not(.poster) .slide-bg .sharp {
+			left: 0;
+			right: 0;
+			width: 100%;
+			max-width: none;
+			aspect-ratio: auto;
+			-webkit-mask-image: none;
+			mask-image: none;
 		}
-		/* Extra bottom padding keeps the copy clear of the tabs and arrows. A
-		   poster's lone button takes 2px more, to land exactly 24px under the
-		   poster's foot. */
+		.special-slide::before,
+		.special-slide.poster::before {
+			display: none;
+		}
 		.special-copy {
-			padding: 40px 0 104px;
-		}
-		.special-slide.poster .special-copy {
-			padding-bottom: 106px;
+			padding: 0 0 78px;
 		}
 		.special-copy-inner {
+			max-width: none;
 			padding: 0 20px;
+		}
+		.special-copy h3 {
+			margin: 10px 0 14px;
+			font-size: 1.5rem;
+		}
+		.special-copy p {
+			display: none;
+		}
+		.specials-count {
+			display: none;
 		}
 		/* "Sun–Thu all day / Fri & Sat 12–4:30pm" at 0.32em tracking broke after
 		   "12–" and left the time on a line of its own. Tighter tracking and a
@@ -1746,6 +1792,18 @@
 		}
 		.special-slide .slide-bg {
 			transform: none;
+		}
+		.special-slide,
+		.special-slide .slide-bg,
+		.special-slide .slide-bg .sharp,
+		.special-slide .special-copy-inner > :global(*),
+		.specials-count .now {
+			transition: none !important;
+			animation: none !important;
+		}
+		.specials-tabs button.active::after {
+			animation: none;
+			transform: scaleX(1);
 		}
 	}
 
@@ -2198,6 +2256,69 @@
 	   the shared HomeSections (which uses its own `.reveal`, not `data-reveal`). */
 
 	/* rise — title/lede/buttons: fade + lift, honour an optional --rd stagger */
+	/* frame — the What's On banner opens out of an inset, rising into place */
+	.page :global([data-reveal='frame']) {
+		clip-path: inset(9% 7% round 22px);
+		transform: translateY(50px) scale(0.97);
+		transition:
+			clip-path 1.5s cubic-bezier(0.77, 0, 0.18, 1),
+			transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.page :global([data-reveal='frame'][data-in]) {
+		clip-path: inset(0 round 22px);
+		transform: none;
+	}
+	/* words — a headline set word by word, each rising out of its own line mask. */
+	.page :global([data-reveal='words'] .w) {
+		display: inline-block;
+		overflow: hidden;
+		vertical-align: top;
+		padding-bottom: 0.1em;
+		margin-bottom: -0.1em;
+	}
+	.page :global([data-reveal='words'] .wi) {
+		display: inline-block;
+		transform: translate3d(0, 110%, 0) rotate(5deg);
+		transform-origin: left bottom;
+		transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 0.07s + 0.05s);
+	}
+	.page :global([data-reveal='words'][data-in] .wi) {
+		transform: none;
+	}
+	/* film — the story film lifts in, unveils from the bottom out of a push-in, and
+	   its gold hairline frame draws itself round after it. */
+	.page :global([data-reveal='film']) {
+		opacity: 0;
+		transform: translateY(60px);
+		transition:
+			opacity 1s ease,
+			transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.page :global([data-reveal='film'][data-in]) {
+		opacity: 1;
+		transform: none;
+	}
+	.page :global([data-reveal='film'] .dish-frame) {
+		clip-path: inset(100% 0 0 0 round 24px);
+		transition: clip-path 1.5s cubic-bezier(0.65, 0, 0.35, 1) 0.15s;
+	}
+	.page :global([data-reveal='film'][data-in] .dish-frame) {
+		clip-path: inset(0 round 24px);
+	}
+	.page :global([data-reveal='film'] .dish-frame video) {
+		transform: scale(1.2);
+		transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+	}
+	.page :global([data-reveal='film'][data-in] .dish-frame video) {
+		transform: none;
+	}
+	.page :global([data-reveal='film'] .dish-outline) {
+		clip-path: inset(0 100% 100% 0 round 24px);
+		transition: clip-path 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.6s;
+	}
+	.page :global([data-reveal='film'][data-in] .dish-outline) {
+		clip-path: inset(0 round 24px);
+	}
 	.page :global([data-reveal='rise']) {
 		opacity: 0;
 		transform: translateY(26px);
@@ -2355,6 +2476,17 @@
 		.page :global([data-reveal='band'] .band-image),
 		.page :global([data-reveal='band'] .room-image) {
 			transform: scale(1.04) !important;
+		}
+		.page :global([data-reveal] .wi),
+		.page :global([data-reveal] .dish-frame video) {
+			transform: none !important;
+			transition: none !important;
+		}
+		.page :global([data-reveal='frame']),
+		.page :global([data-reveal] .dish-frame),
+		.page :global([data-reveal] .dish-outline) {
+			clip-path: none !important;
+			transition: none !important;
 		}
 	}
 
