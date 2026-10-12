@@ -17,6 +17,7 @@
 	import AIAssistantChat from '$lib/components/AIAssistantChat.svelte';
 	import BrandTopNav from '$lib/components/BrandTopNav.svelte';
 	import FusionVines from '$lib/components/FusionVines.svelte';
+	import FusionMotion from '$lib/components/FusionMotion.svelte';
 	import { page } from '$app/state';
 	import { isEntering, clearEntering } from '$lib/nav/entering';
 	import { onMount } from 'svelte';
@@ -126,6 +127,10 @@
 <div class="fusion-body" class:offset={!onHome}>
 	{@render children()}
 </div>
+
+<!-- Site-wide motion layer (cursor, magnetic buttons, scroll reveals, progress
+     hairline) — see FusionMotion.svelte. -->
+<FusionMotion />
 
 <!-- Guest assistant, mounted ONCE for all Fusion pages. -->
 <AIAssistantChat brand="fusion" />

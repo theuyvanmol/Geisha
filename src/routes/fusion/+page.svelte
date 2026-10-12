@@ -23,6 +23,8 @@
 	import RestaurantSchema from '$lib/components/RestaurantSchema.svelte';
 	import RichText from '$lib/components/RichText.svelte';
 	import FusionMenuCarousel from '$lib/components/FusionMenuCarousel.svelte';
+	import FusionInteriorsFilm from '$lib/components/FusionInteriorsFilm.svelte';
+	import { inviewVideo } from '$lib/data/showcase';
 	import { onMount } from 'svelte';
 	import { isCovered, isEntering } from '$lib/nav/entering';
 	import type { PageData } from './$types';
@@ -128,7 +130,7 @@
 		// it there too rather than moving the write back up to the section.
 		const ringsHero = document.querySelector<SVGElement>('.rings-hero');
 		const ringsStory = document.querySelector<SVGElement>('.rings-about');
-		const storyImg = document.querySelector<HTMLElement>('.about-media img');
+		const storyImg = document.querySelector<HTMLElement>('.about-media .dish-frame');
 		// At phone width the picture's clip wipe is switched off in CSS (it was
 		// over before the picture reached the screen), so --o has no reader there.
 		const stacked = window.matchMedia('(max-width: 760px)');
@@ -205,8 +207,6 @@
 	// Hero artwork + feature stills — editable from admin → Content → Media (with the
 	// original assets as fallback). Full-bleed bands break up the page.
 	const heroImage = $derived(data.media.heroImage);
-	const aboutImage = $derived(data.media.aboutImage);
-	const roomImage = $derived(data.media.roomImage);
 	const blossomImage = $derived(data.media.blossomImage);
 
 	// Resolve each slot to its optimized AVIF/WebP ladder. A CMS-uploaded URL that
@@ -224,8 +224,6 @@
 	// the bytes, and not a difference the eye finds. 2x phones are unaffected.
 	const PHONE_CAP = '(max-width: 760px) 85vw';
 	const hero = $derived(imgAttrs(heroImage, '(orientation: portrait) 190vh, 100vw'));
-	const about = $derived(imgAttrs(aboutImage, `${PHONE_CAP}, (max-width: 1080px) 92vw, 46vw`));
-	const room = $derived(imgAttrs(roomImage, `${PHONE_CAP}, 100vw`));
 	const blossom = $derived(imgAttrs(blossomImage, `${PHONE_CAP}, 100vw`));
 
 	// Shared pool for the specials slider: an offer with no artwork of its own
@@ -381,6 +379,12 @@
 	<!-- INSIDE — the premises and the food, straight under the hero. -->
 	<ShowcaseDoorway {brand} />
 
+	<!-- THE ROOM — the Geisha Interiors film (replaced the "Colour on every wall"
+	     still band). A pinned stage: the portrait film opens out of a slit, grows and
+	     glides right while the caption writes itself in. See FusionInteriorsFilm. It
+	     sits ABOVE the story now, straight after the Doorway. -->
+	<FusionInteriorsFilm eyebrow={home.bandEyebrow} line={home.roomLine} />
+
 	<!-- OUR STORY.
 	     Deliberately NOT Asia's layout. Asia runs a bordered, matted frame with a
 	     scroll-panned window and a plaque hanging off its corner, centred in a
@@ -400,15 +404,37 @@
 		<div class="about-grid">
 			<div class="about-copy">
 				<span class="eyebrow" data-reveal="rise">{home.aboutEyebrow}</span>
-				<h2 data-reveal="rise" style="--rd: 0.05s">{home.aboutTitle}</h2>
+				<h2 data-reveal="words" aria-label={home.aboutTitle}>
+					{#each home.aboutTitle.split(' ') as w, i}<span class="w" aria-hidden="true"
+							><span class="wi" style="--i:{i}">{w}</span></span
+						>{' '}{/each}
+				</h2>
 				<p data-reveal="rise" style="--rd: 0.1s"><RichText text={home.statementLead} /></p>
 				<p data-reveal="rise" style="--rd: 0.15s"><RichText text={home.statementColLeft} /></p>
 				<p data-reveal="rise" style="--rd: 0.2s"><RichText text={home.statementColRight} /></p>
 				<p class="about-tag" data-reveal="rise" style="--rd: 0.25s">{home.aboutTag}</p>
 			</div>
 
-			<div class="about-media" data-reveal="bleed">
-				<img {...about} alt="" loading="lazy" />
+			<!-- The New Menu dishes film in place of the still: a portrait frame that
+			     unveils from the bottom as the section scrolls in, the film easing out of
+			     a push-in, with an offset gold hairline frame drawn round it. -->
+			<div class="about-media" data-reveal="film">
+				<span class="dish-outline" aria-hidden="true"></span>
+				<div class="dish-frame">
+					<video
+						use:inviewVideo={{ fetchAt: '40% 0px' }}
+						data-src="/videos/new-menu-dishes.mp4"
+						data-poster="/videos/new-menu-dishes-poster.webp"
+						muted
+						loop
+						playsinline
+						preload="none"
+						aria-label="Dishes from the new Geisha Fusion menu being served"
+					></video>
+				</div>
+				<a class="dish-chip" href="/fusion/menus">
+					<span class="dot" aria-hidden="true"></span>New menu &middot; now serving
+				</a>
 			</div>
 		</div>
 
@@ -417,17 +443,6 @@
 		     real hours. -->
 	</section>
 
-	<!-- ROOM BAND — full-bleed still with a caption over it. The template's slab
-	     band, and the one place Fusion's street-art room gets to fill the screen.
-	     It sits ABOVE the specials so the two full-bleed image sections aren't
-	     stacked back to back further down. -->
-	<section class="band" data-reveal="band">
-		<div class="band-media"><img {...room} class="band-image" alt="" loading="lazy" /></div>
-		<div class="band-caption">
-			<span class="eyebrow">{home.bandEyebrow}</span>
-			<p class="band-line"><RichText text={home.roomLine} /></p>
-		</div>
-	</section>
 
 	<!-- SPECIALS — full-bleed cinematic banner, one slide per live offer. -->
 	{#if specials.length}
@@ -1371,60 +1386,96 @@
 	   viewport's right edge so the artwork bleeds off the page. `max()` keeps the
 	   copy aligned with every other section on a wide screen and falls back to a
 	   plain 32px gutter once the viewport is narrower than the container. */
+	/* Copy left, the New Menu film right — a portrait frame now, not a slab that
+	   bleeds off the page (a 9:16 film in a landscape slab would have shown a
+	   letterbox of plate). Both columns sit inside the 1240px container. */
 	.about-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, 46%);
-		gap: clamp(36px, 5vw, 80px);
+		grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+		gap: clamp(36px, 6vw, 96px);
 		align-items: center;
-		padding-left: max(32px, calc((100vw - 1240px) / 2 + 32px));
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 0 32px;
+		box-sizing: border-box;
 	}
-	/* No frame, no mat, no plaque — the picture is simply a slab that runs off the
-	   edge.
-	   It STRETCHES to the row rather than carrying a fixed height. With a fixed
-	   height the grid's `align-items: center` split the difference between the tall
-	   image and the shorter copy, parking ~77px of dead space above and below the
-	   prose. Stretching makes the row exactly as tall as the copy needs (or the
-	   min-height, whichever wins) and the picture simply fills it — object-fit
-	   handles the crop, so there's nothing to distort. */
 	.about-media {
 		position: relative;
-		align-self: stretch;
-		min-height: clamp(360px, 40vw, 480px);
+		justify-self: end;
+		width: min(100%, 440px, calc(78vh * 4 / 5));
+		aspect-ratio: 4 / 5;
 	}
-	.about-media img {
+	/* Offset hairline frame, drawn in once the section arrives. */
+	.dish-outline {
+		position: absolute;
+		inset: -16px 16px 16px -16px;
+		border: 1px solid rgba(221, 130, 54, 0.45);
+		border-radius: 22px;
+		pointer-events: none;
+	}
+	/* The film's frame. --o (0→1, written by the scroll handler in onMount) unveils
+	   it from the bottom and settles the film out of a push-in. Fallback 1 = fully
+	   open, for reduced motion and a no-JS render. */
+	.dish-frame {
+		position: absolute;
+		inset: 0;
+		border-radius: 20px;
+		overflow: hidden;
+		background: #050706;
+		box-shadow: 0 50px 110px -40px rgba(0, 0, 0, 0.9);
+		clip-path: inset(calc((1 - var(--o, 1)) * 100%) 0 0 0 round 20px);
+		will-change: clip-path;
+	}
+	.dish-frame video {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		object-position: center 30%;
 		display: block;
-		/* A CUT-OUT, not a slab. The picture used to keep clean rectangular edges and
-		   the owner hated it "just being there" — a hard block in the corner, butted
-		   against the mural band below. (A soft fade on the edges had been tried and
-		   read as a blurred border, so the answer is a deliberate shape, not a
-		   softer rectangle.) It is shown through a swatch of paint: dry-brushed down
-		   its left edge, running in drips off the bottom — Fusion's own spray-paint
-		   vocabulary — still bleeding off the right edge of the page. The mask is
-		   stretched over the box, so whichever picture the CMS holds gets the shape.
-		   See scripts/make-story-mask.mjs. */
-		-webkit-mask-image: url('/fusion-story-mask.png');
-		mask-image: url('/fusion-story-mask.png');
-		-webkit-mask-size: 100% 100%;
-		mask-size: 100% 100%;
-		-webkit-mask-repeat: no-repeat;
-		mask-repeat: no-repeat;
-		/* Scroll-driven UNFURL, fed by --o (0→1 as the section enters) from the rAF
-		   handler in onMount. The slab starts masked back from the right and the mask
-		   retracts off the page edge as you scroll, so the picture grows into its own
-		   bleed — the gesture the layout is already built around.
-		   This replaced a drift + scale-settle. A mask beats a transform here: it
-		   moves nothing, so the composition stays exactly where it was laid out, and
-		   unlike a scale it cannot re-crop the frame. It's also still not Asia's
-		   effect — Asia pans the crop inside a fixed window, changing which part of
-		   the picture you see; here the visible part never changes, only how much of
-		   it has arrived. Fallback 1 = fully open, which is what reduced motion (no
-		   handler, so no --o) and a no-JS render should both land on. */
-		clip-path: inset(0 calc((1 - var(--o, 1)) * 34%) 0 0);
-		will-change: clip-path;
+		transform: scale(calc(1.2 - var(--o, 1) * 0.2));
+	}
+	.dish-chip {
+		position: absolute;
+		left: -28px;
+		bottom: 34px;
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 12px 18px;
+		border-radius: 999px;
+		background: rgba(10, 13, 11, 0.72);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(221, 130, 54, 0.4);
+		color: var(--ivory);
+		font-family: var(--body-f);
+		font-size: 0.68rem;
+		letter-spacing: 0.24em;
+		text-transform: uppercase;
+		text-decoration: none;
+		transition:
+			background 0.3s var(--ease),
+			transform 0.4s var(--ease);
+	}
+	.dish-chip:hover,
+	.dish-chip:focus-visible {
+		background: rgba(221, 130, 54, 0.9);
+		transform: translateY(-3px);
+	}
+	.dish-chip .dot {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: var(--sakura);
+		box-shadow: 0 0 0 0 var(--sakura-glow);
+		animation: dish-pulse 2.2s ease-out infinite;
+	}
+	@keyframes dish-pulse {
+		0% {
+			box-shadow: 0 0 0 0 var(--sakura-glow);
+		}
+		70%,
+		100% {
+			box-shadow: 0 0 0 10px rgba(217, 46, 34, 0);
+		}
 	}
 	/* A short gold rule and small caps, in place of Asia's solid plaque. */
 	.about-tag {
@@ -1668,68 +1719,6 @@
 		background: var(--gold);
 		color: var(--ink);
 		border-color: var(--gold);
-	}
-
-	/* ===== ROOM BAND =====
-	   A full-bleed slab. The caption sits bottom-left inside the same 1240px
-	   container the rest of the page uses, so it lines up with the sections above
-	   and below rather than floating loose in the image. */
-	.band {
-		position: relative;
-		height: 62vh;
-		min-height: 380px;
-		max-height: 620px;
-		overflow: hidden;
-		background: var(--panel);
-		display: flex;
-		align-items: flex-end;
-	}
-	.band-media {
-		position: absolute;
-		inset: 0;
-		overflow: hidden;
-	}
-	.band-media img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: center 42%;
-		display: block;
-	}
-	/* Only enough wash to carry the caption at the bottom — the mural is the point
-	   of this band, so the middle two-thirds are left almost clear. */
-	.band::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(
-			0deg,
-			rgba(var(--scrim), 0.85) 0%,
-			rgba(var(--scrim), 0.22) 40%,
-			rgba(var(--scrim), 0.04) 68%,
-			rgba(var(--scrim), 0.4) 100%
-		);
-	}
-	.band-caption {
-		position: relative;
-		z-index: 2;
-		width: 100%;
-		max-width: 1240px;
-		margin: 0 auto;
-		padding: 0 32px 56px;
-		box-sizing: border-box;
-	}
-	.band-line {
-		font-family: var(--display);
-		font-weight: 400;
-		font-size: clamp(1.4rem, 3vw, 2.3rem);
-		line-height: 1.2;
-		color: var(--ivory);
-		margin: 16px 0 0;
-		max-width: 18ch;
-	}
-	.band-line :global(em) {
-		font-style: italic;
 	}
 
 	/* ===== THE PRINTED MENU =====
@@ -2041,20 +2030,14 @@
 
 	/* ===== RESPONSIVE ===== */
 	@media (max-width: 1080px) {
-		/* The bleed stops paying for itself once there's no room for two columns —
-		   stack, and let the picture run edge to edge instead. */
+		/* Stacked: copy first, then the film frame centred under it. */
 		.about-grid {
 			grid-template-columns: 1fr;
-			gap: 34px;
-			padding-left: 0;
+			gap: 56px;
 		}
-		.about-copy {
-			padding: 0 32px;
-		}
-		/* Stacked, so there's no row to stretch to — give it a height of its own. */
 		.about-media {
-			align-self: auto;
-			height: 360px;
+			justify-self: center;
+			width: min(100%, 420px);
 		}
 		.info-grid {
 			grid-template-columns: 1fr;
@@ -2080,22 +2063,28 @@
 		.about {
 			padding: 70px 0 40px;
 		}
-		.about-copy {
+		.about-grid {
 			padding: 0 20px;
 		}
-		.about-media {
-			height: 320px;
-			margin-left: 20px;
-		}
-		/* No scroll-driven unfurl on a phone. --o runs off the SECTION's progress,
-		   and stacked the picture is 645px down it: by the time its first row
-		   reaches the screen the wipe is 98.5% open (2px left to travel), so it was
-		   never seen — but the clip still changed on every scroll frame of the
-		   approach, repainting a masked image each time. The slide-in from the
-		   bleed edge (data-reveal="bleed") is the arrival a phone actually shows. */
-		.about-media img {
-			clip-path: none;
+		/* No scroll-driven unveil on a phone (the handler doesn't write --o there —
+		   stacked, the frame is far down the section and the wipe would be over
+		   before it showed). The data-reveal="film" arrival is what a phone sees. */
+		.dish-frame {
 			will-change: auto;
+		}
+		.about-media {
+			width: calc(100% - 24px);
+			margin-left: 12px;
+		}
+		.dish-chip {
+			left: 50%;
+			bottom: -20px;
+			transform: translateX(-50%);
+			white-space: nowrap;
+		}
+		.dish-chip:hover,
+		.dish-chip:focus-visible {
+			transform: translateX(-50%) translateY(-3px);
 		}
 		/* Two even lines instead of one long one with "MEET" orphaned under it —
 		   and the same for the headline, which broke as "One kitchen, every /
@@ -2209,27 +2198,6 @@
 		.specials-nav button {
 			width: 44px;
 			height: 44px;
-		}
-		.band {
-			height: 48vh;
-			min-height: 300px;
-		}
-		/* The caption takes the lower half of the band on a phone rather than a
-		   corner of it, and the desktop ramp is nearly clear by then — the eyebrow
-		   was gold on pale grey brick. Deeper under the caption, still open over
-		   the eyes. */
-		.band::after {
-			background: linear-gradient(
-				0deg,
-				rgba(var(--scrim), 0.92) 0%,
-				rgba(var(--scrim), 0.7) 34%,
-				rgba(var(--scrim), 0.22) 60%,
-				rgba(var(--scrim), 0.04) 78%,
-				rgba(var(--scrim), 0.4) 100%
-			);
-		}
-		.band-caption {
-			padding: 0 20px 36px;
 		}
 		.menu {
 			padding: 70px 0;
@@ -2346,14 +2314,57 @@
 		transform: translateX(0);
 	}
 
-	/* band — the full-bleed slab: the photo eases out of an over-zoom so the
-	   caption emerges from a slow-pushing-in image */
-	.page :global([data-reveal='band'] .band-image) {
-		transform: scale(1.18);
-		transition: transform 1.6s var(--ease-fusion);
+	/* words — a headline set word by word: each word rises out of its own line
+	   mask, staggered, the way thealchemistbars.com brings its titles in. */
+	.page :global([data-reveal='words'] .w) {
+		display: inline-block;
+		overflow: hidden;
+		vertical-align: top;
+		padding-bottom: 0.1em;
+		margin-bottom: -0.1em;
 	}
-	.page :global([data-reveal='band'][data-in] .band-image) {
-		transform: scale(1.04);
+	.page :global([data-reveal='words'] .wi) {
+		display: inline-block;
+		transform: translate3d(0, 110%, 0) rotate(5deg);
+		transform-origin: left bottom;
+		transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 0.07s + 0.05s);
+	}
+	.page :global([data-reveal='words'][data-in] .wi) {
+		transform: translate3d(0, 0, 0) rotate(0deg);
+	}
+
+	/* film — the New Menu frame: lifts in, and its offset hairline frame draws
+	   itself round after it. */
+	.page :global([data-reveal='film']) {
+		opacity: 0;
+		transform: translateY(60px);
+		transition:
+			opacity 1s var(--ease-fusion),
+			transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.page :global([data-reveal='film'][data-in]) {
+		opacity: 1;
+		transform: none;
+	}
+	.page :global([data-reveal='film'] .dish-outline) {
+		clip-path: inset(0 100% 100% 0 round 22px);
+		transition: clip-path 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.5s;
+	}
+	.page :global([data-reveal='film'][data-in] .dish-outline) {
+		clip-path: inset(0 0 0 0 round 22px);
+	}
+	.page :global([data-reveal='film'] .dish-chip) {
+		opacity: 0;
+		translate: -16px 0;
+		transition:
+			opacity 0.7s var(--ease-fusion) 0.9s,
+			translate 0.9s var(--ease-fusion) 0.9s,
+			background 0.3s var(--ease),
+			transform 0.4s var(--ease);
+	}
+	.page :global([data-reveal='film'][data-in] .dish-chip) {
+		opacity: 1;
+		translate: 0 0;
 	}
 
 	/* QUICKER ON A PHONE. A flick lands a section on screen all at once, and at
@@ -2433,8 +2444,18 @@
 			transform: none !important;
 			transition: none !important;
 		}
-		.page :global([data-reveal='band'] .band-image) {
-			transform: scale(1.04) !important;
+		.page :global([data-reveal] .wi),
+		.page :global([data-reveal] .dish-chip) {
+			opacity: 1 !important;
+			transform: none !important;
+			translate: none !important;
+			transition: none !important;
+		}
+		.page :global([data-reveal] .dish-outline) {
+			clip-path: none !important;
+		}
+		.dish-chip .dot {
+			animation: none;
 		}
 	}
 
