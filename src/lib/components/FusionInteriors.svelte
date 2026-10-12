@@ -160,7 +160,7 @@
 		margin: 0 auto;
 		padding: 0 32px;
 		display: grid;
-		grid-template-columns: minmax(320px, 0.8fr) auto minmax(0, 1.3fr);
+		grid-template-columns: minmax(340px, 1fr) auto minmax(0, 1.25fr);
 		gap: clamp(28px, 3.6vw, 56px);
 		align-items: center;
 	}
@@ -190,7 +190,7 @@
 		font-family: 'Shippori Mincho', Georgia, serif;
 		font-style: italic;
 		font-weight: 500;
-		font-size: clamp(2rem, 3.4vw, 3.5rem);
+		font-size: clamp(2rem, 2.9vw, 3.4rem);
 		line-height: 1.08;
 	}
 	.w {
@@ -385,7 +385,7 @@
 	.t6 {
 		display: none;
 	}
-	@media (min-width: 1400px) {
+	@media (min-width: 1680px) {
 		.wall {
 			grid-template-columns: 1.1fr 1fr 1fr;
 		}
