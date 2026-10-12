@@ -59,7 +59,7 @@
 {#snippet tile(t: Tile)}
 	<figure class="tile">
 		{#if t.kind === 'img'}
-			<img src={t.src} alt={t.alt} loading="lazy" decoding="async" />
+			<img src={t.src} alt={t.alt} decoding="async" fetchpriority="low" />
 		{:else}
 			<video
 				use:inviewVideo={{ fetchAt: '30% 0px' }}
