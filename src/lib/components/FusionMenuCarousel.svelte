@@ -53,7 +53,8 @@
 	// carousel opens on it, so there are covers on both sides from the first
 	// frame — no empty stretch on the left.
 	const ordered = $derived.by(() => {
-		const i = menus.findIndex((m) => `${m.slug} ${m.title}`.toLowerCase().includes(startSlug));
+		const exact = menus.findIndex((m) => m.slug === startSlug);
+		const i = exact >= 0 ? exact : menus.findIndex((m) => `${m.slug} ${m.title}`.toLowerCase().includes(startSlug));
 		if (i < 0) return menus;
 		const rest = menus.filter((_, j) => j !== i);
 		const mid = Math.floor(rest.length / 2);
@@ -147,7 +148,8 @@
 
 	onMount(() => {
 		reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-		const start = items.findIndex((m) => `${m.slug} ${m.title}`.toLowerCase().includes(startSlug));
+		const exact = items.findIndex((m) => m.slug === startSlug);
+		const start = exact >= 0 ? exact : items.findIndex((m) => `${m.slug} ${m.title}`.toLowerCase().includes(startSlug));
 		pos = target = start >= 0 ? start : Math.floor(items.length / 2);
 		const ro = new ResizeObserver(layout);
 		ro.observe(viewport);
