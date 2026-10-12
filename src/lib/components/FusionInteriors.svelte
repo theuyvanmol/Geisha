@@ -358,55 +358,30 @@
 		}
 	}
 
-	/* ---- the gallery: a still mosaic that fills its column top to bottom.
-	   Two columns by default; three on wide screens. Tiles fade up on arrival. */
+	/* ---- the gallery: an even grid of portrait tiles, each close to the shape
+	   of the photos themselves (they are all tall phone shots), so nothing reads
+	   as stretched or squeezed. 2 x 2 by default, 3 x 2 on wide screens; the grid
+	   fills the film's height. Tiles fade up on arrival. */
 	.wall {
 		height: var(--h);
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		grid-template-rows: repeat(6, minmax(0, 1fr));
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-rows: repeat(2, minmax(0, 1fr));
 		gap: 12px;
+		max-width: calc(var(--h) * 0.72);
 	}
-	.t1 {
-		grid-area: 1 / 1 / 4 / 2;
-	}
-	.t2 {
-		grid-area: 1 / 2 / 3 / 3;
-	}
-	.t3 {
-		grid-area: 3 / 2 / 5 / 3;
-	}
-	.t4 {
-		grid-area: 4 / 1 / 7 / 2;
-	}
-	.t5 {
-		grid-area: 5 / 2 / 7 / 3;
-	}
+	.t5,
 	.t6 {
 		display: none;
 	}
 	@media (min-width: 1680px) {
 		.wall {
-			grid-template-columns: 1.1fr 1fr 1fr;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			max-width: calc(var(--h) * 1.05);
 		}
-		.t1 {
-			grid-area: 1 / 1 / 7 / 2;
-		}
-		.t2 {
-			grid-area: 1 / 2 / 4 / 3;
-		}
-		.t3 {
-			grid-area: 1 / 3 / 3 / 4;
-		}
-		.t4 {
-			grid-area: 4 / 2 / 7 / 3;
-		}
-		.t5 {
-			grid-area: 3 / 3 / 5 / 4;
-		}
+		.t5,
 		.t6 {
 			display: block;
-			grid-area: 5 / 3 / 7 / 4;
 		}
 	}
 	.cell {
@@ -471,8 +446,13 @@
 			aspect-ratio: 4 / 5;
 		}
 		.wall {
-			height: 150vw;
+			height: auto;
+			max-width: none;
+			grid-template-rows: none;
 			gap: 10px;
+		}
+		.cell {
+			aspect-ratio: 3 / 4;
 		}
 	}
 
