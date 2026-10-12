@@ -37,16 +37,6 @@ export type Offer = {
 export const OFFERS: Record<BrandId, Offer[]> = {
 	asia: [
 		{
-			id: 'daytime',
-			title: 'Daytime Special',
-			blurb: 'Mix & match any two dishes from the daytime menu.',
-			when: 'Mon–Fri, 12pm – 5pm',
-			price: '£15',
-			href: '/asia/menus/daytime-special',
-			img: '/geisha-asia-special-daytime.webp',
-			cta: 'View Daytime Special'
-		},
-		{
 			id: 'evening',
 			title: 'Evening Special',
 			blurb: 'A starter and a main from our evening selection.',
