@@ -47,18 +47,6 @@ export const OFFERS: Record<BrandId, Offer[]> = {
 			cta: 'View Daytime Special'
 		},
 		{
-			id: 'restaurant-week',
-			title: 'Restaurant Week',
-			blurb: 'A starter and a main, from the Restaurant Week selection.',
-			// Transcribed from the poster artwork itself, so the two can't disagree.
-			when: 'Mon–Thu all day · Fri & Sat until 4pm · Sunday all day',
-			price: '£20',
-			href: '/asia/bookings',
-			img: '/geisha-asia-special-restaurant-week.webp',
-			imgFit: 'poster',
-			cta: 'Book Now'
-		},
-		{
 			id: 'evening',
 			title: 'Evening Special',
 			blurb: 'A starter and a main from our evening selection.',
@@ -89,20 +77,6 @@ export const OFFERS: Record<BrandId, Offer[]> = {
 		}
 	],
 	fusion: [
-		{
-			id: 'restaurant-week',
-			title: 'Restaurant Week',
-			blurb: 'Two or three courses from the Restaurant Week selection.',
-			// Transcribed from the poster artwork itself, so the two can't disagree.
-			when: 'Available all day, Monday – Sunday',
-			price: '£15 / £20',
-			href: '/fusion/bookings',
-			// Finished artwork from the design pack — it carries its own wording, so
-			// the home banner shows it whole and drops the title/blurb over the top.
-			img: '/Content%20folder/fusion-special-restaurant-week.png',
-			imgFit: 'poster',
-			cta: 'Book Now'
-		},
 		{
 			id: 'sunday-roast',
 			title: 'Traditional Sunday Roast',

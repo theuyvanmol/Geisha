@@ -477,7 +477,7 @@
 		variant="outline"
 		reverse
 		speed={0.7}
-		items={['Special Menu', 'Sunday Roast', 'Bottomless Brunch', 'Restaurant Week', 'Festive Christmas Menu', 'Kids Menu', 'Dessert Menu']}
+		items={['Special Menu', 'Sunday Roast', 'Bottomless Brunch', 'Festive Christmas Menu', 'Kids Menu', 'Dessert Menu']}
 	/>
 
 	<!-- SPECIALS — full-bleed cinematic banner, one slide per live offer. -->
