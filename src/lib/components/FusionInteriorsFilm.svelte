@@ -173,10 +173,11 @@
 		position: absolute;
 		z-index: 3;
 		margin: 0;
-		top: 50%;
+		/* centred in the space under the 70px nav bar, not the whole screen */
+		top: calc(50% + 34px);
 		left: 50%;
-		height: 88vh;
-		height: 88svh;
+		height: 80vh;
+		height: calc(100svh - 150px);
 		aspect-ratio: 9 / 16;
 		border-radius: 18px;
 		overflow: hidden;
@@ -230,7 +231,7 @@
 		position: absolute;
 		z-index: 4;
 		left: var(--gutter);
-		top: 50%;
+		top: calc(50% + 34px);
 		transform: translateY(-50%);
 		width: min(40vw, 560px);
 	}
