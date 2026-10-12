@@ -2,13 +2,12 @@
 	// THE ROOM — Geisha Fusion's interiors, on the home page.
 	//
 	// Three columns: the copy on the left, the Interiors film standing tall in the
-	// middle, and on the right a living wall of the room — two columns of photos
-	// and short clips drifting endlessly in opposite directions. As the section
-	// arrives the film opens out of a slit, the caption rises word by word and the
-	// wall slides up into place; while you scroll, the three layers move at
-	// different speeds. A huge outlined INTERIORS drifts behind it all.
-	// Phone: copy, then the film, then the wall as a sideways strip.
-	// Reduced motion: everything shown, nothing drifts.
+	// middle, and on the right a still gallery of the room — a four-picture mosaic
+	// (one of them a short looping clip). As the section arrives the film opens out
+	// of a slit, the caption rises word by word and the gallery tiles fade up one
+	// after another. The gallery itself never scrolls or drifts (owner feedback).
+	// Phone: copy, then the film, then the mosaic.
+	// Reduced motion: everything shown, nothing moves.
 	import { inviewVideo, scrollProgress } from '$lib/data/showcase';
 
 	let {
@@ -24,16 +23,11 @@
 	const CLIP = '/videos/interiors';
 	const COL_A: Tile[] = [
 		{ kind: 'img', src: `${IMG}/mural-canopy.webp`, alt: 'Blossom canopy over the booths, beside the face mural' },
-		{ kind: 'clip', src: `${CLIP}/clip-1.mp4`, poster: `${CLIP}/clip-1.webp`, alt: '' },
-		{ kind: 'img', src: `${IMG}/lantern-hall.webp`, alt: 'Painted paper lanterns over the dining room' },
-		{ kind: 'img', src: `${IMG}/dining-room.webp`, alt: 'Lantern-lit dining room with blossom trees' }
+		{ kind: 'clip', src: `${CLIP}/clip-2.mp4`, poster: `${CLIP}/clip-2.webp`, alt: '' }
 	];
 	const COL_B: Tile[] = [
-		{ kind: 'img', src: `${IMG}/lantern-canopy.webp`, alt: 'Hanging flowers and lanterns above the tables' },
-		{ kind: 'clip', src: `${CLIP}/clip-2.mp4`, poster: `${CLIP}/clip-2.webp`, alt: '' },
-		{ kind: 'img', src: `${IMG}/mural-face.webp`, alt: 'Street-art face mural under the lanterns' },
-		{ kind: 'clip', src: `${CLIP}/clip-3.mp4`, poster: `${CLIP}/clip-3.webp`, alt: '' },
-		{ kind: 'img', src: `${IMG}/blossom-interior.webp`, alt: 'Blossom trees and lanterns in the restaurant' }
+		{ kind: 'img', src: `${IMG}/lantern-hall.webp`, alt: 'Painted paper lanterns over the dining room' },
+		{ kind: 'img', src: `${IMG}/dining-room.webp`, alt: 'Lantern-lit dining room with blossom trees' }
 	];
 
 	const FEATURES = ['Lantern-lit ceilings', 'Blossom canopy', 'Street-art murals'];
@@ -117,14 +111,10 @@
 
 		<div class="wall">
 			<div class="col a">
-				<div class="track">
-					{#each [...COL_A, ...COL_A] as t}{@render tile(t)}{/each}
-				</div>
+				{#each COL_A as t, i}<div class="cell" style="--d:{0.35 + i * 0.15}s">{@render tile(t)}</div>{/each}
 			</div>
 			<div class="col b">
-				<div class="track">
-					{#each [...COL_B, ...COL_B] as t}{@render tile(t)}{/each}
-				</div>
+				{#each COL_B as t, i}<div class="cell" style="--d:{0.5 + i * 0.15}s">{@render tile(t)}</div>{/each}
 			</div>
 		</div>
 	</div>
@@ -369,65 +359,42 @@
 		}
 	}
 
-	/* ---- the living wall ---- */
+	/* ---- the gallery: a still mosaic, tiles fade up on arrival ---- */
 	.wall {
 		height: var(--h);
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 14px;
-		-webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
-		mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
 	}
 	.col {
-		overflow: hidden;
-		opacity: 0;
-		transition:
-			opacity 1s ease,
-			translate 1.4s var(--ease-out);
+		display: grid;
+		gap: 14px;
+		min-height: 0;
 	}
 	.col.a {
-		translate: 0 80px;
-		transition-delay: 0.35s;
+		grid-template-rows: 1.35fr 1fr;
 	}
 	.col.b {
-		translate: 0 -80px;
-		transition-delay: 0.5s;
+		grid-template-rows: 1fr 1.35fr;
 	}
-	.seen .col {
+	.cell {
+		min-height: 0;
+		opacity: 0;
+		transform: translateY(40px);
+		transition:
+			opacity 1s ease var(--d),
+			transform 1.2s var(--ease-out) var(--d);
+	}
+	.seen .cell {
 		opacity: 1;
-		translate: 0 0;
-	}
-	.track {
-		display: flex;
-		flex-direction: column;
-		gap: 14px;
-		animation: drift 46s linear infinite;
-	}
-	.col.a .track {
-		transform: translateY(calc(var(--sp) * -60px));
-	}
-	.col.b .track {
-		animation-direction: reverse;
-		animation-duration: 54s;
-	}
-	.wall:hover .track {
-		animation-play-state: paused;
-	}
-	@keyframes drift {
-		from {
-			translate: 0 0;
-		}
-		to {
-			translate: 0 calc(-50% - 7px);
-		}
+		transform: none;
 	}
 	.tile {
 		margin: 0;
-		border-radius: 14px;
+		height: 100%;
+		border-radius: 16px;
 		overflow: hidden;
-		aspect-ratio: 9 / 15;
 		background: #121a16;
-		flex-shrink: 0;
 	}
 	.tile img,
 	.tile video {
@@ -435,15 +402,11 @@
 		height: 100%;
 		object-fit: cover;
 		display: block;
-		transition:
-			transform 0.9s var(--ease-out),
-			filter 0.6s ease;
-		filter: saturate(0.9) brightness(0.88);
+		transition: transform 0.9s var(--ease-out);
 	}
 	.tile:hover img,
 	.tile:hover video {
-		transform: scale(1.06);
-		filter: saturate(1.1) brightness(1);
+		transform: scale(1.05);
 	}
 
 	/* ---- tablet: copy on top, film + wall side by side ---- */
@@ -476,45 +439,17 @@
 			aspect-ratio: 4 / 5;
 		}
 		.wall {
-			height: auto;
-			display: block;
-			margin: 0 -20px;
-			-webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-			mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-		}
-		.col.b {
-			display: none;
-		}
-		.col.a .track {
-			flex-direction: row;
-			width: max-content;
-			transform: none;
-			animation-name: drift-x;
-			animation-duration: 40s;
-		}
-		.tile {
-			width: 42vw;
-		}
-		@keyframes drift-x {
-			from {
-				translate: 0 0;
-			}
-			to {
-				translate: calc(-50% - 7px) 0;
-			}
+			height: 128vw;
 		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.track {
-			animation: none;
-		}
 		.feature,
 		.feature video,
 		.wi,
 		.features li,
 		.actions,
-		.col {
+		.cell {
 			transition: none;
 		}
 	}

@@ -25,7 +25,7 @@
 	import FusionMenuCarousel from '$lib/components/FusionMenuCarousel.svelte';
 	import FusionInteriors from '$lib/components/FusionInteriors.svelte';
 	import FusionMarquee from '$lib/components/FusionMarquee.svelte';
-	import { inviewVideo, scrollProgress } from '$lib/data/showcase';
+	import { inviewVideo } from '$lib/data/showcase';
 	import { onMount } from 'svelte';
 	import { isCovered, isEntering } from '$lib/nav/entering';
 	import type { PageData } from './$types';
@@ -223,14 +223,6 @@
 	// so "100vw" made it fetch the 1600px variant (up to 360 KB a picture) for a
 	// screen 1170 device px across; at 85vw it takes the 1024px one — under half
 	// the bytes, and not a difference the eye finds. 2x phones are unaffected.
-	// The three plates that float round the New Menu film (stills cut from it).
-	const DISH_FLOATS = [
-		{ src: '/images/dishes/burger.webp', label: 'Burgers' },
-		{ src: '/images/dishes/pasta.webp', label: 'Pasta' },
-		{ src: '/images/dishes/pizza.webp', label: 'Pizza' }
-	];
-	let dishP = $state(0.5);
-
 	const PHONE_CAP = '(max-width: 760px) 85vw';
 	const hero = $derived(imgAttrs(heroImage, '(orientation: portrait) 190vh, 100vw'));
 	const blossom = $derived(imgAttrs(blossomImage, `${PHONE_CAP}, 100vw`));
@@ -426,16 +418,10 @@
 				<p class="about-tag" data-reveal="rise" style="--rd: 0.25s">{home.aboutTag}</p>
 			</div>
 
-			<!-- The New Menu, alive: the dishes film standing tall in the middle, three
-			     plates from it floating round it at their own scroll speeds, and a
-			     slowly turning "New menu" seal. The film unveils from the bottom as the
-			     section scrolls in (--o, from the handler in onMount). -->
-			<div
-				class="about-media"
-				data-reveal="film"
-				use:scrollProgress={{ mode: 'through', onprogress: (v) => (dishP = v) }}
-				style="--pp:{dishP}"
-			>
+			<!-- The New Menu film, standing tall on its own beside the copy. It unveils
+			     from the bottom as the section scrolls in (--o, from the handler in
+			     onMount), inside an offset gold hairline frame. -->
+			<div class="about-media" data-reveal="film">
 				<span class="dish-outline" aria-hidden="true"></span>
 				<div class="dish-frame">
 					<video
@@ -449,19 +435,6 @@
 						aria-label="Dishes from the new Geisha Fusion menu being served"
 					></video>
 				</div>
-				{#each DISH_FLOATS as d, i}
-					<figure class="float f{i + 1}" aria-hidden="true">
-						<img src={d.src} alt="" loading="lazy" decoding="async" />
-						<figcaption>{d.label}</figcaption>
-					</figure>
-				{/each}
-				<a class="seal" href="/fusion/menus" aria-label="See the new menu">
-					<svg viewBox="0 0 120 120" aria-hidden="true">
-						<defs><path id="seal-ring" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" /></defs>
-						<text><textPath href="#seal-ring">NEW MENU · NOW SERVING · NEW MENU · NOW SERVING ·</textPath></text>
-					</svg>
-					<img src="/images/brand/geisha-g.webp" alt="" />
-				</a>
 			</div>
 		</div>
 
@@ -475,7 +448,7 @@
 		variant="outline"
 		reverse
 		speed={0.7}
-		items={['Stone-baked pizza', 'Curry', 'Burgers', 'Sunday roast', 'Pasta', 'Grill', 'Sizzlers', 'Desserts']}
+		items={['Special Menu', 'Sunday Roast', 'Bottomless Brunch', 'Restaurant Week', 'Festive Christmas Menu', 'Kids Menu', 'Dessert Menu']}
 	/>
 
 	<!-- SPECIALS — full-bleed cinematic banner, one slide per live offer. -->
@@ -500,22 +473,20 @@
 					>
 						<div class="slide-bg">
 							{#if s.image}
-								<!-- Poster artwork is shown whole, so whenever the banner's frame is a
-								     different shape to the artwork there's a gap. This blurred, cropped
-								     copy of the same file fills it, so the banner reads edge-to-edge at
-								     any viewport instead of pillar/letterboxing onto black. Same attrs
-								     as the sharp copy on purpose — the browser serves it from cache, so
-								     it costs no extra bytes. -->
-								{#if s.poster}
-									<img
-										class="poster-fill"
-										{...imgAttrs(s.image, `${PHONE_CAP}, 100vw`)}
-										alt=""
-										aria-hidden="true"
-										loading={i === 0 ? 'eager' : 'lazy'}
-									/>
-								{/if}
+								<!-- Every picture is shown WHOLE — never cropped, never stretched. The
+								     banner is 16:9, the shape of the poster artwork, so a poster fills
+								     it exactly; a photo slide shows its photo complete beside the copy.
+								     Any sliver the artwork doesn't cover is filled by this blurred copy
+								     of the same file (same attrs, so it comes from cache). -->
 								<img
+									class="poster-fill"
+									{...imgAttrs(s.image, `${PHONE_CAP}, 100vw`)}
+									alt=""
+									aria-hidden="true"
+									loading={i === 0 ? 'eager' : 'lazy'}
+								/>
+								<img
+									class="sharp"
 									{...imgAttrs(s.image, `${PHONE_CAP}, 100vw`)}
 									alt={s.poster ? `${s.title} — ${s.when}` : ''}
 									loading={i === 0 ? 'eager' : 'lazy'}
@@ -1420,49 +1391,48 @@
 	   viewport's right edge so the artwork bleeds off the page. `max()` keeps the
 	   copy aligned with every other section on a wide screen and falls back to a
 	   plain 32px gutter once the viewport is narrower than the container. */
-	/* Copy left, the New Menu composition right: the film standing tall in the
-	   middle with plates floating round it. Inside the 1320px container. */
+	/* Copy left, the New Menu film right — the film as large as the screen
+	   allows, in a 9:16 frame with nothing competing with it. */
 	.about-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-		gap: clamp(36px, 5vw, 80px);
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: clamp(40px, 7vw, 120px);
 		align-items: center;
-		max-width: 1320px;
+		max-width: 1240px;
 		margin: 0 auto;
 		padding: 0 32px;
 		box-sizing: border-box;
 	}
+	.about-copy {
+		max-width: 560px;
+	}
 	.about-media {
 		position: relative;
-		height: clamp(560px, 84vh, 820px);
+		height: clamp(560px, 86vh, 860px);
+		aspect-ratio: 9 / 16;
 	}
 	.dish-frame,
 	.dish-outline {
 		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 50%;
-		aspect-ratio: 9 / 16;
-		border-radius: 22px;
+		inset: 0;
+		border-radius: 24px;
 	}
 	/* Offset hairline frame, drawn in once the section arrives. */
 	.dish-outline {
-		transform: translate(calc(-50% - 18px), -18px);
+		transform: translate(-20px, -20px);
 		border: 1px solid rgba(221, 130, 54, 0.5);
 		pointer-events: none;
 	}
 	/* The film. --o (0→1, written by the scroll handler in onMount) unveils it
 	   from the bottom and settles it out of a push-in. Fallback 1 = fully open. */
 	.dish-frame {
-		transform: translateX(-50%);
 		overflow: hidden;
 		background: #050706;
 		box-shadow:
 			0 60px 120px -40px rgba(0, 0, 0, 0.9),
 			0 0 0 1px rgba(221, 130, 54, 0.25);
-		clip-path: inset(calc((1 - var(--o, 1)) * 100%) 0 0 0 round 22px);
+		clip-path: inset(calc((1 - var(--o, 1)) * 100%) 0 0 0 round 24px);
 		will-change: clip-path;
-		z-index: 2;
 	}
 	.dish-frame video {
 		width: 100%;
@@ -1471,114 +1441,7 @@
 		display: block;
 		transform: scale(calc(1.2 - var(--o, 1) * 0.2));
 	}
-	/* Plates floating round the film, each on its own scroll speed (--pp) and a
-	   slow bob of its own. */
-	.float {
-		position: absolute;
-		z-index: 3;
-		margin: 0;
-		width: clamp(140px, 13vw, 210px);
-		aspect-ratio: 4 / 5;
-		border-radius: 16px;
-		overflow: hidden;
-		border: 1px solid rgba(242, 236, 224, 0.18);
-		box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.85);
-		animation: dish-bob 7s ease-in-out infinite alternate;
-	}
-	.float img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		display: block;
-		transition: transform 0.8s var(--ease);
-	}
-	.float:hover img {
-		transform: scale(1.08);
-	}
-	.float figcaption {
-		position: absolute;
-		left: 10px;
-		bottom: 10px;
-		padding: 6px 11px;
-		border-radius: 999px;
-		background: rgba(10, 13, 11, 0.6);
-		backdrop-filter: blur(6px);
-		font-family: var(--body-f);
-		font-size: 0.6rem;
-		letter-spacing: 0.22em;
-		text-transform: uppercase;
-		color: var(--ivory);
-	}
-	.f1 {
-		left: 0;
-		top: 5%;
-		transform: translateY(calc((0.5 - var(--pp, 0.5)) * 180px)) rotate(-6deg);
-	}
-	.f2 {
-		right: 0;
-		top: 36%;
-		transform: translateY(calc((var(--pp, 0.5) - 0.5) * 200px)) rotate(5deg);
-		animation-delay: -2.5s;
-	}
-	.f3 {
-		left: 5%;
-		bottom: 3%;
-		transform: translateY(calc((0.5 - var(--pp, 0.5)) * 260px)) rotate(4deg);
-		animation-delay: -4.5s;
-	}
-	@keyframes dish-bob {
-		from {
-			translate: 0 0;
-		}
-		to {
-			translate: 0 -14px;
-		}
-	}
-	/* The turning "New menu" seal. */
-	.seal {
-		position: absolute;
-		z-index: 4;
-		right: 6%;
-		top: 3%;
-		width: 124px;
-		height: 124px;
-		border-radius: 50%;
-		background: rgba(10, 13, 11, 0.7);
-		backdrop-filter: blur(8px);
-		border: 1px solid rgba(221, 130, 54, 0.45);
-		display: grid;
-		place-items: center;
-		transition:
-			background 0.3s var(--ease),
-			transform 0.4s var(--ease);
-	}
-	.seal:hover,
-	.seal:focus-visible {
-		background: rgba(217, 46, 34, 0.85);
-		transform: scale(1.06);
-	}
-	.seal svg {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		animation: seal-turn 16s linear infinite;
-	}
-	.seal text {
-		fill: var(--ivory);
-		font-family: var(--body-f);
-		font-size: 9.4px;
-		letter-spacing: 2.6px;
-	}
-	.seal img {
-		width: 30px;
-		height: auto;
-	}
-	@keyframes seal-turn {
-		to {
-			transform: rotate(360deg);
-		}
-	}
+
 
 	/* A short gold rule and small caps, in place of Asia's solid plaque. */
 	.about-tag {
@@ -1614,28 +1477,29 @@
 		font-size: 1.12rem;
 	}
 
-	/* ===== SPECIALS ===== */
+	/* ===== SPECIALS =====
+	   A framed 16:9 banner inside the page container — the shape of the design
+	   pack's poster artwork (1600x854 / 1600x900), so posters fill it exactly.
+	   Nothing is cropped or stretched: posters are contained, and a photo slide
+	   shows its (portrait) photo whole in a panel on the right beside the copy.
+	   The frame stays fixed across slides so the page never jumps on autoplay. */
 	.specials {
 		position: relative;
 		background: var(--panel);
-		padding: 0;
+		padding: clamp(56px, 8vw, 110px) 32px;
 	}
-	/* The frame is deliberately close to the shape of the design pack's poster
-	   artwork (~2.5:1), so a poster very nearly fills it on its own and the blurred
-	   backdrop behind it has almost nothing to do. It stays FIXED across slides:
-	   sizing the banner to each slide's own artwork would grow and shrink it every
-	   seven seconds and shunt the whole page below it up and down. */
 	.specials-slider {
 		position: relative;
 		width: 100%;
-		aspect-ratio: 2.4 / 1;
-		/* The floor is what the copy slides need for eyebrow + headline + blurb +
-		   button at tablet width, not a shape — a 2.4:1 frame runs out of room for
-		   them below ~900px. */
-		min-height: 380px;
-		max-height: 640px;
+		max-width: 1240px;
+		margin: 0 auto;
+		aspect-ratio: 16 / 9;
 		overflow: hidden;
-		background: var(--panel);
+		border-radius: 22px;
+		background: var(--ink);
+		box-shadow:
+			0 60px 120px -50px rgba(0, 0, 0, 0.9),
+			0 0 0 1px rgba(221, 130, 54, 0.2);
 	}
 	.special-slide {
 		position: absolute;
@@ -1644,10 +1508,7 @@
 		align-items: flex-end;
 		opacity: 0;
 		visibility: hidden;
-		/* visibility waits out the fade (same fix as Asia). Flipped at once, the
-		   outgoing slide vanished the instant the index changed and the incoming
-		   one faded up from the bare panel — every change dipped the banner to
-		   near-black instead of crossfading. */
+		/* visibility waits out the fade so slides crossfade instead of dipping. */
 		transition:
 			opacity 1.1s var(--ease),
 			visibility 0s linear 1.1s;
@@ -1655,58 +1516,48 @@
 	.special-slide.active {
 		opacity: 1;
 		visibility: visible;
-		/* On top of the one it is replacing, and visible from the first frame. */
 		z-index: 1;
 		transition-delay: 0s;
 	}
-	/* Slow Ken Burns: the backdrop rests at 1.06 and eases to 1 over the slide's
-	   own dwell time, so the banner is never completely static. */
 	.special-slide .slide-bg {
 		position: absolute;
 		inset: 0;
-		/* z-index 0 so the scrim below (::before, z-index 1) paints OVER the photo.
-		   Without it the pseudo-element — being the slide's first child — is painted
-		   under the .slide-bg div that follows it, and the copy sits on bare image. */
 		z-index: 0;
 		background: var(--ink);
-		transform: scale(1.06);
-		transition: transform 9s linear;
-	}
-	.special-slide.active .slide-bg {
-		transform: scale(1);
 	}
 	.special-slide .slide-bg img {
 		position: absolute;
 		inset: 0;
 		width: 100%;
 		height: 100%;
-		object-fit: cover;
-		object-position: center;
 	}
-	/* Poster slides: finished artwork, shown whole rather than cropped — cropping
-	   one cuts its own headline off. It also holds still (no Ken Burns push) and
-	   takes only a light bottom scrim, since there's no copy set over it. */
-	.special-slide.poster .slide-bg {
-		transform: none;
-		transition: none;
-	}
-	.special-slide.poster .slide-bg img {
+	.special-slide .slide-bg .sharp {
 		object-fit: contain;
+		object-position: center;
+		/* a gentle settle as each slide arrives — scale only, never past 1 */
+		transform: scale(0.97);
+		transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 	}
-	/* ...and whatever the frame is left over — a band down each side on a wide
-	   screen, a band top and bottom on a phone — is filled with the same artwork,
-	   cropped to fill and blurred out. The alternative to a poster not filling its
-	   frame is either black bars (the artwork looks dropped in by mistake) or
-	   cropping to fill, which cuts the headline off its own design. This does
-	   neither. The 1.15 scale pushes the blur's own soft edges outside the frame,
-	   where a plain blur would otherwise fade to transparent at the border. */
-	.special-slide.poster .slide-bg .poster-fill {
+	.special-slide.active .slide-bg .sharp {
+		transform: scale(1);
+	}
+	.special-slide .slide-bg .poster-fill {
 		object-fit: cover;
 		transform: scale(1.15);
-		filter: blur(44px) saturate(1.1) brightness(0.42);
+		filter: blur(44px) saturate(1.1) brightness(0.4);
+	}
+	/* Photo slides: the photo whole, at its own shape, in a panel on the right. */
+	.special-slide:not(.poster) .slide-bg .sharp {
+		left: auto;
+		right: 0;
+		width: auto;
+		max-width: 52%;
+		aspect-ratio: 3 / 4;
+		-webkit-mask-image: linear-gradient(to right, transparent, #000 14%);
+		mask-image: linear-gradient(to right, transparent, #000 14%);
 	}
 	.special-slide.poster::before {
-		background: linear-gradient(0deg, rgba(var(--scrim), 0.72) 0%, transparent 26%);
+		background: linear-gradient(0deg, rgba(var(--scrim), 0.55) 0%, transparent 22%);
 	}
 	/* The design pack's artwork is dark and high-contrast already, and anything
 	   heavier just muddies it. */
@@ -1716,41 +1567,21 @@
 		inset: 0;
 		z-index: 1;
 		background: linear-gradient(
-			0deg,
-			rgba(var(--scrim), 0.92) 6%,
-			rgba(var(--scrim), 0.35) 55%,
-			rgba(var(--scrim), 0.55) 100%
+			90deg,
+			rgba(var(--scrim), 0.9) 0%,
+			rgba(var(--scrim), 0.6) 45%,
+			transparent 62%
 		);
-	}
-	/* ...but a slide with no artwork of its own borrows a gallery photo, and some of
-	   those are bright daylight food the copy vanishes into. Only those get the
-	   deeper ramp plus a left-hand wash under the copy column. */
-	.special-slide.borrowed::before {
-		background:
-			linear-gradient(
-				0deg,
-				rgba(var(--scrim), 0.94) 8%,
-				rgba(var(--scrim), 0.66) 42%,
-				rgba(var(--scrim), 0.28) 72%,
-				rgba(var(--scrim), 0.5) 100%
-			),
-			linear-gradient(
-				90deg,
-				rgba(var(--scrim), 0.6) 0%,
-				rgba(var(--scrim), 0.25) 42%,
-				transparent 68%
-			);
 	}
 	.special-copy {
 		position: relative;
 		z-index: 2;
 		width: 100%;
-		padding: 70px 0;
+		padding: 0 0 96px;
 	}
 	.special-copy-inner {
-		max-width: 1240px;
-		margin: 0 auto;
-		padding: 0 32px;
+		max-width: 52%;
+		padding: 0 48px;
 		box-sizing: border-box;
 	}
 	.special-copy .eyebrow {
@@ -2139,9 +1970,8 @@
 			gap: 56px;
 		}
 		.about-media {
-			width: min(100%, 720px);
 			justify-self: center;
-			height: clamp(520px, 78vh, 720px);
+			height: min(80vh, 760px);
 		}
 		.info-grid {
 			grid-template-columns: 1fr;
@@ -2177,24 +2007,11 @@
 			will-change: auto;
 		}
 		.about-media {
-			height: clamp(480px, 132vw, 640px);
+			height: auto;
+			width: min(calc(100% - 24px), 360px);
 		}
-		.float {
-			width: 31vw;
-		}
-		.f1 {
-			top: 3%;
-		}
-		.f2 {
-			top: 40%;
-		}
-		.seal {
-			width: 92px;
-			height: 92px;
-			right: 0;
-		}
-		.seal img {
-			width: 24px;
+		.dish-outline {
+			transform: translate(-12px, -12px);
 		}
 		/* Two even lines instead of one long one with "MEET" orphaned under it —
 		   and the same for the headline, which broke as "One kitchen, every /
@@ -2209,57 +2026,47 @@
 		.about-copy h2 {
 			text-wrap: balance;
 		}
-		/* The frame tracks the WIDTH a little rather than sitting at a flat 480px:
-		   a poster is as tall as the screen is wide (~53vw for the design pack's
-		   artwork), so a fixed frame left a different amount of slack at every
-		   phone size. 54vw + 250 = poster + the 178px CTA/controls foot below it +
-		   a ~70px band of blurred artwork above, at 360, 390 and 430 alike. Still
-		   one height for every slide, so nothing below it shifts on autoplay. */
+		/* Phone: the picture on top at its true 16:9 (a poster fills it exactly,
+		   a photo sits whole in the middle of its own blurred copy), and the copy,
+		   button and controls on the panel underneath — never printed over it. */
+		.specials {
+			padding: 56px 14px;
+		}
 		.specials-slider {
 			aspect-ratio: auto;
-			min-height: clamp(440px, calc(54vw + 250px), 560px);
-			max-height: 560px;
+			height: calc((100vw - 28px) * 9 / 16 + 230px);
+			border-radius: 16px;
 		}
-		/* A phone frame can't be anywhere near a poster's shape — this is a portrait
-		   box holding a ~2:1 landscape image, and the frame can't shrink to suit
-		   because the copy slides need the height for their headline and blurb. So
-		   the poster stands on a fixed line 178px above the foot, whatever its own
-		   height, and the CTA hangs a constant 24px under it. (It used to float at
-		   25% of the slack, which put the button 39px under the poster at 360 and
-		   11px — touching — at 430.) What is left over sits ABOVE the poster as
-		   blurred artwork, not black. */
-		.special-slide.poster .slide-bg img:not(.poster-fill) {
-			height: calc(100% - 178px);
-			object-position: center bottom;
+		.special-slide .slide-bg {
+			bottom: auto;
+			height: calc((100vw - 28px) * 9 / 16);
 		}
-		/* Extra bottom padding keeps the copy clear of the tabs and arrows: the
-		   controls end 63px up, so 104px leaves a 41px gap (it was 130, which only
-		   pushed the copy further up the photograph). Same figure as Asia. A
-		   poster's lone button takes 2px more, to land exactly 24px under the
-		   poster's foot. */
+		.special-slide:not(.poster) .slide-bg .sharp {
+			left: 0;
+			right: 0;
+			width: 100%;
+			max-width: none;
+			aspect-ratio: auto;
+			-webkit-mask-image: none;
+			mask-image: none;
+		}
+		.special-slide::before,
+		.special-slide.poster::before {
+			display: none;
+		}
 		.special-copy {
-			padding: 40px 0 104px;
+			padding: 0 0 78px;
 		}
-		.special-slide.poster .special-copy {
-			padding-bottom: 106px;
+		.special-copy-inner {
+			max-width: none;
+			padding: 0 20px;
 		}
-		/* A copy slide stacks eyebrow + headline + blurb + button, which on a phone
-		   climbs two-thirds of the way up the frame — into the part of the photo the
-		   desktop ramps leave almost clear, so the eyebrow and blurb were set
-		   straight on fried fish and pizza. One deeper ramp for every slide that
-		   carries copy (as Asia does); posters keep their own light one, and the
-		   top third of the picture stays open. The borrowed slides' left-hand wash
-		   is dropped with it: the copy is the full width here, so there is no
-		   column for it to sit under. */
-		.special-slide:not(.poster)::before {
-			background: linear-gradient(
-				0deg,
-				rgba(var(--scrim), 0.97) 0%,
-				rgba(var(--scrim), 0.93) 40%,
-				rgba(var(--scrim), 0.8) 60%,
-				rgba(var(--scrim), 0.3) 80%,
-				rgba(var(--scrim), 0.42) 100%
-			);
+		.special-copy h3 {
+			margin: 10px 0 14px;
+			font-size: 1.5rem;
+		}
+		.special-copy p {
+			display: none;
 		}
 		/* Offer timings run long ("Mon–Thu all day / Fri & Sat 12–5:30pm") and at
 		   0.32em tracking broke after "12–", leaving the time on a line of its own
@@ -2463,30 +2270,7 @@
 	.page :global([data-reveal='film'][data-in] .dish-outline) {
 		clip-path: inset(0 0 0 0 round 22px);
 	}
-	.page :global([data-reveal='film'] .float),
-	.page :global([data-reveal='film'] .seal) {
-		opacity: 0;
-		scale: 0.7;
-		transition:
-			opacity 0.8s var(--ease-fusion) var(--fd, 0.7s),
-			scale 1.1s cubic-bezier(0.34, 1.4, 0.64, 1) var(--fd, 0.7s),
-			background 0.3s var(--ease),
-			transform 0.4s var(--ease);
-	}
-	.page :global([data-reveal='film'] .f2) {
-		--fd: 0.85s;
-	}
-	.page :global([data-reveal='film'] .f3) {
-		--fd: 1s;
-	}
-	.page :global([data-reveal='film'] .seal) {
-		--fd: 1.2s;
-	}
-	.page :global([data-reveal='film'][data-in] .float),
-	.page :global([data-reveal='film'][data-in] .seal) {
-		opacity: 1;
-		scale: 1;
-	}
+
 
 	/* QUICKER ON A PHONE. A flick lands a section on screen all at once, and at
 	   the desktop timings the last staggered line (the story's tag, the menu's
@@ -2569,18 +2353,8 @@
 			transform: none !important;
 			transition: none !important;
 		}
-		.page :global([data-reveal] .float),
-		.page :global([data-reveal] .seal) {
-			opacity: 1 !important;
-			scale: 1 !important;
-			transition: none !important;
-		}
 		.page :global([data-reveal] .dish-outline) {
 			clip-path: none !important;
-		}
-		.float,
-		.seal svg {
-			animation: none;
 		}
 	}
 
