@@ -1,0 +1,23 @@
+/* The showcases' display type is the restaurants' OWN — read off the fonts
+   embedded in their printed menus (static/*.pdf):
+
+     Geisha Asia    Gang of Three — the face of the GEISHA logo (drawn there in
+                    outline, like a neon tube) and of every heading and dish name
+                    on Asia's menu. Freeware by Vic Fieger; self-hosted below.
+     Geisha Fusion  Pink Sunset (Shakira Studio) for headings and the FUSION in
+                    its logo. That one is a paid font with no web licence here, so
+                    Caprasimo — the closest free 1970s display serif — stands in.
+                    To use the real thing: buy the web licence, add its woff2 to
+                    static/fonts and put 'Pink Sunset' first in --brand below.
+     both           Panton for the small bold capitals; Montserrat would stand in
+                    (Asia's own kids' menu already substitutes it), but nothing
+                    here is set in it now, so it is not loaded.
+
+   Caprasimo comes from Google Fonts — TYPE_HREF in $lib/data/showcase. */
+@font-face {
+	font-family: 'Gang of Three';
+	src: url('/fonts/gang-of-three.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
