@@ -89,6 +89,7 @@
 		--mq-sep: #d92e22;
 		--mq-ivory: #f2ece0;
 		--mq-ivory-rgb: 242, 236, 224;
+		--mq-fill: var(--mq-gold);
 		position: relative;
 		overflow: hidden;
 		padding: 26px 0;
@@ -105,6 +106,8 @@
 		--mq-sep: #ef3c5c;
 		--mq-ivory: #f5f1e8;
 		--mq-ivory-rgb: 245, 241, 232;
+		/* the filled words are sakura pink on Asia (owner, Oct 2026) */
+		--mq-fill: #ff7a94;
 	}
 	.track {
 		display: flex;
@@ -138,7 +141,7 @@
 		transition: color 0.4s ease;
 	}
 	.outline .item:nth-child(4n + 1) {
-		color: var(--mq-gold);
+		color: var(--mq-fill);
 		-webkit-text-stroke: 0;
 	}
 	.sep {

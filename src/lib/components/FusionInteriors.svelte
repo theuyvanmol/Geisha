@@ -66,7 +66,8 @@
 			poster: '/videos/asia/interiors-poster.webp',
 			filmLabel: 'A walk through the Geisha Asia dining room: blossom trees, red lanterns and neon',
 			tag: 'Inside Geisha Asia',
-			parties: '/asia/parties'
+			// no Private Parties link on Asia (owner, Oct 2026)
+			parties: ''
 		}
 	};
 	const h = $derived(HOUSE[brand]);
@@ -132,7 +133,9 @@
 			</ul>
 			<div class="actions">
 				<a class="btn btn-solid" href={bookingUrl}>Book a Table</a>
-				<a class="link" href={h.parties}>Private parties <span aria-hidden="true">→</span></a>
+				{#if h.parties}
+					<a class="link" href={h.parties}>Private parties <span aria-hidden="true">→</span></a>
+				{/if}
 			</div>
 		</div>
 
