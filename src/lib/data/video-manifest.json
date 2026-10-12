@@ -1,0 +1,42 @@
+{
+	"/Blinking.mp4": {
+		"slug": "blinking",
+		"src": "/media/blinking.mp4",
+		"poster": "/media/blinking-poster.webp"
+	},
+	"/Content folder/VIDEO-2026-04-04-21-05-20.mp4": {
+		"slug": "video-2026-04-04-21-05-20",
+		"src": "/media/video-2026-04-04-21-05-20.mp4",
+		"poster": "/media/video-2026-04-04-21-05-20-poster.webp"
+	},
+	"/Content%20folder/VIDEO-2026-04-04-21-05-20.mp4": {
+		"slug": "video-2026-04-04-21-05-20",
+		"src": "/media/video-2026-04-04-21-05-20.mp4",
+		"poster": "/media/video-2026-04-04-21-05-20-poster.webp"
+	},
+	"/media/video-2026-04-04-21-05-20-motif.mp4": {
+		"slug": "video-2026-04-04-21-05-20-motif",
+		"src": "/media/video-2026-04-04-21-05-20-motif.mp4",
+		"poster": "/media/video-2026-04-04-21-05-20-poster.webp"
+	},
+	"/Content folder/VIDEO-2026-04-04-21-05-32.mp4": {
+		"slug": "video-2026-04-04-21-05-32",
+		"src": "/media/video-2026-04-04-21-05-32.mp4",
+		"poster": "/media/video-2026-04-04-21-05-32-poster.webp"
+	},
+	"/Content%20folder/VIDEO-2026-04-04-21-05-32.mp4": {
+		"slug": "video-2026-04-04-21-05-32",
+		"src": "/media/video-2026-04-04-21-05-32.mp4",
+		"poster": "/media/video-2026-04-04-21-05-32-poster.webp"
+	},
+	"/Content folder/a355a94d-e057-4202-a283-4bd15e0a6182.mp4": {
+		"slug": "a355a94d-e057-4202-a283-4bd15e0a6182",
+		"src": "/media/a355a94d-e057-4202-a283-4bd15e0a6182.mp4",
+		"poster": "/media/a355a94d-e057-4202-a283-4bd15e0a6182-poster.webp"
+	},
+	"/Content%20folder/a355a94d-e057-4202-a283-4bd15e0a6182.mp4": {
+		"slug": "a355a94d-e057-4202-a283-4bd15e0a6182",
+		"src": "/media/a355a94d-e057-4202-a283-4bd15e0a6182.mp4",
+		"poster": "/media/a355a94d-e057-4202-a283-4bd15e0a6182-poster.webp"
+	}
+}
