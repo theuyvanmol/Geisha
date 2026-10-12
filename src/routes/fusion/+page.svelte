@@ -2229,6 +2229,9 @@
 		.special-copy p {
 			display: none;
 		}
+		.specials-count {
+			display: none;
+		}
 		/* Offer timings run long ("Mon–Thu all day / Fri & Sat 12–5:30pm") and at
 		   0.32em tracking broke after "12–", leaving the time on a line of its own
 		   with the rule floating between the two. Asia's fix, same numbers: closer
