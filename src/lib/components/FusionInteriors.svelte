@@ -21,7 +21,6 @@
 
 	type Tile = { kind: 'img' | 'clip'; src: string; poster?: string; alt: string };
 	const IMG = '/images/interiors';
-	const CLIP = '/videos/interiors';
 	// Photos only (owner: the clips looked choppy). Slot t1 is the wide shot
 	// across the top, t2/t3 the two tall shots under it — each at its own shape.
 	const TILES: Tile[] = [
