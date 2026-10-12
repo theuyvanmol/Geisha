@@ -1,0 +1,11 @@
+# allow crawling everything by default
+User-agent: *
+Disallow:
+
+# Back office and the one-off booking-management links. Both are already
+# noindex, but there's no reason to spend crawl budget fetching them to find out
+# — and a /book/<token> URL is personal to one guest.
+Disallow: /admin
+Disallow: /book/
+
+Sitemap: https://geisharestaurants.co.uk/sitemap.xml
