@@ -22,6 +22,7 @@
 	import HomeCards from '$lib/components/HomeCards.svelte';
 	import RestaurantSchema from '$lib/components/RestaurantSchema.svelte';
 	import RichText from '$lib/components/RichText.svelte';
+	import FusionMenuCarousel from '$lib/components/FusionMenuCarousel.svelte';
 	import { onMount } from 'svelte';
 	import { isCovered, isEntering } from '$lib/nav/entering';
 	import type { PageData } from './$types';
@@ -233,41 +234,6 @@
 		const food = data.gallery.filter((g) => g.category === 'food');
 		return food.length ? food : data.gallery;
 	});
-
-	// ===== THE MENU =====
-	// The printed menu itself, exactly as Asia shows its spreads — rasterised from
-	// the current PDF into static/menu/* and regenerated whenever that PDF is
-	// replaced. It used to be the design template's grid of six numbered photo
-	// tiles; the owner asked for the two home pages to present the menu the same
-	// way, and the sheet is the more honest answer anyway — it's the menu guests
-	// are actually handed.
-	//
-	// ONE spread, not Asia's two: Fusion's main menu is a single A3 landscape page
-	// (MediaBox 1190.55 x 841.89pt) where Asia's July reprint runs to two. The
-	// markup loops, so a future two-page reprint only needs another entry here.
-	// Nothing was lost with the tiles — /fusion/menus still lists every menu, and
-	// the row of PDF links under the sheet still reaches each one directly.
-	//
-	// Currently page 1 of g_fusion_main_menu_oct26.pdf (the October 2026 reprint).
-	// That file has a second page, but it is the back cover — Sunday roast and
-	// special-menu adverts, the function room, the socials — not menu, so it is
-	// not shown. The sheet had been left on the August print when the PDF was
-	// replaced on 1 Oct: REPLACING THE PDF DOES NOT UPDATE THESE IMAGES. Render
-	// page 1 at 3720px wide and cut 800 / 1280 / 1860 in avif + webp over the same
-	// filenames (they are served must-revalidate, so no rename is needed).
-	const MENU_SPREADS = [
-		{
-			base: '/menu/fusion-menu-p1',
-			alt: 'Geisha Fusion menu — starters and light bites, fusion favourites, pizza, pasta, grill, build-your-own burgers and sides'
-		}
-	];
-	const MENU_SPREAD_W = [800, 1280, 1860];
-	const srcset = (base: string, ext: string) =>
-		MENU_SPREAD_W.map((w) => `${base}-${w}.${ext} ${w}w`).join(', ');
-
-	/** The main menu's own PDF — the "download the whole thing" target. */
-	const mainPdf = $derived(data.menuIndex.find((m) => m.slug === 'main')?.pdf);
-	const menuPdfs = $derived(data.menuIndex.filter((m) => !!m.pdf && m.slug !== 'main'));
 
 	// The "Our Story" stat strip (days open / kitchen hours / menus to explore) was
 	// removed, along with the daysOpen + kitchenSpan derivations and the shortTime
@@ -555,78 +521,8 @@
 		</section>
 	{/if}
 
-	<!-- EXPLORE OUR MENU — the printed menu itself, straight off the current PDF
-	     design, the same way Asia shows its spreads. The sheet opens the full PDF.
-	     The ember glow and ring cluster stay: the section's SHAPE now matches Asia's,
-	     but the decoration around it is still Fusion's. -->
-	<section class="menu" id="menu">
-		<div class="glow glow-menu" aria-hidden="true"></div>
-		<svg class="rings rings-menu" viewBox="0 0 600 600" aria-hidden="true">
-			<circle cx="300" cy="300" r="290" fill="none" stroke="#dd8236" stroke-width="1" />
-			<circle cx="300" cy="300" r="205" fill="none" stroke="#f79a4a" stroke-width="1" />
-		</svg>
-
-		<div class="menu-inner">
-			<div class="section-head" data-reveal="rise">
-				<!-- NOT "One kitchen, every craving" — that's the story block's headline
-				     further up the same page, and the two printed the identical line
-				     twice. -->
-				<span class="eyebrow">Explore Our Menu</span>
-				<!-- Owner's pick (Aug 2026). It replaced "Seven menus, one long table",
-				     which described the retired card grid, via two rejected attempts at
-				     a cleverer line. Plain and conversational beat both. -->
-				<h2>Have a look at the menu</h2>
-				<p class="lead">
-					From stone-baked pizza to a proper Sunday roast. Tap the page to open it, or
-					<a href="/fusion/menus">browse every menu</a>.
-				</p>
-			</div>
-
-			<div class="menu-spreads" data-reveal="rise" style="--rd: 0.08s">
-				{#each MENU_SPREADS as s, i}
-					<a
-						class="spread"
-						href={mainPdf ?? '/fusion/menus'}
-						target={mainPdf ? '_blank' : undefined}
-						rel={mainPdf ? 'noopener' : undefined}
-						style="--rd: {0.08 + i * 0.06}s"
-					>
-						<picture>
-							<source
-								type="image/avif"
-								srcset={srcset(s.base, 'avif')}
-								sizes="(max-width: 1080px) 92vw, 1100px"
-							/>
-							<source
-								type="image/webp"
-								srcset={srcset(s.base, 'webp')}
-								sizes="(max-width: 1080px) 92vw, 1100px"
-							/>
-							<img
-								src="{s.base}-1280.webp"
-								alt={s.alt}
-								width="1860"
-								height="1315"
-								loading="lazy"
-								decoding="async"
-							/>
-						</picture>
-					</a>
-				{/each}
-			</div>
-
-			<div class="menu-links-extra" data-reveal="rise" style="--rd: 0.2s">
-				{#if mainPdf}
-					<a class="pdf-primary" href={mainPdf} target="_blank" rel="noopener">
-						Download the full menu ({menuFileKind(mainPdf)})
-					</a>
-				{/if}
-				{#each menuPdfs as m}
-					<a href={m.pdf} target="_blank" rel="noopener">{m.title} ({menuFileKind(m.pdf)})</a>
-				{/each}
-			</div>
-		</div>
-	</section>
+	<!-- MENUS: 3D coverflow of the menus (see FusionMenuCarousel.svelte). -->
+	<FusionMenuCarousel menus={data.menuIndex} />
 
 	<!-- RESERVE — the call to action.
 	     It sits HERE, straight off the menu band, rather than at the foot of the
