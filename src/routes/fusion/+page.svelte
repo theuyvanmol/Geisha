@@ -225,9 +225,9 @@
 	// the bytes, and not a difference the eye finds. 2x phones are unaffected.
 	// The three plates that float round the New Menu film (stills cut from it).
 	const DISH_FLOATS = [
-		{ src: '/images/dishes/d15_5.webp', label: 'Burgers' },
-		{ src: '/images/dishes/d4_2.webp', label: 'Curry' },
-		{ src: '/images/dishes/d23_5.webp', label: 'Pizza' }
+		{ src: '/images/dishes/burger.webp', label: 'Burgers' },
+		{ src: '/images/dishes/pasta.webp', label: 'Pasta' },
+		{ src: '/images/dishes/pizza.webp', label: 'Pizza' }
 	];
 	let dishP = $state(0.5);
 
