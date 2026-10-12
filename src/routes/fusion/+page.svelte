@@ -223,11 +223,12 @@
 	// screen 1170 device px across; at 85vw it takes the 1024px one — under half
 	// the bytes, and not a difference the eye finds. 2x phones are unaffected.
 	const PHONE_CAP = '(max-width: 760px) 85vw';
-	// The hero is the warm-lit dining room under the pink blossom (owner, Oct 2026),
+	// The hero is the blossom room with the painted face (owner, Oct 2026),
 	// shipped with the site rather than read from the CMS slot.
 	const hero = {
-		src: '/images/hero/fusion-blossom-1672.webp',
-		srcset: '/images/hero/fusion-blossom-960.webp 960w, /images/hero/fusion-blossom-1672.webp 1672w',
+		src: '/images/hero/fusion-blossom-face-1672.webp',
+		srcset:
+			'/images/hero/fusion-blossom-face-960.webp 960w, /images/hero/fusion-blossom-face-1672.webp 1672w',
 		sizes: '(orientation: portrait) 190vh, 100vw',
 		width: 1672,
 		height: 941
@@ -927,7 +928,7 @@
 		   the FACE — a centred crop shaved ~124px off each side at 1440 and cut into
 		   her hair. What gets trimmed instead is the far-right lantern, which the
 		   headline sits over anyway. */
-		object-position: 30% 45%;
+		object-position: 50% 40%;
 		display: block;
 	}
 	/* A RIGHT→LEFT wash, deepening only across the half the copy sits in. The right
@@ -936,28 +937,17 @@
 	   carry type over the face and buried the picture doing it. The face side is
 	   left completely untouched.
 	   The small top fade is only there to seat the nav, not to dim the image. */
-	/* The blossom photograph is far brighter than the painting this wash was tuned
-	   for (lit lanterns sit right under the headline), so a second right-hand wash
-	   seats the copy. Wide screens only: on a phone the copy sits at the foot,
-	   under the bottom wash. */
+	/* The blossom artwork is bright, and the copy now sits in the MIDDLE of it, so
+	   the whole picture is faded down a step, a little deeper behind the type. */
 	.hero-bg::after {
 		content: '';
 		position: absolute;
 		inset: 0;
 		z-index: 1;
 		pointer-events: none;
-		background: linear-gradient(
-			270deg,
-			rgba(10, 13, 11, 0.86) 0%,
-			rgba(10, 13, 11, 0.7) 30%,
-			rgba(10, 13, 11, 0.25) 55%,
-			transparent 72%
-		);
-	}
-	@media (max-width: 760px) {
-		.hero-bg::after {
-			background: linear-gradient(0deg, rgba(10, 13, 11, 0.5) 0%, transparent 60%);
-		}
+		background:
+			radial-gradient(ellipse 55% 50% at 50% 52%, rgba(10, 13, 11, 0.45), transparent 75%),
+			rgba(10, 13, 11, 0.42);
 	}
 	.hero-bg::before {
 		content: '';
@@ -1080,6 +1070,35 @@
 		gap: 18px;
 		flex-wrap: wrap;
 		justify-content: flex-start;
+	}
+	/* CENTRED (owner, Oct 2026): the headline, line and buttons stand in the
+	   middle of the blossom artwork, the eyebrow ruled on both sides. */
+	.hero {
+		justify-content: center;
+		text-align: center;
+	}
+	.hero-inner {
+		justify-content: center;
+	}
+	.hero-copy {
+		max-width: 820px;
+		align-items: center;
+		text-align: center;
+	}
+	.hero-line {
+		max-width: 560px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.hero-actions {
+		justify-content: center;
+	}
+	.hero-eyebrow::after {
+		content: '';
+		flex: none;
+		width: 34px;
+		height: 1px;
+		background: currentColor;
 	}
 
 	/* ===== BUTTONS =====
@@ -1365,7 +1384,8 @@
 			gap: 12px;
 			letter-spacing: 0.26em;
 		}
-		.hero-eyebrow::before {
+		.hero-eyebrow::before,
+		.hero-eyebrow::after {
 			width: 26px;
 		}
 		.hero-actions {
@@ -1428,7 +1448,7 @@
 		   `transform` — the entry push-in owns that — and on the padding's clock, so
 		   the face and the copy settle together when the notice goes. */
 		.hero-bg img {
-			object-position: 30% 40%;
+			object-position: 46% 40%;
 			translate: 0 calc((var(--cb-lift) + var(--face-lift)) * -1);
 			transition:
 				transform 1.2s cubic-bezier(0.22, 0.9, 0.3, 1),

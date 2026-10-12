@@ -251,12 +251,12 @@
 		--brand: 'Gang of Three', 'Shippori Mincho', Georgia, serif;
 		--nav: 70px;
 		/* the closed window */
-		--ww: min(27vw, 46vh, 400px);
-		--wh: min(64vh, 600px);
+		--ww: min(31vw, 52vh, 470px);
+		--wh: min(72vh, 680px);
 		--wy: 3vh; /* sits a little low, under the heading line */
 		/* closed-film scale: ≥ the arch's share of the screen in its tighter axis
 		   (here its height, ≤64vh), or the film wouldn't cover the arch */
-		--k: 0.68;
+		--k: 0.74;
 		position: relative;
 		height: 210vh;
 		background: linear-gradient(var(--from), var(--bg) 70vh);
@@ -362,7 +362,7 @@
 		position: absolute;
 		left: clamp(24px, 6vw, 96px);
 		top: calc(50% - var(--wh) / 2 + var(--wy));
-		width: min(28vw, 400px);
+		width: min(24vw, 360px);
 		opacity: calc(1 - var(--door-o) * 2.4);
 		translate: calc(var(--door-o) * -6vw) 0;
 	}
@@ -462,16 +462,19 @@
 		color: var(--muted);
 		margin-top: 10px;
 	}
+	/* The plates sit close in to the arch (owner: the wide gaps looked empty):
+	   the left one stands on the arch's foot just off its left side, the right one
+	   beside the "Every craving" line. */
 	.plate-a {
-		left: clamp(24px, 6vw, 96px);
-		bottom: max(48px, 8vh);
-		width: min(14vw, 210px);
-		translate: calc(var(--door-o) * -10vw) 0;
+		right: calc(50% + var(--ww) / 2 + clamp(28px, 3vw, 56px));
+		top: calc(50% + var(--wh) / 2 + var(--wy));
+		width: min(15vw, 30vh, 270px);
+		translate: calc(var(--door-o) * -10vw) -100%;
 	}
 	.plate-b {
-		right: clamp(24px, 7vw, 120px);
-		top: calc(50% - var(--wh) / 2 + var(--wy) + 16vh);
-		width: min(17vw, 260px);
+		left: calc(50% + var(--ww) / 2 + clamp(110px, 9vw, 160px));
+		top: calc(50% - var(--wh) / 2 + var(--wy) + 6vh);
+		width: min(19vw, 40vh, 340px);
 		translate: calc(var(--door-o) * 10vw) 0;
 	}
 
@@ -574,8 +577,7 @@
 			margin-top: 16px;
 		}
 		.plate-a {
-			width: min(10.5vw, 150px);
-			bottom: max(36px, 5vh);
+			width: min(13vw, 26vh, 200px);
 		}
 	}
 
@@ -712,11 +714,14 @@
 		}
 		.plate-a {
 			left: 14px;
+			right: auto;
+			translate: calc(var(--door-o) * -10vw) 0;
 			bottom: calc(100% - var(--sh) + max(16px, var(--ab) - 103px));
 		}
 		/* the right-hand one ends above the Ask Geisha button (the bottom 66px of
 		   that corner), caption and all */
 		.plate-b {
+			left: auto;
 			right: 14px;
 			bottom: calc(100% - var(--sh) + var(--pb));
 		}

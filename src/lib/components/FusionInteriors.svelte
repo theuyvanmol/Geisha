@@ -2,8 +2,9 @@
 	// THE ROOM — Geisha Fusion's interiors, on the home page.
 	//
 	// Three columns: the copy on the left, the Interiors film standing tall in the
-	// middle, and on the right a still gallery of the room — a full mosaic of
-	// photos and two short looping clips, filling the column top to bottom. As the section arrives the film opens out
+	// middle, and on the right a still gallery of the room: one wide photo over two
+	// tall ones, every photo at its own shape so nothing is stretched or cropped
+	// hard, and the block exactly as tall as the film beside it. As the section arrives the film opens out
 	// of a slit, the caption rises word by word and the gallery tiles fade up one
 	// after another. The gallery itself never scrolls or drifts (owner feedback).
 	// Phone: copy, then the film, then the mosaic.
@@ -21,15 +22,12 @@
 	type Tile = { kind: 'img' | 'clip'; src: string; poster?: string; alt: string };
 	const IMG = '/images/interiors';
 	const CLIP = '/videos/interiors';
-	// Order = mosaic slots t1..t6 (see .wall in the styles). t6 shows only when
-	// the gallery is three columns wide.
+	// Photos only (owner: the clips looked choppy). Slot t1 is the wide shot
+	// across the top, t2/t3 the two tall shots under it — each at its own shape.
 	const TILES: Tile[] = [
+		{ kind: 'img', src: `${IMG}/blossom-room.webp`, alt: 'Warm-lit dining room under the pink blossom tree' },
 		{ kind: 'img', src: `${IMG}/mural-canopy.webp`, alt: 'Blossom canopy over the booths, beside the face mural' },
-		{ kind: 'clip', src: `${CLIP}/clip-2.mp4`, poster: `${CLIP}/clip-2.webp`, alt: '' },
-		{ kind: 'img', src: `${IMG}/lantern-hall.webp`, alt: 'Painted paper lanterns over the dining room' },
-		{ kind: 'img', src: `${IMG}/dining-room.webp`, alt: 'Lantern-lit dining room with blossom trees' },
-		{ kind: 'img', src: `${IMG}/blossom-interior.webp`, alt: 'Blossom trees and lanterns in the restaurant' },
-		{ kind: 'clip', src: `${CLIP}/clip-1.mp4`, poster: `${CLIP}/clip-1.webp`, alt: '' }
+		{ kind: 'img', src: `${IMG}/lantern-canopy.webp`, alt: 'Hanging flowers and lanterns above the tables' }
 	];
 
 	const FEATURES = ['Lantern-lit ceilings', 'Blossom canopy', 'Street-art murals'];
@@ -160,7 +158,7 @@
 		margin: 0 auto;
 		padding: 0 32px;
 		display: grid;
-		grid-template-columns: minmax(340px, 1fr) auto minmax(0, 1.25fr);
+		grid-template-columns: minmax(340px, 1fr) auto auto;
 		gap: clamp(28px, 3.6vw, 56px);
 		align-items: center;
 	}
@@ -358,31 +356,23 @@
 		}
 	}
 
-	/* ---- the gallery: an even grid of portrait tiles, each close to the shape
-	   of the photos themselves (they are all tall phone shots), so nothing reads
-	   as stretched or squeezed. 2 x 2 by default, 3 x 2 on wide screens; the grid
-	   fills the film's height. Tiles fade up on arrival. */
+	/* ---- the gallery: a wide photo (16:9) over two tall ones (9:16). The width
+	   is solved so the block is exactly the film's height with every photo at
+	   its own shape: w * 9/16 + gap + (w/2 - gap/2) * 16/9 = --h  =>  w ≈ 0.69h. */
 	.wall {
-		height: var(--h);
+		width: calc(var(--h) * 0.69);
 		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		grid-template-rows: repeat(2, minmax(0, 1fr));
+		grid-template-columns: 1fr 1fr;
 		gap: 12px;
-		max-width: calc(var(--h) * 0.72);
+		align-content: center;
 	}
-	.t5,
-	.t6 {
-		display: none;
+	.t1 {
+		grid-column: 1 / -1;
+		aspect-ratio: 16 / 9;
 	}
-	@media (min-width: 1680px) {
-		.wall {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-			max-width: calc(var(--h) * 1.05);
-		}
-		.t5,
-		.t6 {
-			display: block;
-		}
+	.t2,
+	.t3 {
+		aspect-ratio: 9 / 16;
 	}
 	.cell {
 		min-height: 0;
@@ -446,13 +436,8 @@
 			aspect-ratio: 4 / 5;
 		}
 		.wall {
-			height: auto;
-			max-width: none;
-			grid-template-rows: none;
+			width: 100%;
 			gap: 10px;
-		}
-		.cell {
-			aspect-ratio: 3 / 4;
 		}
 	}
 

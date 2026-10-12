@@ -28,8 +28,18 @@
 		return ART.find((a) => hay.includes(a.key));
 	};
 
+	// The start menu (Main Menu) is moved to the MIDDLE of the row and the
+	// carousel opens on it, so there are covers on both sides from the first
+	// frame — no empty stretch on the left.
+	const ordered = $derived.by(() => {
+		const i = menus.findIndex((m) => `${m.slug} ${m.title}`.toLowerCase().includes(startSlug));
+		if (i < 0) return menus;
+		const rest = menus.filter((_, j) => j !== i);
+		const mid = Math.floor(rest.length / 2);
+		return [...rest.slice(0, mid), menus[i], ...rest.slice(mid)];
+	});
 	const items = $derived(
-		menus.map((m) => ({
+		ordered.map((m) => ({
 			...m,
 			href: m.pdf || `/fusion/menus/${m.slug}`,
 			external: !!m.pdf,
@@ -117,7 +127,7 @@
 	onMount(() => {
 		reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 		const start = items.findIndex((m) => `${m.slug} ${m.title}`.toLowerCase().includes(startSlug));
-		pos = target = start >= 0 ? start : Math.min(1, items.length - 1);
+		pos = target = start >= 0 ? start : Math.floor(items.length / 2);
 		const ro = new ResizeObserver(layout);
 		ro.observe(viewport);
 		layout();
