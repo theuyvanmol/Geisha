@@ -27,6 +27,8 @@
 		'nav',
 		'footer',
 		'.film',
+		'.door',
+		'.stage',
 		'.rooms',
 		'.fx-marquee',
 		'.menus',
@@ -114,6 +116,13 @@
 			if (praf) return;
 			praf = requestAnimationFrame(() => {
 				praf = 0;
+				// Safety net: anything still waiting that is now on screen is shown,
+				// whatever the observer did (pinned/sticky stages can starve it).
+				const vh = window.innerHeight;
+				document.querySelectorAll<HTMLElement>('[data-fx]:not([data-fx-in])').forEach((el) => {
+					const r = el.getBoundingClientRect();
+					if (r.top < vh * 0.94 && r.bottom > 0) el.dataset.fxIn = '';
+				});
 				const max = document.documentElement.scrollHeight - window.innerHeight;
 				bar?.style.setProperty('--sp', String(max > 0 ? Math.min(1, window.scrollY / max) : 0));
 			});
