@@ -114,12 +114,17 @@
 		if (e.button !== 0) return;
 		down = true; moved = false; startX = lastX = e.clientX; lastT = performance.now(); startPos = pos; vel = 0;
 		cancelAnimationFrame(anim);
-		viewport.setPointerCapture(e.pointerId);
+		// NOT captured here: with pointer capture taken on press, a desktop click is
+		// retargeted to the viewport, so "View menu" and the side cards never got
+		// their click. Capture only once the pointer has actually moved (a drag).
 	}
 	function onMove(e: PointerEvent) {
 		if (!down) return;
 		const dx = e.clientX - startX;
-		if (Math.abs(dx) > 4) moved = true;
+		if (!moved && Math.abs(dx) > 4) {
+			moved = true;
+			try { viewport.setPointerCapture(e.pointerId); } catch {}
+		}
 		const now = performance.now();
 		vel = (e.clientX - lastX) / Math.max(1, now - lastT); lastX = e.clientX; lastT = now;
 		let p = startPos - dx / (slideW + GAP);
@@ -128,9 +133,12 @@
 		if (p > max) p = max + (p - max) * 0.35;
 		pos = p; target = p;
 	}
-	function onUp() {
+	function onUp(e?: PointerEvent) {
 		if (!down) return;
 		down = false;
+		if (e && viewport.hasPointerCapture?.(e.pointerId)) viewport.releasePointerCapture(e.pointerId);
+		// a plain click (no drag) leaves the carousel where it is; the click handler decides
+		if (!moved) return;
 		goTo(Math.round(pos - (vel * 180) / (slideW + GAP)));
 	}
 	// clicking a side card brings it to the centre; a click that ends a drag is swallowed
