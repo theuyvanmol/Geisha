@@ -308,6 +308,41 @@
 	.count { font-size: 12px; letter-spacing: 0.24em; color: var(--sage); font-variant-numeric: tabular-nums; min-width: 72px; text-align: center; }
 	.count b { color: var(--rice); font-weight: 500; }
 
+	/* ---- phones ----
+	   767px is layout()'s own break (1.25 slides below 768). Both houses: the
+	   geometry is the same, only the colours and the lede differ. */
+	@media (max-width: 767px) {
+		/* Desktop spacing put the button under the fold: heading, cover and button
+		   now share one phone screen. The side cards tilt BACK in Z, so they are
+		   never more than a few px taller than the centre card — 28px still clears. */
+		.menus { padding-block: 64px 56px; }
+		.intro { margin-bottom: 20px; }
+		/* the link stays whole: at 430 it broke as "browse every / menu." */
+		.intro a { white-space: nowrap; }
+		.viewport { padding-block: 28px; }
+		/* the 120px minimum made the word 495px wide on a 390 screen: it read "ENU" */
+		.bigword { font-size: 22vw; }
+		/* width: 100% plus padding and border on a content-box anchor made the pill
+		   54px wider than its box, so it ran out past the card's right edge. It does
+		   the same on a wide screen — left as it is there until the owner says. */
+		.btn { box-sizing: border-box; min-height: 44px; }
+		/* The cover stands between the name and the pill instead of under the pill:
+		   48px clears the name line (22 + 17 + air), 76px the pill (20 + 44 + 12).
+		   --card-h, not 100%: the panel's grid row is sized from the picture's own
+		   shape, so a percentage ran the cover under the pill on a short screen
+		   (375x553) and on a wide one (720px), where the row is taller than the card. */
+		.art, .cover { align-self: start; margin-top: 48px; height: calc(var(--card-h) - 48px - 76px); }
+		/* …and the no-artwork cover's own padding and border count inside that */
+		.cover { box-sizing: border-box; }
+	}
+
+	/* On a phone proper the 22vw word's feet reached the top of Fusion's heading
+	   (6px into it at 430). Capped, it clears by 8px with the eyebrow still
+	   centred in it; above 480 the heading sits properly inside the word. */
+	@media (max-width: 480px) {
+		.menus[data-brand='fusion'] .bigword { font-size: min(22vw, 80px); }
+	}
+
 	@media (prefers-reduced-motion: reduce) {
 		.name, .btnbox { transition: none; }
 	}
