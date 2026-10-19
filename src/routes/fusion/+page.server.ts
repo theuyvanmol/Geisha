@@ -8,7 +8,7 @@ import { getMediaDefaults, mediaUrl } from '$lib/data/media';
 import { GALLERY } from '$lib/data/gallery';
 import type { GalleryImage } from '$lib/data/gallery';
 import { getMenus } from '$lib/data/menus';
-import { FUNCTION_ROOM_MENU } from '$lib/data/functionRoom';
+import { FUNCTION_ROOM_MENU, FUNCTION_ROOM_OFFER } from '$lib/data/functionRoom';
 import type { Menu } from '$lib/data/menu-types';
 import type { HomeContent, BrandInfoContent, MediaContent } from '$lib/content/schema';
 import type { PageServerLoad } from './$types';
@@ -33,7 +33,8 @@ export const load: PageServerLoad = async () => {
 	return {
 		home,
 		brandInfo,
-		offers,
+		// The VIP Function Room banner rides along as one more What's On slide.
+		offers: offers.some((o) => o.id === FUNCTION_ROOM_OFFER.id) ? offers : [...offers, FUNCTION_ROOM_OFFER],
 		reviews,
 		homeExtra,
 		gallery,

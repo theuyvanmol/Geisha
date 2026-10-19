@@ -19,6 +19,20 @@ export const FUNCTION_ROOM_MENU = {
 	img: FUNCTION_ROOM_COVER
 };
 
+// The VIP Function Room banner, shown as an extra slide in the Fusion home
+// page's What's On slider. Added by the loader in the same way as the menu
+// (offers are staff-edited content too), unless an offer with this id exists.
+export const FUNCTION_ROOM_OFFER = {
+	id: 'vip-function-room',
+	title: 'VIP Function Room',
+	blurb: 'Birthdays, engagements, baby showers and more, with buffets from £15.50pp.',
+	when: 'Private hire · 20–60 guests',
+	href: '/fusion/parties',
+	cta: 'Book now',
+	img: '/images/specials/fusion-vip-function-room.webp',
+	imgFit: 'poster' as const
+};
+
 export type BuffetTier = {
 	name: string;
 	price: string;
