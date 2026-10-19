@@ -10,6 +10,7 @@
 	import type { PagesContent, BrandInfoContent } from '$lib/content/schema';
 	import { getPagesDefaults, fillTokens, tokenSource } from '$lib/data/pages';
 	import RichText from './RichText.svelte';
+	import { BUFFETS, BUFFET_RULES, FUNCTION_ROOM_SIZES, FUNCTION_ROOM_PDF, FUNCTION_ROOM_COVER } from '$lib/data/functionRoom';
 
 	let {
 		brand,
@@ -85,6 +86,18 @@
 	let door: HTMLElement;
 	let video: HTMLVideoElement;
 	let armed = $state(false);
+	let buffet = $state(BUFFETS[0].id);
+	const group = $derived(BUFFETS.find((b) => b.id === buffet) ?? BUFFETS[0]);
+	let cover: HTMLElement;
+
+	function tabKey(e: KeyboardEvent) {
+		const i = BUFFETS.findIndex((b) => b.id === buffet);
+		const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+		if (!step) return;
+		e.preventDefault();
+		buffet = BUFFETS[(i + step + BUFFETS.length) % BUFFETS.length].id;
+		requestAnimationFrame(() => document.getElementById(`fm-tab-${buffet}`)?.focus());
+	}
 	let played = $state(false);
 
 	function pickOccasion(o: string) {
@@ -138,6 +151,19 @@
 			addEventListener('scroll', onScroll, { passive: true });
 			onScroll();
 			cleanups.push(() => removeEventListener('scroll', onScroll));
+		}
+
+		/* the menu cover leans toward the cursor (mouse only) */
+		if (!reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+			const onTilt = (e: PointerEvent) => {
+				const r = cover.getBoundingClientRect();
+				cover.style.setProperty('--tx', (((e.clientX - r.left) / r.width - 0.5) * 2).toFixed(3));
+				cover.style.setProperty('--ty', (((e.clientY - r.top) / r.height - 0.5) * 2).toFixed(3));
+			};
+			const offTilt = () => { cover.style.setProperty('--tx', '0'); cover.style.setProperty('--ty', '0'); };
+			cover.addEventListener('pointermove', onTilt);
+			cover.addEventListener('pointerleave', offTilt);
+			cleanups.push(() => { cover.removeEventListener('pointermove', onTilt); cover.removeEventListener('pointerleave', offTilt); });
 		}
 
 		/* doorway: map scroll position through the pinned section to door/grow/copy progress */
@@ -284,8 +310,66 @@
 				</div>
 				<div class="actions up-s" data-anim="rise">
 					<a class="btn solid" href="#enquire"><span>Enquire</span><span class="arr"></span></a>
-					<a class="btn" href="/fusion/menus"><span>View menus</span></a>
+					<a class="btn" href="#function-menu"><span>See the party menu</span></a>
 				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- THE FUNCTION ROOM MENU: the leaflet's cover, the room sizes and the buffet packages -->
+	<section class="fmenu" id="function-menu" aria-labelledby="fmenu-title">
+		<span class="fm-word" aria-hidden="true">VIP</span>
+		<div class="wrap">
+			<div class="fm-art">
+				<a class="fm-cover" data-anim="lift" href={FUNCTION_ROOM_PDF} target="_blank" rel="noopener" bind:this={cover} aria-label="Open the VIP Function Room menu (PDF, opens in a new tab)">
+					<span class="fm-card">
+						<img src={FUNCTION_ROOM_COVER} alt="VIP Function Room menu cover: gold lettering beside a geisha among red blossom" width="800" height="1200" loading="lazy" />
+						<span class="fm-shine" aria-hidden="true"></span>
+					</span>
+				</a>
+				<a class="btn solid up-s" data-anim="rise" href={FUNCTION_ROOM_PDF} target="_blank" rel="noopener"><span>Open the full menu</span><span class="arr"></span></a>
+			</div>
+			<div class="fm-body">
+				<span class="eyebrow up-s" data-anim="rise">The function room menu</span>
+				<h2 id="fmenu-title" class="up-s" data-anim="rise">A feast, <em>your way</em></h2>
+				<p class="fm-intro up-s" data-anim="rise">Sit down to the full Geisha Fusion menu, or keep the party moving with a buffet from either kitchen. Our chefs tailor it to your guests and any dietary needs.</p>
+				<dl class="fm-sizes">
+					{#each FUNCTION_ROOM_SIZES as s, i}
+						<div class="up-s" data-anim="rise" style="--d:{i * 90}ms"><dt>{s.n}</dt><dd>{s.what}</dd></div>
+					{/each}
+				</dl>
+
+				<div class="fm-tabs up-s" data-anim="rise" role="tablist" aria-label="Buffet options">
+					{#each BUFFETS as b}
+						<button id="fm-tab-{b.id}" type="button" role="tab" aria-selected={buffet === b.id} aria-controls="fm-panel" tabindex={buffet === b.id ? 0 : -1} onclick={() => (buffet = b.id)} onkeydown={tabKey}>{b.label}</button>
+					{/each}
+				</div>
+				{#key group.id}
+					<div class="fm-panel" id="fm-panel" role="tabpanel" aria-labelledby="fm-tab-{group.id}">
+						<p class="fm-blurb">{group.blurb}</p>
+						<div class="fm-tiers" class:single={group.tiers.length === 1}>
+							{#each group.tiers as t, ti}
+								<article class="tier" style="--k:{ti}">
+									<header>
+										<h3>{t.name}</h3>
+										<p class="price"><strong>{t.price}</strong><span>per person</span></p>
+									</header>
+									<p class="pick">{t.pick}{#if t.extends}<span> · {t.extends}</span>{/if}</p>
+									<div class="cols" class:two={t.columns.length > 1}>
+										{#each t.columns as col}
+											<div>
+												{#if col.title}<h4>{col.title}</h4>{/if}
+												<ul>{#each col.items as it}<li>{it}</li>{/each}</ul>
+											</div>
+										{/each}
+									</div>
+									<p class="incl">{#each t.included as inc}<span>{inc}</span>{/each}</p>
+								</article>
+							{/each}
+						</div>
+					</div>
+				{/key}
+				<p class="fm-note">{BUFFET_RULES} Ask us about any dietary requirements.</p>
 			</div>
 		</div>
 	</section>
@@ -512,6 +596,61 @@
 	.traits li { display: flex; gap: 12px; align-items: baseline; }
 	.traits li::before { content: ''; flex: none; width: 6px; height: 6px; background: var(--ember); transform: rotate(45deg) translateY(-2px); }
 
+	/* THE FUNCTION ROOM MENU */
+	.fmenu { position: relative; overflow: hidden; padding-block: clamp(80px, 10vw, 140px); background: radial-gradient(45% 55% at 18% 40%, rgba(196, 30, 58, 0.16), transparent 70%), radial-gradient(40% 40% at 100% 100%, rgba(221, 130, 54, 0.08), transparent 70%), var(--lacquer); border-bottom: 1px solid var(--hair); }
+	.fm-word { position: absolute; left: -2vw; top: 50%; translate: 0 -50%; font-family: var(--mincho); font-weight: 600; font-size: clamp(180px, 30vw, 460px); line-height: 0.8; color: transparent; -webkit-text-stroke: 1px rgba(212, 175, 55, 0.12); pointer-events: none; user-select: none; }
+	.fmenu .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
+	.fm-art { position: sticky; top: 96px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+	.fm-cover { display: block; width: min(100%, 400px); perspective: 1400px; --tx: 0; --ty: 0; }
+	.fm-card { position: relative; display: block; aspect-ratio: 2 / 3; border-radius: 4px; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(212, 175, 55, 0.35); transform: rotateY(calc(var(--tx) * 9deg)) rotateX(calc(var(--ty) * -7deg)); transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease); animation: fm-float 7s ease-in-out infinite; }
+	.fm-card img { width: 100%; height: 100%; object-fit: cover; }
+	.fm-card::after { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(212, 175, 55, 0.55); border-radius: 2px; pointer-events: none; }
+	.fm-shine { position: absolute; inset: 0; background: linear-gradient(115deg, transparent 35%, rgba(255, 240, 210, 0.28) 48%, transparent 60%); background-size: 260% 100%; background-position: calc(50% + var(--tx) * 40%) 0; mix-blend-mode: soft-light; transition: background-position 0.6s var(--ease); pointer-events: none; }
+	.fm-cover:hover .fm-card, .fm-cover:focus-visible .fm-card { box-shadow: 0 50px 90px -30px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(212, 175, 55, 0.7); }
+	.fm-cover:focus-visible { outline: 2px solid var(--ember); outline-offset: 8px; }
+	@keyframes fm-float { 50% { translate: 0 -10px; } }
+
+	.fm-body { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+	.fmenu h2 { font-size: clamp(36px, 4.6vw, 64px); line-height: 1.04; }
+	.fmenu h2 em { font-style: italic; font-weight: 400; color: #e8c766; }
+	.fm-intro { margin: 0; max-width: 52ch; color: rgba(242, 236, 224, 0.82); }
+	.fm-sizes { margin: 6px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-block: 1px solid var(--hair); }
+	.fm-sizes > div { padding: 20px 22px 20px 0; }
+	.fm-sizes > div + div { padding-left: 22px; border-left: 1px solid var(--hair); }
+	.fm-sizes dt { font-family: var(--mincho); font-size: clamp(28px, 3vw, 40px); line-height: 1; color: var(--ember); margin-bottom: 8px; }
+	.fm-sizes dd { margin: 0; font-size: 14.5px; color: var(--sage); }
+
+	.fm-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+	.fm-tabs button { position: relative; font-family: var(--jost); font-size: 11.5px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; padding: 13px 20px; border: 1px solid var(--hair); border-radius: 999px; background: transparent; color: var(--rice); cursor: pointer; transition: color 0.35s var(--ease), background 0.35s var(--ease), border-color 0.35s var(--ease); }
+	.fm-tabs button:hover { border-color: var(--rice); }
+	.fm-tabs button[aria-selected='true'] { background: var(--rice); border-color: var(--rice); color: var(--ink); }
+	.fm-tabs button:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
+	.fm-panel { display: flex; flex-direction: column; gap: 18px; animation: fm-in 0.7s var(--ease) both; }
+	.fm-blurb { margin: 0; font-family: var(--mincho); font-size: 19px; color: rgba(242, 236, 224, 0.9); }
+	.fm-tiers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+	.fm-tiers.single { grid-template-columns: 1fr; }
+	.tier { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 26px 26px 22px; border: 1px solid var(--hair); border-radius: 4px; background: linear-gradient(180deg, rgba(242, 236, 224, 0.045), rgba(242, 236, 224, 0.015)); animation: fm-in 0.8s var(--ease) both; animation-delay: calc(var(--k) * 110ms + 80ms); }
+	.tier::before { content: ''; position: absolute; left: 26px; right: 26px; top: -1px; height: 2px; background: linear-gradient(90deg, #c41e3a, var(--ember), #e8c766); }
+	.tier header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+	.tier h3 { font-size: 26px; }
+	.price { margin: 0; display: flex; flex-direction: column; align-items: flex-end; line-height: 1; }
+	.price strong { font-family: var(--mincho); font-weight: 600; font-size: 34px; color: #e8c766; }
+	.price span { margin-top: 6px; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage); }
+	.pick { margin: 0; font-size: 11.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember); }
+	.pick span { color: var(--sage); }
+	.cols.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
+	.cols h4 { margin: 0 0 8px; font-family: var(--jost); font-size: 11px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--rice); }
+	.cols ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+	.cols li { display: flex; gap: 10px; font-size: 15px; line-height: 1.45; color: rgba(242, 236, 224, 0.86); }
+	.cols li::before { content: ''; flex: none; width: 5px; height: 5px; margin-top: 0.55em; background: var(--ember); transform: rotate(45deg); }
+	.incl { margin: auto 0 0; padding-top: 14px; border-top: 1px dashed var(--hair); display: flex; flex-wrap: wrap; gap: 8px; }
+	.incl span { font-size: 12px; letter-spacing: 0.08em; padding: 5px 12px; border-radius: 999px; background: rgba(221, 130, 54, 0.12); color: #f0b27a; }
+	.fm-note { margin: 4px 0 0; font-size: 14px; color: var(--sage); }
+	@keyframes fm-in { from { opacity: 0; transform: translateY(16px); } }
+
+	.armed [data-anim='lift'] { opacity: 0; transform: translateY(70px) rotate(-6deg) scale(0.92); transition: opacity 1s var(--ease), transform 1.6s var(--spring); }
+	.armed [data-anim='lift']:global(.in) { opacity: 1; transform: none; }
+
 	/* OCCASIONS */
 	.occasions { padding-block: clamp(80px, 10vw, 140px); }
 	.occ-head { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 640px; margin: 0 auto clamp(40px, 5vw, 64px); }
@@ -573,7 +712,9 @@
 	.armed [data-anim='drop']:global(.in) { opacity: 1; transform: none; }
 
 	@media (max-width: 900px) {
-		.hero .wrap, .venue .wrap, .enquire .wrap { grid-template-columns: 1fr; }
+		.hero .wrap, .venue .wrap, .enquire .wrap, .fmenu .wrap { grid-template-columns: 1fr; }
+		.fm-art { position: static; }
+		.fm-cover { width: min(78%, 360px); }
 		.hero-art { max-width: 520px; margin-right: 0; }
 		.vert { display: none; }
 		.flip-card { max-width: 520px; }
@@ -586,6 +727,16 @@
 	@media (max-width: 560px) {
 		form { grid-template-columns: 1fr; }
 		.traits ul { grid-template-columns: 1fr; }
+		.fmenu { padding-block: 64px 72px; }
+		.fm-sizes { grid-template-columns: 1fr; }
+		.fm-sizes > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--hair); }
+		.fm-tiers, .cols.two { grid-template-columns: 1fr; }
+		.cols.two > div + div { margin-top: 18px; }
+		.tier { padding: 22px 20px 18px; }
+		.tier::before { left: 20px; right: 20px; }
+		.fm-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * clamp(16px, 5vw, 64px)); padding-inline: clamp(16px, 5vw, 64px); }
+		.fm-tabs button { flex: none; font-size: 12px; letter-spacing: 0.16em; padding: 12px 16px; }
+		.fm-art .btn { width: 100%; justify-content: center; }
 
 		/* ---------- phone ---------- */
 		/* Small caps: 12px is the floor on a phone (these were 10.5–11.5px). The tracking comes in
@@ -637,5 +788,6 @@
 	@media (prefers-reduced-motion: reduce) {
 		.track { animation: none; }
 		.frame img { transform: none; }
+		.fm-card, .fm-panel, .tier { animation: none; }
 	}
 </style>

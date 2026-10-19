@@ -8,6 +8,7 @@ import { getMediaDefaults, mediaUrl } from '$lib/data/media';
 import { GALLERY } from '$lib/data/gallery';
 import type { GalleryImage } from '$lib/data/gallery';
 import { getMenus } from '$lib/data/menus';
+import { FUNCTION_ROOM_MENU } from '$lib/data/functionRoom';
 import type { Menu } from '$lib/data/menu-types';
 import type { HomeContent, BrandInfoContent, MediaContent } from '$lib/content/schema';
 import type { PageServerLoad } from './$types';
@@ -37,13 +38,18 @@ export const load: PageServerLoad = async () => {
 		homeExtra,
 		gallery,
 		// Only the fields the cards + PDF row need — no point shipping every dish.
-		menuIndex: menus.map((m) => ({
-			slug: m.slug,
-			title: m.title,
-			subtitle: m.subtitle,
-			pdf: m.pdf,
-			img: m.img
-		})),
+		menuIndex: [
+			...menus.map((m) => ({
+				slug: m.slug,
+				title: m.title,
+				subtitle: m.subtitle,
+				pdf: m.pdf,
+				img: m.img
+			})),
+			// The VIP Function Room leaflet joins the carousel even though it isn't one
+			// of the staff-edited menus — unless staff have added it themselves.
+			...(menus.some((m) => m.slug === FUNCTION_ROOM_MENU.slug) ? [] : [FUNCTION_ROOM_MENU])
+		],
 		media: {
 			heroImage: mediaUrl(media, 'fusion', 'heroImage'),
 			aboutImage: mediaUrl(media, 'fusion', 'aboutImage'),
