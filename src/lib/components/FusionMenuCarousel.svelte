@@ -19,6 +19,8 @@
 	// Cover artwork per house, matched by a keyword in the menu's slug or title
 	// (first match wins, so the more specific keys come first).
 	const FUSION_ART: { key: string; src: string; alt: string }[] = [
+		// before 'special': the Festive Special Menu's title contains 'special' too
+		{ key: 'festive', src: '/images/menus/festive.webp', alt: 'Festive Special Menu' },
 		{ key: 'function', src: '/images/menus/function-room.webp', alt: 'VIP Function Room cover with a geisha among red blossom' },
 		{ key: 'christmas', src: '/images/menus/christmas.webp', alt: 'Festive Christmas Menu cover' },
 		{ key: 'special', src: '/images/menus/special.webp', alt: 'Special Menu cover with cherry blossom' },

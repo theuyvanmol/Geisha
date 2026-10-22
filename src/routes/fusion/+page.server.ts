@@ -9,6 +9,7 @@ import { GALLERY } from '$lib/data/gallery';
 import type { GalleryImage } from '$lib/data/gallery';
 import { getMenus } from '$lib/data/menus';
 import { FUNCTION_ROOM_MENU, FUNCTION_ROOM_OFFER } from '$lib/data/functionRoom';
+import { FESTIVE_MENU } from '$lib/data/festiveMenu';
 import type { Menu } from '$lib/data/menu-types';
 import type { HomeContent, BrandInfoContent, MediaContent } from '$lib/content/schema';
 import type { PageServerLoad } from './$types';
@@ -49,7 +50,7 @@ export const load: PageServerLoad = async () => {
 			})),
 			// The VIP Function Room leaflet joins the carousel even though it isn't one
 			// of the staff-edited menus — unless staff have added it themselves.
-			...(menus.some((m) => m.slug === FUNCTION_ROOM_MENU.slug) ? [] : [FUNCTION_ROOM_MENU])
+			...[FESTIVE_MENU, FUNCTION_ROOM_MENU].filter((x) => !menus.some((m) => m.slug === x.slug))
 		],
 		media: {
 			heroImage: mediaUrl(media, 'fusion', 'heroImage'),
