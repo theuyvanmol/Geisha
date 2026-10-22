@@ -17,6 +17,7 @@
 	import AIAssistantChat from '$lib/components/AIAssistantChat.svelte';
 	import BrandTopNav from '$lib/components/BrandTopNav.svelte';
 	import FusionVines from '$lib/components/FusionVines.svelte';
+	import FusionSnow from '$lib/components/FusionSnow.svelte';
 	import FusionMotion from '$lib/components/FusionMotion.svelte';
 	import { page } from '$app/state';
 	import { isEntering, clearEntering } from '$lib/nav/entering';
@@ -122,6 +123,9 @@
      out of and nothing to sit behind, so they just hung over the content. -->
 {#if onHome}
 	<FusionVines />
+	<!-- Festive season: a light snowfall over the home page, Fusion's counterpart
+	     to Asia's drifting sakura. Remove this line after the holidays. -->
+	<FusionSnow />
 {/if}
 
 <div class="fusion-body" class:offset={!onHome}>
